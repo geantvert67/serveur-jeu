@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "require-directory": "^2.1.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

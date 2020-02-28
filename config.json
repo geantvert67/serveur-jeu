@@ -1,0 +1,119 @@
+{
+    "id": 2,
+    "name": "test",
+    "isPrivate": false,
+    "gameMode": "SUPREMACY",
+    "inventorySize": 2,
+    "flagVisibilityRadius": "1.50",
+    "flagActionRadius": "1.25",
+    "flagCaptureDuration": 60,
+    "createdAt": "2020-02-14T13:25:58.000Z",
+    "updatedAt": "2020-02-14T13:25:58.000Z",
+    "OwnerId": 1,
+    "Owner": {
+        "id": 1,
+        "username": "clement",
+        "createdAt": "2020-02-14T09:57:36.000Z",
+        "updatedAt": "2020-02-14T09:57:36.000Z"
+    },
+    "Teams": [
+        {
+            "id": 1,
+            "name": "team 1",
+            "color": "#fff",
+            "ConfigId": 2
+        },
+        {
+            "id": 2,
+            "name": "team 2",
+            "color": "#ffffff",
+            "ConfigId": 2
+        }
+    ],
+    "Areas": [
+        {
+            "id": 5,
+            "position": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [100, 0],
+                        [101, 0],
+                        [101, 1],
+                        [100, 1],
+                        [100, 0]
+                    ]
+                ]
+            },
+            "forbidden": true,
+            "ConfigId": 2
+        },
+        {
+            "id": 6,
+            "position": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [100, 0],
+                        [101, 0],
+                        [101, 1],
+                        [100, 1],
+                        [100, 0]
+                    ]
+                ]
+            },
+            "forbidden": true,
+            "ConfigId": 2
+        }
+    ],
+    "Flags": [
+        {
+            "id": 5,
+            "position": {
+                "type": "Point",
+                "coordinates": [39.807222, -76.984722]
+            },
+            "ConfigId": 2
+        },
+        {
+            "id": 6,
+            "position": {
+                "type": "Point",
+                "coordinates": [39.807222, -76.984722]
+            },
+            "ConfigId": 2
+        }
+    ],
+    "ItemModels": [
+        {
+            "id": 2,
+            "name": "test",
+            "visibilityRadius": "1.50",
+            "actionRadius": "1.25",
+            "waitingPeriod": 600,
+            "autoMove": false,
+            "ConfigId": 2,
+            "Items": [
+                {
+                    "id": 1,
+                    "quantity": 5,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [39.807222, -76.984722]
+                    },
+                    "ItemModelId": 2
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Mine",
+            "visibilityRadius": "1.50",
+            "actionRadius": "1.25",
+            "waitingPeriod": 600,
+            "autoMove": false,
+            "ConfigId": 2,
+            "Items": []
+        }
+    ]
+}
