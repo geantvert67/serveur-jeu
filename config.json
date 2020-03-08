@@ -19,15 +19,42 @@
     "Teams": [
         {
             "id": 1,
-            "name": "team 1",
-            "color": "#fff",
-            "ConfigId": 2
+            "name": "equipe 1",
+            "color": "#e1e1e1",
+            "ConfigId": 1,
+            "Users": [
+                {
+                    "id": 1,
+                    "username": "clement",
+                    "createdAt": "2020-03-06T18:41:49.000Z",
+                    "updatedAt": "2020-03-06T18:41:49.000Z",
+                    "TeamPlayers": {
+                        "createdAt": "2020-03-18T00:00:00.000Z",
+                        "updatedAt": "2020-03-02T00:00:00.000Z",
+                        "TeamId": 1,
+                        "UserId": 1
+                    }
+                },
+                {
+                    "id": 2,
+                    "username": "clement284",
+                    "createdAt": "2020-03-06T20:25:29.000Z",
+                    "updatedAt": "2020-03-06T20:25:29.000Z",
+                    "TeamPlayers": {
+                        "createdAt": "2020-03-07T19:04:55.000Z",
+                        "updatedAt": "2020-03-07T19:04:55.000Z",
+                        "TeamId": 1,
+                        "UserId": 2
+                    }
+                }
+            ]
         },
         {
             "id": 2,
-            "name": "team 2",
-            "color": "#ffffff",
-            "ConfigId": 2
+            "name": "equipe 2",
+            "color": "#fff",
+            "ConfigId": 1,
+            "Users": []
         }
     ],
     "Areas": [
