@@ -1,6 +1,11 @@
 const server = require('http').createServer(),
     io = require('socket.io')(server),
-    { import_ctrl, player_ctrl, team_ctrl } = require('./controllers');
+    {
+        import_ctrl,
+        player_ctrl,
+        team_ctrl,
+        config_ctrl
+    } = require('./controllers');
 
 import_ctrl.import_config();
 
@@ -16,6 +21,10 @@ io.on('connection', socket => {
         teamId = team_ctrl.findByMinPlayers().id;
         team_ctrl.addPlayer(teamId, username);
         io.emit('getTeams', team_ctrl.getAll());
+    });
+
+    socket.on('launchGame', () => {
+        config_ctrl.launch();
     });
 
     socket.on('disconnect', () => {

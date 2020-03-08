@@ -1,4 +1,6 @@
 class Config {
+    launched = false;
+
     constructor(c) {
         this.name = c.name;
         this.isPrivate = c.isPrivate;
