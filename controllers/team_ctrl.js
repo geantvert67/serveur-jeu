@@ -17,10 +17,6 @@ const _this = (module.exports = {
         return players;
     },
 
-    getTeamPlayers: teamId => {
-        return _this.getById(teamId).players;
-    },
-
     addPlayer: (teamId, username) => {
         const players = _this.getPlayers();
         const player = new Player(username);

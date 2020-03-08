@@ -12,14 +12,10 @@ io.on('connection', socket => {
         socket.emit('getTeams', team_ctrl.getAll());
     });
 
-    socket.on('getTeamPlayers', teamId => {
-        socket.emit('getTeamPlayers', team_ctrl.getTeamPlayers(teamId));
-    });
-
     socket.on('addTeamPlayer', () => {
         teamId = team_ctrl.findByMinPlayers().id;
         team_ctrl.addPlayer(teamId, username);
-        socket.emit('getTeamPlayers', team_ctrl.getTeamPlayers(teamId));
+        io.emit('getTeams', team_ctrl.getAll());
     });
 
     socket.on('disconnect', () => {
