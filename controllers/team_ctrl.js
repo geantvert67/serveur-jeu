@@ -1,6 +1,7 @@
 const _ = require('lodash'),
     { team_store } = require('../stores'),
-    { Player } = require('../models');
+    { Player } = require('../models'),
+    confif_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -21,10 +22,11 @@ const _this = (module.exports = {
         const players = _this.getPlayers();
         const player = new Player(username);
 
-        if (!_.some(players, player)) {
+        if (!confif_ctrl.isLaunched() && !_.some(players, player)) {
             _this.getById(teamId).players.push(player);
-            return player;
+            return true;
         }
+        return false;
     },
 
     findByMinPlayers: () => {

@@ -19,8 +19,9 @@ io.on('connection', socket => {
 
     socket.on('addTeamPlayer', () => {
         teamId = team_ctrl.findByMinPlayers().id;
-        team_ctrl.addPlayer(teamId, username);
-        io.emit('getTeams', team_ctrl.getAll());
+        if (team_ctrl.addPlayer(teamId, username)) {
+            io.emit('getTeams', team_ctrl.getAll());
+        }
     });
 
     socket.on('launchGame', () => {
