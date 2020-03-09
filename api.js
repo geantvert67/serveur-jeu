@@ -24,8 +24,13 @@ io.on('connection', socket => {
         }
     });
 
+    socket.on('getConfig', () => {
+        socket.emit('getConfig', config_ctrl.get());
+    });
+
     socket.on('launchGame', () => {
         config_ctrl.launch();
+        io.emit('getConfig', config_ctrl.get());
     });
 
     socket.on('disconnect', () => {
