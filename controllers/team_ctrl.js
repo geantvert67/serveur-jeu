@@ -12,6 +12,10 @@ const _this = (module.exports = {
         return _.find(team_store.getAll(), t => t.id === teamId);
     },
 
+    getPlayer: username => {
+        return _.find(_this.getPlayers(), { username });
+    },
+
     getPlayers: () => {
         const players = [];
         _this.getAll().map(t => t.players.map(p => players.push(p)));

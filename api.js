@@ -1,17 +1,11 @@
 const server = require('http').createServer(),
     io = require('socket.io')(server),
-    {
-        import_ctrl,
-        player_ctrl,
-        team_ctrl,
-        config_ctrl
-    } = require('./controllers');
+    { import_ctrl, team_ctrl, config_ctrl } = require('./controllers');
 
 import_ctrl.import_config();
 
 io.on('connection', socket => {
     const username = socket.handshake.query.username;
-    player_ctrl.create(username);
 
     socket.on('getTeams', () => {
         socket.emit('getTeams', team_ctrl.getAll());
@@ -31,10 +25,6 @@ io.on('connection', socket => {
     socket.on('launchGame', () => {
         config_ctrl.launch();
         io.emit('getConfig', config_ctrl.get());
-    });
-
-    socket.on('disconnect', () => {
-        player_ctrl.destroy(username);
     });
 });
 
