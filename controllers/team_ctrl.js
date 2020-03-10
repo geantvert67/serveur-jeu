@@ -8,8 +8,8 @@ const _this = (module.exports = {
         return team_store.getAll();
     },
 
-    getById: teamId => {
-        return _.find(team_store.getAll(), t => t.id === teamId);
+    getById: id => {
+        return _.find(team_store.getAll(), { id });
     },
 
     getPlayer: username => {
@@ -22,11 +22,15 @@ const _this = (module.exports = {
         return players;
     },
 
+    getTeamPlayers: teamId => {
+        return _this.getById(teamId).players;
+    },
+
     addPlayer: (teamId, username) => {
         const players = _this.getPlayers();
         const player = new Player(username, teamId);
 
-        if (!confif_ctrl.isLaunched() && !_.some(players, player)) {
+        if (!confif_ctrl.isLaunched() && !_.find(players, { username })) {
             _this.getById(teamId).players.push(player);
             return true;
         }

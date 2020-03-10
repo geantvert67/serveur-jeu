@@ -26,6 +26,17 @@ io.on('connection', socket => {
         config_ctrl.launch();
         io.emit('getConfig', config_ctrl.get());
     });
+
+    socket.on('routine', coordinates => {
+        const player = team_ctrl.getPlayer(username);
+        if (player) {
+            player.coordinates = coordinates;
+
+            const objects = {};
+            objects.players = team_ctrl.getTeamPlayers(player.teamId);
+            socket.emit('routine', objects);
+        }
+    });
 });
 
 server.listen(8080, () => console.log('Serveur lancée sur le port 8080'));
