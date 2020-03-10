@@ -24,7 +24,7 @@ const _this = (module.exports = {
 
     addPlayer: (teamId, username) => {
         const players = _this.getPlayers();
-        const player = new Player(username);
+        const player = new Player(username, teamId);
 
         if (!confif_ctrl.isLaunched() && !_.some(players, player)) {
             _this.getById(teamId).players.push(player);

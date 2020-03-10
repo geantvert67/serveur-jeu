@@ -1,7 +1,8 @@
 class Player {
-    constructor(username) {
+    constructor(username, teamId) {
         this.username = username;
         this.coordinates = [];
+        this.teamId = teamId;
     }
 }
 
