@@ -1,6 +1,11 @@
 const server = require('http').createServer(),
     io = require('socket.io')(server),
-    { import_ctrl, team_ctrl, config_ctrl } = require('./controllers');
+    {
+        import_ctrl,
+        team_ctrl,
+        config_ctrl,
+        area_ctrl
+    } = require('./controllers');
 
 import_ctrl.import_config();
 
@@ -20,6 +25,10 @@ io.on('connection', socket => {
 
     socket.on('getConfig', () => {
         socket.emit('getConfig', config_ctrl.get());
+    });
+
+    socket.on('getAreas', () => {
+        socket.emit('getAreas', area_ctrl.getAll());
     });
 
     socket.on('launchGame', () => {
