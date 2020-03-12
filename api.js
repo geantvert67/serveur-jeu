@@ -33,8 +33,9 @@ io.on('connection', socket => {
     });
 
     socket.on('launchGame', () => {
-        config_ctrl.launch();
-        io.emit('getConfig', config_ctrl.get());
+        config_ctrl
+            .launch()
+            .then(() => io.emit('getConfig', config_ctrl.get()));
     });
 
     socket.on('routine', coordinates => {
