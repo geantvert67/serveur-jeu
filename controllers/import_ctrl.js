@@ -1,8 +1,14 @@
 const axios = require('axios'),
     initialValues = require('../config.json'),
-    { Config, Team, Area, Flag } = require('../models'),
+    { Config, Team, Area, Flag, Game } = require('../models'),
     team_ctrl = require('./team_ctrl'),
-    { config_store, team_store, area_store, flag_store } = require('../stores');
+    {
+        config_store,
+        team_store,
+        area_store,
+        flag_store,
+        game_store
+    } = require('../stores');
 
 module.exports = {
     import_config: () => {
@@ -22,6 +28,7 @@ module.exports = {
                 port: 8081,
                 configId: initialValues.id
             })
-            .catch(err => console.log(err));
+            .then(res => game_store.set(new Game(res.data)))
+            .catch(() => {});
     }
 };
