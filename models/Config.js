@@ -7,6 +7,7 @@ class Config {
         this.flagVisibilityRadius = c.flagVisibilityRadius;
         this.flagActionRadius = c.flagActionRadius;
         this.flagCaptureDuration = c.flagCaptureDuration;
+        this.launched = false;
     }
 }
 
