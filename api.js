@@ -6,6 +6,7 @@ const server = require('http').createServer(),
         config_ctrl,
         area_ctrl
     } = require('./controllers');
+require('dotenv').config();
 
 import_ctrl.import_config();
 
@@ -48,4 +49,4 @@ io.on('connection', socket => {
     });
 });
 
-server.listen(8080, () => console.log('Serveur lancée sur le port 8080'));
+server.listen(8081, () => console.log('Serveur lancée sur le port 8081'));

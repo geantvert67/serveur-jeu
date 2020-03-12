@@ -1,15 +1,15 @@
 const { config_store } = require('../stores');
 
-module.exports = {
+const _this = (module.exports = {
     get: () => {
         return config_store.get();
     },
 
     launch: () => {
-        config_store.get().launched = true;
+        _this.get().launched = true;
     },
 
     isLaunched: () => {
         return config_store.get().launched;
     }
-};
+});
