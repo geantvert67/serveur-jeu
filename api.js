@@ -5,7 +5,8 @@ const server = require('http').createServer(),
         import_ctrl,
         team_ctrl,
         config_ctrl,
-        area_ctrl
+        area_ctrl,
+        player_ctrl
     } = require('./controllers'),
     ip = process.env.ip || '127.0.0.1',
     port = process.env.port || 8888;
@@ -13,7 +14,8 @@ const server = require('http').createServer(),
 import_ctrl.import_config();
 
 io.on('connection', socket => {
-    const username = socket.handshake.query.username;
+    const username = socket.handshake.query.username,
+        player = player_ctrl.getOrCreate(username, true);
 
     socket.on('getTeams', () => {
         socket.emit('getTeams', team_ctrl.getAll());
@@ -21,7 +23,7 @@ io.on('connection', socket => {
 
     socket.on('addTeamPlayer', () => {
         teamId = team_ctrl.findByMinPlayers().id;
-        if (team_ctrl.addPlayer(teamId, username)) {
+        if (team_ctrl.addPlayer(teamId, player)) {
             io.emit('getTeams', team_ctrl.getAll());
         }
     });
@@ -41,7 +43,6 @@ io.on('connection', socket => {
     });
 
     socket.on('routine', coordinates => {
-        const player = team_ctrl.getPlayer(username);
         if (player) {
             player.coordinates = coordinates;
 
@@ -49,6 +50,10 @@ io.on('connection', socket => {
             objects.players = team_ctrl.getTeamPlayers(player.teamId);
             socket.emit('routine', objects);
         }
+    });
+
+    socket.on('disconnect', () => {
+        if (player) player.isConnected = false;
     });
 });
 

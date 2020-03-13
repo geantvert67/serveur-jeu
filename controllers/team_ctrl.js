@@ -26,11 +26,14 @@ const _this = (module.exports = {
         return _this.getById(teamId).players;
     },
 
-    addPlayer: (teamId, username) => {
+    addPlayer: (teamId, player) => {
         const players = _this.getPlayers();
-        const player = new Player(username, teamId);
 
-        if (!confif_ctrl.isLaunched() && !_.find(players, { username })) {
+        if (
+            !confif_ctrl.isLaunched() &&
+            !_.find(players, { username: player.username })
+        ) {
+            player.teamId = teamId;
             _this.getById(teamId).players.push(player);
             return true;
         }
