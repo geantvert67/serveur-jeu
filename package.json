@@ -1,25 +1,29 @@
 {
-  "name": "serveur-jeu",
-  "version": "1.0.0",
-  "description": "",
-  "main": "api.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://git.unistra.fr/clement.koenig/serveur-jeu.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "require-directory": "^2.1.1",
-    "socket.io": "^2.3.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "prettier": "^1.19.1"
-  }
+    "name": "serveur-jeu",
+    "version": "1.0.0",
+    "description": "",
+    "main": "api.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "cross-env IP=127.0.0.1 PORT=8081 node api.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://git.unistra.fr/clement.koenig/serveur-jeu.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.19.2",
+        "dotenv": "^8.2.0",
+        "lodash": "^4.17.15",
+        "require-directory": "^2.1.1",
+        "socket.io": "^2.3.0"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.1.0",
+        "cross-env": "^7.0.2",
+        "eslint": "^6.8.0",
+        "prettier": "^1.19.1"
+    }
 }

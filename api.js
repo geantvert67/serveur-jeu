@@ -1,3 +1,4 @@
+require('dotenv').config();
 const server = require('http').createServer(),
     io = require('socket.io')(server),
     {
@@ -5,7 +6,9 @@ const server = require('http').createServer(),
         team_ctrl,
         config_ctrl,
         area_ctrl
-    } = require('./controllers');
+    } = require('./controllers'),
+    ip = process.env.ip || '127.0.0.1',
+    port = process.env.port || 8888;
 
 import_ctrl.import_config();
 
@@ -32,8 +35,9 @@ io.on('connection', socket => {
     });
 
     socket.on('launchGame', () => {
-        config_ctrl.launch();
-        io.emit('getConfig', config_ctrl.get());
+        config_ctrl
+            .launch()
+            .then(() => io.emit('getConfig', config_ctrl.get()));
     });
 
     socket.on('routine', coordinates => {
@@ -48,4 +52,6 @@ io.on('connection', socket => {
     });
 });
 
-server.listen(8080, () => console.log('Serveur lancée sur le port 8080'));
+server.listen(port, ip, () =>
+    console.log(`Serveur lancée sur le port ${port}`)
+);

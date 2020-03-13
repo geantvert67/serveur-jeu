@@ -1,5 +1,6 @@
 class Config {
     constructor(c) {
+        this.id = c.id;
         this.name = c.name;
         this.isPrivate = c.isPrivate;
         this.gameMode = c.gameMode;
