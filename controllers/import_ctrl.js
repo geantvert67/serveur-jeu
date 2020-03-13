@@ -9,6 +9,7 @@ const axios = require('axios'),
         flag_store,
         game_store
     } = require('../stores');
+(ip = process.env.ip || '127.0.0.1'), (port = process.env.port || 8888);
 
 module.exports = {
     import_config: () => {
@@ -24,8 +25,8 @@ module.exports = {
 
         return axios
             .post(`${process.env.API_URL}:${process.env.API_PORT}/games`, {
-                ip: '127.0.0.1',
-                port: 8081,
+                ip,
+                port,
                 configId: initialValues.id
             })
             .then(res => game_store.set(new Game(res.data)))

@@ -13,4 +13,4 @@ API_PORT=
 
 ### Usage
 
--   **Lancer le serveur :** `node api.js`
+-   **Lancer le serveur :** `npm start`
