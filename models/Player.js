@@ -1,8 +1,8 @@
 class Player {
-    constructor(username, teamId) {
+    constructor(username, isConnected) {
         this.username = username;
         this.coordinates = [];
-        this.teamId = teamId;
+        this.isConnected = isConnected;
     }
 }
 
