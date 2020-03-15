@@ -9,6 +9,9 @@ module.exports = (io, socket, player) => {
             objects.players = team_ctrl.getTeamPlayers(player.teamId);
             objects.flags = flag_ctrl.getCaptured();
             objects.markers = marker_ctrl.getTeamMarkers(player.teamId);
+            objects.unknowns = [
+                ...flag_ctrl.getInVisibilityRadius(coordinates)
+            ];
             socket.emit('routine', objects);
         }
     });
