@@ -6,6 +6,8 @@
     "inventorySize": 2,
     "flagVisibilityRadius": "150",
     "flagActionRadius": "120",
+    "playerVisibilityRadius": "150",
+    "playerActionRadius": "120",
     "flagCaptureDuration": 15,
     "createdAt": "2020-02-14T13:25:58.000Z",
     "updatedAt": "2020-02-14T13:25:58.000Z",
