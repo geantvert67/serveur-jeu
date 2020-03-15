@@ -1,12 +1,17 @@
-const { marker_store } = require('../stores'),
+const _ = require('lodash'),
+    { marker_store } = require('../stores'),
     { Marker } = require('../models'),
     team_ctrl = require('./team_ctrl');
 
 let id = 1;
 
-module.exports = {
+const _this = (module.exports = {
     getAll: () => {
         return marker_store.getAll();
+    },
+
+    getTeamMarkers: teamId => {
+        return _.filter(_this.getAll(), m => m.team.id === teamId);
     },
 
     create: (coordinates, isPositive, teamId) => {
@@ -16,4 +21,4 @@ module.exports = {
 
         id++;
     }
-};
+});

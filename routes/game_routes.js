@@ -1,4 +1,4 @@
-const { team_ctrl, flag_ctrl } = require('../controllers');
+const { team_ctrl, flag_ctrl, marker_ctrl } = require('../controllers');
 
 module.exports = (io, socket, player) => {
     socket.on('routine', coordinates => {
@@ -8,6 +8,7 @@ module.exports = (io, socket, player) => {
             const objects = {};
             objects.players = team_ctrl.getTeamPlayers(player.teamId);
             objects.flags = flag_ctrl.getCaptured();
+            objects.markers = marker_ctrl.getTeamMarkers(player.teamId);
             socket.emit('routine', objects);
         }
     });
