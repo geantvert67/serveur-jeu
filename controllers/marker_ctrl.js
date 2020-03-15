@@ -20,5 +20,9 @@ const _this = (module.exports = {
         );
 
         id++;
+    },
+
+    delete: id => {
+        marker_store.remove(id);
     }
 });

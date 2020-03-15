@@ -8,4 +8,8 @@ module.exports = (io, socket, player) => {
     socket.on('createMarker', ({ coordinates, isPositive }) => {
         marker_ctrl.create(coordinates, isPositive, player.teamId);
     });
+
+    socket.on('deleteMarker', id => {
+        marker_ctrl.delete(id);
+    });
 };
