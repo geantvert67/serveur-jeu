@@ -25,11 +25,10 @@ const _this = (module.exports = {
         return p;
     },
 
-    getInVisibilityRadius: (coordinates, teamId) => {
-        const { playerVisibilityRadius } = config_ctrl.get();
-
+    getInRadius: (coordinates, teamId, radius, inActionRadius = []) => {
         return _this.getAll().filter(
             p =>
+                !_.some(inActionRadius, p) &&
                 p.teamId !== teamId &&
                 p.coordinates.length > 0 &&
                 geolib.isPointWithinRadius(
@@ -41,7 +40,7 @@ const _this = (module.exports = {
                         latitude: p.coordinates[0],
                         longitude: p.coordinates[1]
                     },
-                    playerVisibilityRadius
+                    radius
                 )
         );
     }
