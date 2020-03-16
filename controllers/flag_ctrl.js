@@ -19,19 +19,21 @@ const _this = (module.exports = {
         return _.find(_this.getAll(), { id });
     },
 
-    getInRadius: (coordinates, radius) => {
-        return _this.getAll().filter(f =>
-            geolib.isPointWithinRadius(
-                {
-                    latitude: coordinates[0],
-                    longitude: coordinates[1]
-                },
-                {
-                    latitude: f.coordinates[0],
-                    longitude: f.coordinates[1]
-                },
-                radius
-            )
+    getInRadius: (coordinates, radius, inActionRadius = []) => {
+        return _this.getAll().filter(
+            f =>
+                !_.some(inActionRadius, f) &&
+                geolib.isPointWithinRadius(
+                    {
+                        latitude: coordinates[0],
+                        longitude: coordinates[1]
+                    },
+                    {
+                        latitude: f.coordinates[0],
+                        longitude: f.coordinates[1]
+                    },
+                    radius
+                )
         );
     },
 

@@ -25,9 +25,10 @@ const _this = (module.exports = {
         return p;
     },
 
-    getInRadius: (coordinates, teamId, radius) => {
+    getInRadius: (coordinates, teamId, radius, inActionRadius = []) => {
         return _this.getAll().filter(
             p =>
+                !_.some(inActionRadius, p) &&
                 p.teamId !== teamId &&
                 p.coordinates.length > 0 &&
                 geolib.isPointWithinRadius(
