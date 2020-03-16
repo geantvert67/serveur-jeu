@@ -19,9 +19,7 @@ const _this = (module.exports = {
         return _.find(_this.getAll(), { id });
     },
 
-    getInVisibilityRadius: coordinates => {
-        const { flagVisibilityRadius } = config_ctrl.get();
-
+    getInRadius: (coordinates, radius) => {
         return _this.getAll().filter(f =>
             geolib.isPointWithinRadius(
                 {
@@ -32,7 +30,7 @@ const _this = (module.exports = {
                     latitude: f.coordinates[0],
                     longitude: f.coordinates[1]
                 },
-                flagVisibilityRadius
+                radius
             )
         );
     },

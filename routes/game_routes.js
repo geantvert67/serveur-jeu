@@ -6,7 +6,12 @@ const {
     config_ctrl
 } = require('../controllers');
 
-const { playerVisibilityRadius, playerActionRadius } = config_ctrl.get();
+const {
+    playerVisibilityRadius,
+    playerActionRadius,
+    flagVisibilityRadius,
+    flagActionRadius
+} = config_ctrl.get();
 
 module.exports = (io, socket, player) => {
     socket.on('routine', coordinates => {
@@ -22,7 +27,10 @@ module.exports = (io, socket, player) => {
                     playerActionRadius
                 )
             ];
-            objects.flags = flag_ctrl.getCaptured();
+            objects.flags = [
+                ...flag_ctrl.getCaptured(),
+                ...flag_ctrl.getInRadius(coordinates, flagActionRadius)
+            ];
             objects.markers = marker_ctrl.getTeamMarkers(player.teamId);
             objects.unknowns = [
                 ...player_ctrl.getInRadius(
@@ -30,7 +38,7 @@ module.exports = (io, socket, player) => {
                     player.teamId,
                     playerVisibilityRadius
                 ),
-                ...flag_ctrl.getInVisibilityRadius(coordinates)
+                ...flag_ctrl.getInRadius(coordinates, flagVisibilityRadius)
             ];
             socket.emit('routine', objects);
         }
