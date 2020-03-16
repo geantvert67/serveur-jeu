@@ -25,9 +25,7 @@ const _this = (module.exports = {
         return p;
     },
 
-    getInVisibilityRadius: (coordinates, teamId) => {
-        const { playerVisibilityRadius } = config_ctrl.get();
-
+    getInRadius: (coordinates, teamId, radius) => {
         return _this.getAll().filter(
             p =>
                 p.teamId !== teamId &&
@@ -41,7 +39,7 @@ const _this = (module.exports = {
                         latitude: p.coordinates[0],
                         longitude: p.coordinates[1]
                     },
-                    playerVisibilityRadius
+                    radius
                 )
         );
     }
