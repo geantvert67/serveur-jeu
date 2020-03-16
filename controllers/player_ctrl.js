@@ -1,7 +1,8 @@
 const _ = require('lodash'),
+    geolib = require('geolib'),
     { player_store } = require('../stores'),
     { Player } = require('../models'),
-    confif_ctrl = require('./config_ctrl');
+    config_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -13,7 +14,7 @@ const _this = (module.exports = {
             p = _.find(_this.getAll(), { username });
 
         if (!p) {
-            if (!confif_ctrl.isLaunched()) {
+            if (!config_ctrl.isLaunched()) {
                 player_store.add(player);
                 return player;
             }
@@ -22,5 +23,26 @@ const _this = (module.exports = {
 
         p.isConnected = true;
         return p;
+    },
+
+    getInVisibilityRadius: (coordinates, teamId) => {
+        const { playerVisibilityRadius } = config_ctrl.get();
+
+        return _this.getAll().filter(
+            p =>
+                p.teamId !== teamId &&
+                p.coordinates.length > 0 &&
+                geolib.isPointWithinRadius(
+                    {
+                        latitude: coordinates[0],
+                        longitude: coordinates[1]
+                    },
+                    {
+                        latitude: p.coordinates[0],
+                        longitude: p.coordinates[1]
+                    },
+                    playerVisibilityRadius
+                )
+        );
     }
 });
