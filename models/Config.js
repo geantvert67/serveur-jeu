@@ -7,6 +7,8 @@ class Config {
         this.inventorySize = c.inventorySize;
         this.flagVisibilityRadius = c.flagVisibilityRadius;
         this.flagActionRadius = c.flagActionRadius;
+        this.playerVisibilityRadius = c.playerVisibilityRadius;
+        this.playerActionRadius = c.playerActionRadius;
         this.flagCaptureDuration = c.flagCaptureDuration;
         this.launched = false;
     }

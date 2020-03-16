@@ -1,4 +1,5 @@
 const _ = require('lodash'),
+    geolib = require('geolib'),
     add = require('date-fns/add'),
     isPast = require('date-fns/isPast'),
     team_ctrl = require('./team_ctrl'),
@@ -16,6 +17,24 @@ const _this = (module.exports = {
 
     getById: id => {
         return _.find(_this.getAll(), { id });
+    },
+
+    getInVisibilityRadius: coordinates => {
+        const { flagVisibilityRadius } = config_ctrl.get();
+
+        return _this.getAll().filter(f =>
+            geolib.isPointWithinRadius(
+                {
+                    latitude: coordinates[0],
+                    longitude: coordinates[1]
+                },
+                {
+                    latitude: f.coordinates[0],
+                    longitude: f.coordinates[1]
+                },
+                flagVisibilityRadius
+            )
+        );
     },
 
     captureFlag: (flagId, teamId) => {
