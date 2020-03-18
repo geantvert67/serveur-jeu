@@ -1,6 +1,6 @@
 const axios = require('axios'),
     initialValues = require('../config.json'),
-    { Config, Team, Area, Flag, Game } = require('../models'),
+    { Config, Team, Area, Flag, Game, ItemModel } = require('../models'),
     team_ctrl = require('./team_ctrl'),
     player_ctrl = require('./player_ctrl'),
     {
@@ -8,6 +8,7 @@ const axios = require('axios'),
         team_store,
         area_store,
         flag_store,
+        item_model_store,
         game_store
     } = require('../stores');
 (ip = process.env.ip || '127.0.0.1'), (port = process.env.port || 8888);
@@ -28,6 +29,9 @@ module.exports = {
         });
         initialValues.Areas.map(a => area_store.add(new Area(a)));
         initialValues.Flags.map(f => flag_store.add(new Flag(f)));
+        initialValues.ItemModels.map(im =>
+            item_model_store.add(new ItemModel(im))
+        );
 
         return axios
             .post(`${process.env.API_URL}:${process.env.API_PORT}/games`, {
