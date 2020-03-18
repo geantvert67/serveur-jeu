@@ -133,8 +133,8 @@
         {
             "id": 2,
             "name": "test",
-            "visibilityRadius": "1.50",
-            "actionRadius": "1.25",
+            "visibilityRadius": "150",
+            "actionRadius": "125",
             "waitingPeriod": 600,
             "autoMove": false,
             "ConfigId": 2,
@@ -144,7 +144,7 @@
                     "quantity": 5,
                     "position": {
                         "type": "Point",
-                        "coordinates": [39.807222, -76.984722]
+                        "coordinates": [48.590339, 7.674652]
                     },
                     "ItemModelId": 2
                 }

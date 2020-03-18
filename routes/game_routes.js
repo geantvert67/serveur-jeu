@@ -4,7 +4,8 @@ const _ = require('lodash'),
         flag_ctrl,
         marker_ctrl,
         player_ctrl,
-        config_ctrl
+        config_ctrl,
+        item_ctrl
     } = require('../controllers');
 
 const {
@@ -28,13 +29,15 @@ module.exports = (io, socket, player) => {
                 flagInActionRadius = flag_ctrl.getInRadius(
                     coordinates,
                     flagActionRadius
-                );
+                ),
+                itemsInActionRadius = item_ctrl.getInRadius(coordinates, false);
 
             objects.players = [
                 ...team_ctrl.getTeamPlayers(player.teamId),
                 ...playersInActionRadius
             ];
             objects.flags = [...flag_ctrl.getCaptured(), ...flagInActionRadius];
+            objects.items = itemsInActionRadius;
             objects.markers = marker_ctrl.getTeamMarkers(player.teamId);
             objects.unknowns = [
                 ...player_ctrl.getInRadius(
@@ -47,6 +50,11 @@ module.exports = (io, socket, player) => {
                     coordinates,
                     flagVisibilityRadius,
                     flagInActionRadius
+                ),
+                ...item_ctrl.getInRadius(
+                    coordinates,
+                    false,
+                    itemsInActionRadius
                 )
             ];
             socket.emit('routine', objects);
