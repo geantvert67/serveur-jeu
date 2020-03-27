@@ -9,6 +9,7 @@
     "playerVisibilityRadius": "150",
     "playerActionRadius": "120",
     "flagCaptureDuration": 15,
+    "maxPlayers": 10,
     "createdAt": "2020-02-14T13:25:58.000Z",
     "updatedAt": "2020-02-14T13:25:58.000Z",
     "OwnerId": 1,
