@@ -10,6 +10,8 @@ const _this = (module.exports = {
     },
 
     getOrCreate: (username, isConnected) => {
+        if (!username) return null;
+
         const player = new Player(username, isConnected),
             p = _.find(_this.getAll(), { username });
 
