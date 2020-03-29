@@ -5,6 +5,7 @@ const _ = require('lodash'),
         marker_ctrl,
         player_ctrl,
         config_ctrl,
+        game_ctrl,
         item_ctrl
     } = require('../controllers');
 
@@ -16,6 +17,14 @@ const {
 } = config_ctrl.get();
 
 module.exports = (io, socket, player) => {
+    socket.on('publish', () => {
+        game_ctrl.publish(socket);
+    });
+
+    socket.on('launchGame', date => {
+        date ? game_ctrl.launchAt(io, date) : game_ctrl.launch(io);
+    });
+
     socket.on('routine', coordinates => {
         if (player) {
             player.coordinates = coordinates;
