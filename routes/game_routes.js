@@ -69,4 +69,12 @@ module.exports = (io, socket, player) => {
             socket.emit('routine', objects);
         }
     });
+
+    socket.on('adminRoutine', () => {
+        const objects = {};
+
+        objects.players = player_ctrl.getAll();
+
+        socket.emit('adminRoutine', objects);
+    });
 };
