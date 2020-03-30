@@ -32,8 +32,10 @@ const _this = (module.exports = {
             !game_ctrl.isLaunched() &&
             !_.find(players, { username: player.username })
         ) {
+            const team = _this.getById(teamId);
             player.teamId = teamId;
-            _this.getById(teamId).players.push(player);
+            player.teamColor = team.color;
+            team.players.push(player);
             return true;
         }
         return false;
