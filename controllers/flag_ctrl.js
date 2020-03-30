@@ -36,7 +36,7 @@ const _this = (module.exports = {
         );
     },
 
-    captureFlag: (flagId, teamId) => {
+    captureFlag: (flagId, teamId, player) => {
         const flag = _this.getById(flagId),
             { flagCaptureDuration } = config_ctrl.get();
 
@@ -46,6 +46,7 @@ const _this = (module.exports = {
             !flag.capturedUntil
         ) {
             flag.team = team_ctrl.getById(teamId);
+            player.nbCapturedFlags++;
             flag.capturedUntil = moment().add(flagCaptureDuration, 's');
             setTimeout(() => {
                 flag.capturedUntil = null;
