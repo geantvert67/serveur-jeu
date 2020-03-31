@@ -75,6 +75,7 @@ module.exports = (io, socket, player) => {
 
         objects.players = player_ctrl.getAll();
         objects.flags = flag_ctrl.getAll();
+        objects.markers = marker_ctrl.getAll();
 
         socket.emit('adminRoutine', objects);
     });
