@@ -74,6 +74,7 @@ module.exports = (io, socket, player) => {
         const objects = {};
 
         objects.players = player_ctrl.getAll();
+        objects.flags = flag_ctrl.getAll();
 
         socket.emit('adminRoutine', objects);
     });
