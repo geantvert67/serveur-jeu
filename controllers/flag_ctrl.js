@@ -56,5 +56,9 @@ const _this = (module.exports = {
 
     moveFlag: (coordinates, flagId) => {
         _this.getById(flagId).coordinates = coordinates;
+    },
+
+    delete: id => {
+        flag_store.remove(id);
     }
 });

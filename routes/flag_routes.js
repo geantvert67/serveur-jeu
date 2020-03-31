@@ -12,4 +12,8 @@ module.exports = (io, socket, player) => {
     socket.on('moveFlag', ({ coordinates, flagId }) => {
         flag_ctrl.moveFlag(coordinates, flagId);
     });
+
+    socket.on('deleteFlag', id => {
+        flag_ctrl.delete(id);
+    });
 };
