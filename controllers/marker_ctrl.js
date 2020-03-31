@@ -10,6 +10,10 @@ const _this = (module.exports = {
         return marker_store.getAll();
     },
 
+    getById: id => {
+        return _.find(_this.getAll(), { id });
+    },
+
     getTeamMarkers: teamId => {
         return _.filter(_this.getAll(), m => m.team.id === teamId);
     },
@@ -20,6 +24,10 @@ const _this = (module.exports = {
         );
 
         id++;
+    },
+
+    moveMarker: (coordinates, markerId) => {
+        _this.getById(markerId).coordinates = coordinates;
     },
 
     delete: id => {
