@@ -52,5 +52,9 @@ const _this = (module.exports = {
                 flag.capturedUntil = null;
             }, flagCaptureDuration * 1000);
         }
+    },
+
+    moveFlag: (coordinates, flagId) => {
+        _this.getById(flagId).coordinates = coordinates;
     }
 });

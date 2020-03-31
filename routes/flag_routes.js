@@ -8,4 +8,8 @@ module.exports = (io, socket, player) => {
     socket.on('captureFlag', ({ flagId, teamId }) => {
         flag_ctrl.captureFlag(flagId, teamId, player);
     });
+
+    socket.on('moveFlag', ({ coordinates, flagId }) => {
+        flag_ctrl.moveFlag(coordinates, flagId);
+    });
 };
