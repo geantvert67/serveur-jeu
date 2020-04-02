@@ -3,6 +3,7 @@ class Player {
         this.username = username;
         this.coordinates = [];
         this.isConnected = isConnected;
+        this.nbCapturedFlags = 0;
     }
 }
 

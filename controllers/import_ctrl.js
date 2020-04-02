@@ -1,6 +1,5 @@
-const axios = require('axios'),
-    initialValues = require('../config.json'),
-    { Config, Team, Area, Flag, Game, ItemModel, Item } = require('../models'),
+const initialValues = require('../config.json'),
+    { Config, Team, Area, Flag, ItemModel, Item } = require('../models'),
     team_ctrl = require('./team_ctrl'),
     player_ctrl = require('./player_ctrl'),
     {
@@ -9,10 +8,8 @@ const axios = require('axios'),
         area_store,
         flag_store,
         item_model_store,
-        item_store,
-        game_store
+        item_store
     } = require('../stores');
-(ip = process.env.ip || '127.0.0.1'), (port = process.env.port || 8888);
 
 module.exports = {
     import_config: () => {
@@ -37,14 +34,5 @@ module.exports = {
                 item_store.add(new Item(i, itemModel));
             });
         });
-
-        return axios
-            .post(`${process.env.API_URL}:${process.env.API_PORT}/games`, {
-                ip,
-                port,
-                configId: initialValues.id
-            })
-            .then(res => game_store.set(new Game(res.data)))
-            .catch(() => {});
     }
 };

@@ -9,6 +9,10 @@ module.exports = (io, socket, player) => {
         marker_ctrl.create(coordinates, isPositive, player.teamId);
     });
 
+    socket.on('moveMarker', ({ coordinates, markerId }) => {
+        marker_ctrl.moveMarker(coordinates, markerId);
+    });
+
     socket.on('deleteMarker', id => {
         marker_ctrl.delete(id);
     });
