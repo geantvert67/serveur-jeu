@@ -66,6 +66,8 @@ module.exports = (io, socket, player) => {
                     itemsInActionRadius
                 )
             ];
+            objects.teams = team_ctrl.getAll();
+
             socket.emit('routine', objects);
         }
     });
@@ -76,6 +78,7 @@ module.exports = (io, socket, player) => {
         objects.players = player_ctrl.getAll();
         objects.flags = flag_ctrl.getAll();
         objects.markers = marker_ctrl.getAll();
+        objects.teams = team_ctrl.getAll();
 
         socket.emit('adminRoutine', objects);
     });

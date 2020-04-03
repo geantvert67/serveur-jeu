@@ -4,6 +4,7 @@ class Team {
         this.name = t.name;
         this.color = t.color;
         this.players = [];
+        this.nbFlags = 0;
     }
 }
 

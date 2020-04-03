@@ -45,12 +45,22 @@ const _this = (module.exports = {
                 moment().isSameOrAfter(flag.capturedUntil)) ||
             !flag.capturedUntil
         ) {
-            flag.team = team_ctrl.getById(teamId);
-            player.nbCapturedFlags++;
-            flag.capturedUntil = moment().add(flagCaptureDuration, 's');
-            setTimeout(() => {
-                flag.capturedUntil = null;
-            }, flagCaptureDuration * 1000);
+            if (!flag.team || (flag.team && flag.team.id !== teamId)) {
+                const newTeam = team_ctrl.getById(teamId);
+
+                if (flag.team) {
+                    const currentTeam = team_ctrl.getById(flag.team.id);
+                    currentTeam.nbFlags--;
+                }
+
+                newTeam.nbFlags++;
+                flag.team = newTeam;
+                player.nbCapturedFlags++;
+                flag.capturedUntil = moment().add(flagCaptureDuration, 's');
+                setTimeout(() => {
+                    flag.capturedUntil = null;
+                }, flagCaptureDuration * 1000);
+            }
         }
     },
 
@@ -59,6 +69,12 @@ const _this = (module.exports = {
     },
 
     delete: id => {
+        const flag = _this.getById(id);
+
+        if (flag.team) {
+            team_ctrl.getById(flag.team.id).nbFlags--;
+        }
+
         flag_store.remove(id);
     }
 });
