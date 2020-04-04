@@ -20,6 +20,10 @@ io.on('connection', socket => {
     });
 });
 
+process.on('uncaughtException', err => {
+    console.log(err);
+});
+
 server.listen(port, ip, () =>
     console.log(`Serveur lancée sur le port ${port}`)
 );
