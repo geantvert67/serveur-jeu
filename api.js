@@ -5,7 +5,7 @@ const server = require('http').createServer(),
     ip = process.env.ip || '127.0.0.1',
     port = process.env.port || 8888;
 
-import_ctrl.import_config();
+import_ctrl.importConfig();
 
 io.on('connection', socket => {
     const player = player_ctrl.getOrCreate(

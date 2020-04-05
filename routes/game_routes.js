@@ -17,6 +17,33 @@ const {
 } = config_ctrl.get();
 
 module.exports = (io, socket, player) => {
+    socket.on('getInvitations', () => {
+        game_ctrl.getInvitations(io);
+    });
+
+    socket.on(
+        'acceptInvitation',
+        ({ gameId, invitationId, accepted, username }) => {
+            game_ctrl
+                .acceptInvitation(gameId, invitationId, accepted)
+                .then(() => {
+                    game_ctrl.getInvitations(io);
+                    if (accepted) {
+                        teamId = team_ctrl.findByMinPlayers().id;
+                        if (
+                            team_ctrl.addPlayer(
+                                teamId,
+                                player_ctrl.getOrCreate(username, false)
+                            )
+                        ) {
+                            io.emit('getTeams', team_ctrl.getAll());
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+    );
+
     socket.on('publish', () => {
         game_ctrl.publish(socket);
     });
