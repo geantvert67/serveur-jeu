@@ -1,9 +1,6 @@
 const axios = require('axios'),
     moment = require('moment'),
-    ip = process.env.ip || '127.0.0.1',
-    port = process.env.port || 8888,
     { game_store } = require('../stores'),
-    { Game } = require('../models'),
     config_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
@@ -11,21 +8,42 @@ const _this = (module.exports = {
         return game_store.get();
     },
 
-    publish: socket => {
-        const config = config_ctrl.get();
+    getInvitations: io => {
+        const game = _this.get();
 
-        axios
-            .post(`${process.env.API_URL}:${process.env.API_PORT}/games`, {
-                ip,
-                port,
-                configId: config.id
-            })
-            .then(res => {
-                game_store.set(new Game(res.data));
-                config.published = true;
-            })
-            .catch(() => {})
-            .finally(() => socket.emit('getConfig', config));
+        if (game && game.id) {
+            return axios
+                .get(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}/invitations`
+                )
+                .then(res => io.emit('getInvitations', res.data))
+                .catch(() => {});
+        }
+    },
+
+    acceptInvitation: (gameId, invitationId, accepted) => {
+        return axios.put(
+            `${process.env.API_URL}:${process.env.API_PORT}/games/${gameId}/invitations/${invitationId}`,
+            { accepted }
+        );
+    },
+
+    publish: socket => {
+        const config = config_ctrl.get(),
+            game = _this.get();
+
+        if (game && game.id) {
+            axios
+                .put(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`,
+                    {
+                        published: true
+                    }
+                )
+                .then(() => (config.published = true))
+                .catch(() => {})
+                .finally(() => socket.emit('getConfig', config));
+        }
     },
 
     launch: io => {
@@ -33,8 +51,11 @@ const _this = (module.exports = {
 
         if (game && game.id) {
             axios
-                .delete(
-                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`
+                .put(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`,
+                    {
+                        launched: true
+                    }
                 )
                 .then(() => (config_ctrl.get().launched = true))
                 .catch(() => {})
