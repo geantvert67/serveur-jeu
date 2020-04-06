@@ -1,63 +1,187 @@
 {
-    "id": 2,
-    "name": "test",
-    "isPrivate": false,
-    "gameMode": "SUPREMACY",
-    "inventorySize": 2,
-    "flagVisibilityRadius": 50,
-    "flagActionRadius": 45,
-    "playerVisibilityRadius": 50,
-    "playerActionRadius": 45,
-    "flagCaptureDuration": 15,
+    "id": 3,
+    "name": "Configuration de test",
+    "isPrivate": true,
     "maxPlayers": 10,
-    "createdAt": "2020-02-14T13:25:58.000Z",
-    "updatedAt": "2020-02-14T13:25:58.000Z",
-    "OwnerId": 1,
+    "gameMode": "SUPREMACY",
+    "duration": null,
+    "inventorySize": 5,
+    "playerVisibilityRadius": 25,
+    "playerActionRadius": 20,
+    "flagVisibilityRadius": 30,
+    "flagActionRadius": 20,
+    "flagCaptureDuration": 60,
+    "createdAt": "2020-04-05T15:09:59.000Z",
+    "updatedAt": "2020-04-05T15:09:59.000Z",
+    "OwnerId": 2,
     "Owner": {
-        "id": 1,
-        "username": "clement",
-        "createdAt": "2020-02-14T09:57:36.000Z",
-        "updatedAt": "2020-02-14T09:57:36.000Z"
+        "id": 2,
+        "username": "clement284",
+        "createdAt": "2020-04-05T09:54:34.000Z",
+        "updatedAt": "2020-04-05T09:54:34.000Z",
+        "Teams": [
+            {
+                "id": 6,
+                "name": "Les égaliteurs",
+                "color": "#DC813A",
+                "ConfigId": 3,
+                "TeamPlayers": {
+                    "createdAt": "2020-04-05T15:10:47.000Z",
+                    "updatedAt": "2020-04-05T15:10:47.000Z",
+                    "TeamId": 6,
+                    "UserId": 2
+                }
+            }
+        ],
+        "Games": [],
+        "Invitations": [
+            {
+                "id": 2,
+                "accepted": true,
+                "GameId": 1,
+                "UserId": 2,
+                "Game": {
+                    "id": 1,
+                    "ip": "127.0.0.1",
+                    "port": 8081,
+                    "published": true,
+                    "launched": true,
+                    "ended": false,
+                    "name": "test",
+                    "gameMode": "SUPREMACY",
+                    "AdminId": 1
+                }
+            }
+        ]
     },
     "Teams": [
         {
-            "id": 1,
-            "name": "equipe 1",
-            "color": "#e1e1e1",
-            "ConfigId": 1,
+            "id": 4,
+            "name": "Les winners",
+            "color": "#E02828",
+            "ConfigId": 3,
             "Users": [
                 {
                     "id": 1,
                     "username": "clement",
-                    "createdAt": "2020-03-06T18:41:49.000Z",
-                    "updatedAt": "2020-03-06T18:41:49.000Z",
+                    "createdAt": "2020-04-05T09:54:28.000Z",
+                    "updatedAt": "2020-04-05T09:54:28.000Z",
                     "TeamPlayers": {
-                        "createdAt": "2020-03-18T00:00:00.000Z",
-                        "updatedAt": "2020-03-02T00:00:00.000Z",
-                        "TeamId": 1,
+                        "createdAt": "2020-04-05T15:10:40.000Z",
+                        "updatedAt": "2020-04-05T15:10:40.000Z",
+                        "TeamId": 4,
                         "UserId": 1
-                    }
-                },
-                {
-                    "id": 2,
-                    "username": "clement284",
-                    "createdAt": "2020-03-06T20:25:29.000Z",
-                    "updatedAt": "2020-03-06T20:25:29.000Z",
-                    "TeamPlayers": {
-                        "createdAt": "2020-03-07T19:04:55.000Z",
-                        "updatedAt": "2020-03-07T19:04:55.000Z",
-                        "TeamId": 1,
-                        "UserId": 2
-                    }
+                    },
+                    "Games": [
+                        {
+                            "id": 1,
+                            "ip": "127.0.0.1",
+                            "port": 8081,
+                            "published": true,
+                            "launched": true,
+                            "ended": false,
+                            "name": "test",
+                            "gameMode": "SUPREMACY",
+                            "AdminId": 1,
+                            "Invitations": [
+                                {
+                                    "id": 1,
+                                    "accepted": true,
+                                    "GameId": 1,
+                                    "UserId": 1
+                                },
+                                {
+                                    "id": 2,
+                                    "accepted": true,
+                                    "GameId": 1,
+                                    "UserId": 2
+                                }
+                            ]
+                        }
+                    ],
+                    "Invitations": [
+                        {
+                            "id": 1,
+                            "accepted": true,
+                            "GameId": 1,
+                            "UserId": 1,
+                            "Game": {
+                                "id": 1,
+                                "ip": "127.0.0.1",
+                                "port": 8081,
+                                "published": true,
+                                "launched": true,
+                                "ended": false,
+                                "name": "test",
+                                "gameMode": "SUPREMACY",
+                                "AdminId": 1
+                            }
+                        }
+                    ]
                 }
             ]
         },
         {
-            "id": 2,
-            "name": "equipe 2",
-            "color": "#68B684",
-            "ConfigId": 1,
-            "Users": []
+            "id": 6,
+            "name": "Les égaliteurs",
+            "color": "#DC813A",
+            "ConfigId": 3,
+            "Users": [
+                {
+                    "id": 2,
+                    "username": "clement284",
+                    "createdAt": "2020-04-05T09:54:34.000Z",
+                    "updatedAt": "2020-04-05T09:54:34.000Z",
+                    "TeamPlayers": {
+                        "createdAt": "2020-04-05T15:10:47.000Z",
+                        "updatedAt": "2020-04-05T15:10:47.000Z",
+                        "TeamId": 6,
+                        "UserId": 2
+                    },
+                    "Games": [],
+                    "Invitations": [
+                        {
+                            "id": 2,
+                            "accepted": true,
+                            "GameId": 1,
+                            "UserId": 2,
+                            "Game": {
+                                "id": 1,
+                                "ip": "127.0.0.1",
+                                "port": 8081,
+                                "published": true,
+                                "launched": true,
+                                "ended": false,
+                                "name": "test",
+                                "gameMode": "SUPREMACY",
+                                "AdminId": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Les loosers",
+            "color": "#453BE9",
+            "ConfigId": 3,
+            "Users": [
+                {
+                    "id": 3,
+                    "username": "test",
+                    "createdAt": "2020-04-05T09:54:38.000Z",
+                    "updatedAt": "2020-04-05T09:54:38.000Z",
+                    "TeamPlayers": {
+                        "createdAt": "2020-04-05T15:10:44.000Z",
+                        "updatedAt": "2020-04-05T15:10:44.000Z",
+                        "TeamId": 5,
+                        "UserId": 3
+                    },
+                    "Games": [],
+                    "Invitations": []
+                }
+            ]
         }
     ],
     "Areas": [
@@ -67,16 +191,15 @@
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.591657, 7.674527],
-                        [48.589667, 7.683134],
-                        [48.584454, 7.685958],
-                        [48.585592, 7.672278],
-                        [48.591657, 7.674527]
+                        [48.585223845056966, 7.6815247535705575],
+                        [48.58540837144751, 7.682447433471681],
+                        [48.584968345865484, 7.682404518127442],
+                        [48.585223845056966, 7.6815247535705575]
                     ]
                 ]
             },
-            "forbidden": false,
-            "ConfigId": 2
+            "forbidden": true,
+            "ConfigId": 3
         },
         {
             "id": 6,
@@ -84,15 +207,15 @@
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.587656, 7.672794],
-                        [48.587286, 7.674533],
-                        [48.586765, 7.67269],
-                        [48.587656, 7.672794]
+                        [48.58445734360753, 7.687146663665772],
+                        [48.584485732757415, 7.689528465270997],
+                        [48.582853330736455, 7.688970565795899],
+                        [48.58445734360753, 7.687146663665772]
                     ]
                 ]
             },
             "forbidden": true,
-            "ConfigId": 2
+            "ConfigId": 3
         },
         {
             "id": 7,
@@ -100,66 +223,466 @@
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.588491, 7.674078],
-                        [48.58797, 7.677599],
-                        [48.58797, 7.677599],
-                        [48.587217, 7.674202],
-                        [48.588491, 7.674078]
+                        [48.58711166016273, 7.679872512817383],
+                        [48.58432959223574, 7.690901756286622],
+                        [48.57995746178172, 7.691266536712647],
+                        [48.57990067837905, 7.679142951965333],
+                        [48.58711166016273, 7.679872512817383]
                     ]
                 ]
             },
-            "forbidden": true,
-            "ConfigId": 2
+            "forbidden": false,
+            "ConfigId": 3
         }
     ],
     "Flags": [
         {
-            "id": 5,
+            "id": 7,
             "position": {
                 "type": "Point",
-                "coordinates": [48.587527, 7.67907]
+                "coordinates": [48.581965841367655, 7.685293913744063]
             },
-            "ConfigId": 2
+            "ConfigId": 3
         },
         {
-            "id": 6,
+            "id": 8,
             "position": {
                 "type": "Point",
-                "coordinates": [48.586299, 7.677771]
+                "coordinates": [48.58373341489777, 7.6865458488464355]
             },
-            "ConfigId": 2
+            "ConfigId": 3
+        },
+        {
+            "id": 9,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.58529481682537, 7.683756351470948]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 10,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.58300947581881, 7.68995761871338]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 11,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.58163254346427, 7.687683105468751]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 12,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.582478395880166, 7.683292941461716]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 13,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.5808596743396, 7.68055128183249]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 14,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.58133213594175, 7.690460150950633]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 15,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.583534696330794, 7.683734006441243]
+            },
+            "ConfigId": 3
+        },
+        {
+            "id": 16,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.582730775442634, 7.680434810886469]
+            },
+            "ConfigId": 3
         }
     ],
     "ItemModels": [
         {
-            "id": 2,
-            "name": "test",
-            "visibilityRadius": "150",
-            "actionRadius": "125",
-            "waitingPeriod": 600,
+            "id": 25,
+            "name": "Intercepteur",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
             "autoMove": false,
-            "ConfigId": 2,
+            "ConfigId": 3,
             "Items": [
                 {
-                    "id": 1,
-                    "quantity": 5,
+                    "id": 7,
+                    "quantity": 1,
                     "position": {
                         "type": "Point",
-                        "coordinates": [48.590339, 7.674652]
+                        "coordinates": [48.58408127757534, 7.686715309995263]
                     },
-                    "ItemModelId": 2
+                    "ItemModelId": 25
+                },
+                {
+                    "id": 8,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58290451051743, 7.687624681575033]
+                    },
+                    "ItemModelId": 25
+                },
+                {
+                    "id": 9,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58458726765593, 7.6803316710583625]
+                    },
+                    "ItemModelId": 25
                 }
             ]
         },
         {
-            "id": 1,
-            "name": "Mine",
-            "visibilityRadius": "1.50",
-            "actionRadius": "1.25",
-            "waitingPeriod": 600,
+            "id": 26,
+            "name": "Oracle",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
             "autoMove": false,
-            "ConfigId": 2,
-            "Items": []
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 10,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58063191216142, 7.690567479372501]
+                    },
+                    "ItemModelId": 26
+                },
+                {
+                    "id": 11,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58634140551392, 7.682132128478121]
+                    },
+                    "ItemModelId": 26
+                }
+            ]
+        },
+        {
+            "id": 27,
+            "name": "Portail de transfert",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 12,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.5812418338899, 7.689687007872391]
+                    },
+                    "ItemModelId": 27
+                },
+                {
+                    "id": 13,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58456709203865, 7.687257567941984]
+                    },
+                    "ItemModelId": 27
+                }
+            ]
+        },
+        {
+            "id": 28,
+            "name": "Disloqueur",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 14,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58455741060513, 7.683436315445857]
+                    },
+                    "ItemModelId": 28
+                },
+                {
+                    "id": 15,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58394389557926, 7.6894606611449285]
+                    },
+                    "ItemModelId": 28
+                }
+            ]
+        },
+        {
+            "id": 29,
+            "name": "Tempête",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 16,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58076661833887, 7.688219547271729]
+                    },
+                    "ItemModelId": 29
+                }
+            ]
+        },
+        {
+            "id": 30,
+            "name": "Transducteur",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 17,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.580468509535294, 7.684507369995118]
+                    },
+                    "ItemModelId": 30
+                },
+                {
+                    "id": 18,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.581362830671644, 7.681782245635987]
+                    },
+                    "ItemModelId": 30
+                }
+            ]
+        },
+        {
+            "id": 31,
+            "name": "Antenne",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 19,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.583080450696784, 7.685580253601075]
+                    },
+                    "ItemModelId": 31
+                }
+            ]
+        },
+        {
+            "id": 32,
+            "name": "Sonde",
+            "visibilityRadius": 15,
+            "actionRadius": 10,
+            "waitingPeriod": 60,
+            "autoMove": true,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 20,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58039753098961, 7.689399719238282]
+                    },
+                    "ItemModelId": 32
+                },
+                {
+                    "id": 21,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58215776950924, 7.688670158386231]
+                    },
+                    "ItemModelId": 32
+                },
+                {
+                    "id": 22,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58323659507748, 7.6813745498657235]
+                    },
+                    "ItemModelId": 32
+                },
+                {
+                    "id": 23,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58546514866293, 7.680559158325196]
+                    },
+                    "ItemModelId": 32
+                }
+            ]
+        },
+        {
+            "id": 33,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 12,
+            "actionRadius": 8,
+            "waitingPeriod": 60,
+            "autoMove": true,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 24,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58076661833887, 7.683241367340089]
+                    },
+                    "ItemModelId": 33
+                },
+                {
+                    "id": 25,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58166093420085, 7.684164047241212]
+                    },
+                    "ItemModelId": 33
+                }
+            ]
+        },
+        {
+            "id": 34,
+            "name": "Canon à photons",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 26,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58306625572916, 7.686159610748292]
+                    },
+                    "ItemModelId": 34
+                }
+            ]
+        },
+        {
+            "id": 35,
+            "name": "Sentinelle",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 27,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58059627066642, 7.686803340911866]
+                    },
+                    "ItemModelId": 35
+                },
+                {
+                    "id": 28,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58234230709424, 7.686352729797364]
+                    },
+                    "ItemModelId": 35
+                },
+                {
+                    "id": 29,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58529481682537, 7.684442996978761]
+                    },
+                    "ItemModelId": 35
+                }
+            ]
+        },
+        {
+            "id": 36,
+            "name": "Transporteur",
+            "visibilityRadius": 47.97,
+            "actionRadius": 41.97,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "ConfigId": 3,
+            "Items": [
+                {
+                    "id": 30,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.584954151428065, 7.6856446266174325]
+                    },
+                    "ItemModelId": 36
+                },
+                {
+                    "id": 31,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.58045431383415, 7.679743766784669]
+                    },
+                    "ItemModelId": 36
+                },
+                {
+                    "id": 32,
+                    "quantity": 1,
+                    "position": {
+                        "type": "Point",
+                        "coordinates": [48.5802981608582, 7.681438922882081]
+                    },
+                    "ItemModelId": 36
+                }
+            ]
         }
     ]
 }
