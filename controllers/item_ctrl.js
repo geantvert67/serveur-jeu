@@ -25,5 +25,9 @@ const _this = (module.exports = {
                         : i.itemModel.actionRadius
                 )
         );
+    },
+
+    delete: id => {
+        item_store.remove(id);
     }
 });
