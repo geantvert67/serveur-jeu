@@ -55,7 +55,7 @@ const _this = (module.exports = {
 
                 newTeam.nbFlags++;
                 flag.team = newTeam;
-                player.nbCapturedFlags++;
+                player && player.nbCapturedFlags++;
                 flag.capturedUntil = moment().add(flagCaptureDuration, 's');
                 setTimeout(() => {
                     flag.capturedUntil = null;
