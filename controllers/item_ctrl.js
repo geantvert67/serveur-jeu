@@ -24,9 +24,7 @@ const _this = (module.exports = {
                         latitude: i.coordinates[0],
                         longitude: i.coordinates[1]
                     },
-                    checkVisibility
-                        ? i.itemModel.visibilityRadius
-                        : i.itemModel.actionRadius
+                    checkVisibility ? i.visibilityRadius : i.actionRadius
                 )
         );
     },
