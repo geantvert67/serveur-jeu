@@ -7,6 +7,10 @@ const _this = (module.exports = {
         return item_store.getAll();
     },
 
+    getById: id => {
+        return _.find(_this.getAll(), { id });
+    },
+
     getInRadius: (coordinates, checkVisibility, inActionRadius = []) => {
         return _this.getAll().filter(
             i =>
@@ -20,10 +24,16 @@ const _this = (module.exports = {
                         latitude: i.coordinates[0],
                         longitude: i.coordinates[1]
                     },
-                    checkVisibility
-                        ? i.itemModel.visibilityRadius
-                        : i.itemModel.actionRadius
+                    checkVisibility ? i.visibilityRadius : i.actionRadius
                 )
         );
+    },
+
+    moveItem: (coordinates, itemId) => {
+        _this.getById(itemId).coordinates = coordinates;
+    },
+
+    delete: id => {
+        item_store.remove(id);
     }
 });

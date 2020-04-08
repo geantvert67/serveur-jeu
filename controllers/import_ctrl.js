@@ -62,13 +62,10 @@ const _this = (module.exports = {
             });
             initialValues.Areas.map(a => area_store.add(new Area(a)));
             initialValues.Flags.map(f => flag_store.add(new Flag(f)));
-            initialValues.ItemModels.map(im => {
-                itemModel = new ItemModel(im);
-                item_model_store.add(itemModel);
-                im.Items.map(i => {
-                    item_store.add(new Item(i, itemModel));
-                });
-            });
+            initialValues.ItemModels.map(im =>
+                item_model_store.add(new ItemModel(im))
+            );
+            initialValues.Items.map(i => item_store.add(new Item(i)));
         });
     }
 });
