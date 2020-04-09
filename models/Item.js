@@ -8,6 +8,7 @@ class Item {
         this.actionRadius = i.actionRadius;
         this.waitingPeriod = i.waitingPeriod;
         this.autoMove = i.autoMove;
+        this.waitingUntil = null;
     }
 }
 
