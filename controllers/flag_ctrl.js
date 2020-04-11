@@ -44,7 +44,8 @@ const _this = (module.exports = {
         if (
             (flag.capturedUntil &&
                 moment().isSameOrAfter(flag.capturedUntil)) ||
-            !flag.capturedUntil
+            !flag.capturedUntil ||
+            !player
         ) {
             if (!flag.team || (flag.team && flag.team.id !== teamId)) {
                 const newTeam = team_ctrl.getById(teamId);
