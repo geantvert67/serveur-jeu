@@ -9,6 +9,10 @@ module.exports = (io, socket, player) => {
         flag_ctrl.captureFlag(flagId, teamId, player);
     });
 
+    socket.on('resetFlag', flagId => {
+        flag_ctrl.resetFlag(flagId);
+    });
+
     socket.on('moveFlag', ({ coordinates, flagId }) => {
         flag_ctrl.moveFlag(coordinates, flagId);
     });

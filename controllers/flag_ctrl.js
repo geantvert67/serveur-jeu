@@ -65,6 +65,18 @@ const _this = (module.exports = {
         }
     },
 
+    resetFlag: flagId => {
+        const flag = _this.getById(flagId);
+
+        if (flag.team) {
+            const currentTeam = team_ctrl.getById(flag.team.id);
+            currentTeam.nbFlags--;
+        }
+
+        flag.team = null;
+        flag.capturedUntil = null;
+    },
+
     moveFlag: (coordinates, flagId) => {
         _this.getById(flagId).coordinates = coordinates;
     },
