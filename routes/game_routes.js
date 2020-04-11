@@ -17,6 +17,10 @@ const {
 } = config_ctrl.get();
 
 module.exports = (io, socket, player) => {
+    socket.on('getGame', () => {
+        socket.emit('getGame', game_ctrl.get());
+    });
+
     socket.on('getInvitations', () => {
         game_ctrl.getInvitations(io);
     });
