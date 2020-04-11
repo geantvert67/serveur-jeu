@@ -14,6 +14,11 @@ module.exports = (io, socket, player) => {
         socket.emit('getPlayerItems', player.inventory);
     });
 
+    socket.on('dropItem', ({ id, coordinates }) => {
+        item_ctrl.dropItem(player, id, coordinates);
+        socket.emit('getPlayerItems', player.inventory);
+    });
+
     socket.on('moveItem', ({ coordinates, itemId }) => {
         item_ctrl.moveItem(coordinates, itemId);
     });

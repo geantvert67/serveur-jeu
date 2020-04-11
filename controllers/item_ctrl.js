@@ -4,8 +4,11 @@ const _ = require('lodash'),
     config_ctrl = require('./config_ctrl'),
     item_instance_ctrl = require('./item_instance_ctrl'),
     area_ctrl = require('./area_ctrl'),
+    { Item } = require('../models'),
     { item_store } = require('../stores'),
     { getRandomPoint } = require('../utils');
+
+let id = null;
 
 const _this = (module.exports = {
     getAll: () => {
@@ -32,6 +35,20 @@ const _this = (module.exports = {
                     checkVisibility ? i.visibilityRadius : i.actionRadius
                 )
         );
+    },
+
+    create: (item, coordinates) => {
+        if (id) {
+            id++;
+        } else {
+            const maxId = _.maxBy(_this.getAll(), 'id');
+            id = maxId ? maxId.id + 1 : 1;
+        }
+
+        item.id = id;
+        item.quantity = 1;
+        item.position = { coordinates };
+        item_store.add(new Item(item));
     },
 
     takeItem: (player, id) => {
@@ -67,6 +84,14 @@ const _this = (module.exports = {
                 }
             }
         }
+    },
+
+    dropItem: (player, id, coordinates) => {
+        const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
+
+        _this.create(newItem, coordinates);
+        _.remove(player.inventory, i => i.id === id);
+        item_instance_ctrl.delete(id);
     },
 
     moveItem: (coordinates, itemId) => {
