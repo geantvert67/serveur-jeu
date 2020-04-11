@@ -1,6 +1,14 @@
 const _ = require('lodash'),
     geolib = require('geolib'),
-    { item_store } = require('../stores');
+    moment = require('moment'),
+    config_ctrl = require('./config_ctrl'),
+    item_instance_ctrl = require('./item_instance_ctrl'),
+    area_ctrl = require('./area_ctrl'),
+    { Item } = require('../models'),
+    { item_store } = require('../stores'),
+    { getRandomPoint } = require('../utils');
+
+let id = null;
 
 const _this = (module.exports = {
     getAll: () => {
@@ -27,6 +35,63 @@ const _this = (module.exports = {
                     checkVisibility ? i.visibilityRadius : i.actionRadius
                 )
         );
+    },
+
+    create: (item, coordinates) => {
+        if (id) {
+            id++;
+        } else {
+            const maxId = _.maxBy(_this.getAll(), 'id');
+            id = maxId ? maxId.id + 1 : 1;
+        }
+
+        item.id = id;
+        item.quantity = 1;
+        item.position = { coordinates };
+        item_store.add(new Item(item));
+    },
+
+    takeItem: (player, id) => {
+        const { inventorySize } = config_ctrl.get();
+        const item = _this.getById(id);
+
+        if (
+            player.inventory.length < inventorySize &&
+            (!item.waitingUntil || moment().isSameOrAfter(item.waitingUntil))
+        ) {
+            const { waitingPeriod } = item;
+            const itemInstance = item_instance_ctrl.create(item);
+
+            if (itemInstance) {
+                player.inventory.push(itemInstance);
+                if (item.quantity > 1) {
+                    item.quantity--;
+
+                    if (waitingPeriod) {
+                        item.waitingUntil = moment().add(waitingPeriod, 's');
+                        setTimeout(() => {
+                            item.waitingUntil = null;
+                        }, waitingPeriod * 1000);
+                    }
+                    if (item.autoMove) {
+                        item.coordinates = getRandomPoint(
+                            area_ctrl.getGameArea(),
+                            area_ctrl.getForbiddenAreas()
+                        );
+                    }
+                } else {
+                    _this.delete(item.id);
+                }
+            }
+        }
+    },
+
+    dropItem: (player, id, coordinates) => {
+        const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
+
+        _this.create(newItem, coordinates);
+        _.remove(player.inventory, i => i.id === id);
+        item_instance_ctrl.delete(id);
     },
 
     moveItem: (coordinates, itemId) => {

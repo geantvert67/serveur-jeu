@@ -554,9 +554,9 @@
             "name": "Transporteur",
             "visibilityRadius": 37.24,
             "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
+            "waitingPeriod": 30,
+            "autoMove": true,
+            "quantity": 3,
             "position": {
                 "type": "Point",
                 "coordinates": [48.52726344666636, 7.734503746032716]
@@ -568,9 +568,9 @@
             "name": "Transporteur",
             "visibilityRadius": 37.24,
             "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
+            "waitingPeriod": 30,
+            "autoMove": true,
+            "quantity": 3,
             "position": {
                 "type": "Point",
                 "coordinates": [48.53064546486541, 7.72589921951294]

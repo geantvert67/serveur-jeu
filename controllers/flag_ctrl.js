@@ -21,6 +21,7 @@ const _this = (module.exports = {
     getInRadius: (coordinates, radius, inActionRadius = []) => {
         return _this.getAll().filter(
             f =>
+                !_.some(_this.getCaptured(), f) &&
                 !_.some(inActionRadius, f) &&
                 geolib.isPointWithinRadius(
                     {
