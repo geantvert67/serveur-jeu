@@ -4,6 +4,7 @@ class Config {
         this.name = c.name;
         this.isPrivate = c.isPrivate;
         this.gameMode = c.gameMode;
+        this.duration = c.duration;
         this.inventorySize = c.inventorySize;
         this.maxPlayers = c.maxPlayers;
         this.flagVisibilityRadius = c.flagVisibilityRadius;

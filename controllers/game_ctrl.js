@@ -47,7 +47,8 @@ const _this = (module.exports = {
     },
 
     launch: io => {
-        const game = _this.get();
+        const game = _this.get(),
+            config = config_ctrl.get();
 
         if (game && game.id) {
             axios
@@ -64,6 +65,12 @@ const _this = (module.exports = {
             const config = config_ctrl.get();
             config.launched = true;
             io.emit('getConfig', config);
+        }
+
+        if (config.duration) {
+            setTimeout(() => {
+                _this.end(io);
+            }, config.duration * 1000);
         }
     },
 
