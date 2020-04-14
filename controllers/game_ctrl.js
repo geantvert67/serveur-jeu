@@ -92,5 +92,23 @@ const _this = (module.exports = {
 
     isLaunched: () => {
         return config_ctrl.get().launched;
+    },
+
+    end: io => {
+        const config = config_ctrl.get(),
+            game = _this.get();
+
+        axios
+            .put(
+                `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`,
+                {
+                    ended: true
+                }
+            )
+            .catch(() => {})
+            .finally(() => {
+                config.ended = true;
+                io.emit('getConfig', config);
+            });
     }
 });

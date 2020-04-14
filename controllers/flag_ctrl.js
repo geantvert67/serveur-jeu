@@ -2,6 +2,7 @@ const _ = require('lodash'),
     geolib = require('geolib'),
     moment = require('moment'),
     team_ctrl = require('./team_ctrl'),
+    game_ctrl = require('./game_ctrl'),
     config_ctrl = require('./config_ctrl'),
     { flag_store } = require('../stores');
 
@@ -37,9 +38,10 @@ const _this = (module.exports = {
         );
     },
 
-    captureFlag: (flagId, teamId, player) => {
-        const flag = _this.getById(flagId),
-            { flagCaptureDuration } = config_ctrl.get();
+    captureFlag: (io, flagId, teamId, player) => {
+        const nbFlags = _this.getAll().length,
+            flag = _this.getById(flagId),
+            { flagCaptureDuration, gameMode } = config_ctrl.get();
 
         if (
             (flag.capturedUntil &&
@@ -58,6 +60,13 @@ const _this = (module.exports = {
                 newTeam.nbFlags++;
                 flag.team = newTeam;
                 player && player.nbCapturedFlags++;
+
+                if (gameMode === 'SUPREMACY') {
+                    if (newTeam.nbFlags >= nbFlags / 2) {
+                        game_ctrl.end(io);
+                    }
+                }
+
                 flag.capturedUntil = moment().add(flagCaptureDuration, 's');
                 setTimeout(() => {
                     flag.capturedUntil = null;
