@@ -4,6 +4,7 @@ const _ = require('lodash'),
     team_ctrl = require('./team_ctrl'),
     game_ctrl = require('./game_ctrl'),
     config_ctrl = require('./config_ctrl'),
+    interval_ctrl = require('./interval_ctrl'),
     { flag_store } = require('../stores');
 
 const _this = (module.exports = {
@@ -54,10 +55,19 @@ const _this = (module.exports = {
 
                 if (flag.team) {
                     const currentTeam = team_ctrl.getById(flag.team.id);
-                    currentTeam.nbFlags--;
+                    if (gameMode === 'TIME') {
+                        interval_ctrl.removeByObjectId(flag.id);
+                    } else {
+                        currentTeam.score--;
+                    }
                 }
 
-                newTeam.nbFlags++;
+                if (gameMode === 'TIME') {
+                    const interval = setInterval(() => newTeam.score++, 1000);
+                    interval_ctrl.create(interval, flag.id);
+                } else {
+                    newTeam.score++;
+                }
                 flag.team = newTeam;
                 player && player.nbCapturedFlags++;
 
@@ -76,11 +86,16 @@ const _this = (module.exports = {
     },
 
     resetFlag: flagId => {
-        const flag = _this.getById(flagId);
+        const flag = _this.getById(flagId),
+            { gameMode } = config_ctrl.get();
 
         if (flag.team) {
             const currentTeam = team_ctrl.getById(flag.team.id);
-            currentTeam.nbFlags--;
+            if (gameMode === 'TIME') {
+                interval_ctrl.removeByObjectId(flagId);
+            } else {
+                currentTeam.score--;
+            }
         }
 
         flag.team = null;
@@ -92,10 +107,15 @@ const _this = (module.exports = {
     },
 
     delete: id => {
-        const flag = _this.getById(id);
+        const flag = _this.getById(id),
+            { gameMode } = config_ctrl.get();
 
         if (flag.team) {
-            team_ctrl.getById(flag.team.id).nbFlags--;
+            if (gameMode === 'TIME') {
+                interval_ctrl.removeByObjectId(id);
+            } else {
+                flag.team.score--;
+            }
         }
 
         flag_store.remove(id);
