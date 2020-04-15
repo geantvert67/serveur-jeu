@@ -1,6 +1,6 @@
 const _ = require('lodash'),
     { team_store } = require('../stores'),
-    game_ctrl = require('./game_ctrl');
+    config_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -29,7 +29,7 @@ const _this = (module.exports = {
         const players = _this.getPlayers();
 
         if (
-            !game_ctrl.isLaunched() &&
+            !config_ctrl.isLaunched() &&
             !_.find(players, { username: player.username })
         ) {
             const team = _this.getById(teamId);

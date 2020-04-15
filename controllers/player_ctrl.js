@@ -2,7 +2,7 @@ const _ = require('lodash'),
     geolib = require('geolib'),
     { player_store } = require('../stores'),
     { Player } = require('../models'),
-    game_ctrl = require('./game_ctrl');
+    config_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -16,7 +16,7 @@ const _this = (module.exports = {
             p = _.find(_this.getAll(), { username });
 
         if (!p) {
-            if (!game_ctrl.isLaunched()) {
+            if (!config_ctrl.isLaunched()) {
                 player_store.add(player);
                 return player;
             }

@@ -1,6 +1,8 @@
 const axios = require('axios'),
+    _ = require('lodash'),
     moment = require('moment'),
     { game_store } = require('../stores'),
+    team_ctrl = require('./team_ctrl'),
     config_ctrl = require('./config_ctrl');
 
 const _this = (module.exports = {
@@ -97,10 +99,6 @@ const _this = (module.exports = {
         }
     },
 
-    isLaunched: () => {
-        return config_ctrl.get().launched;
-    },
-
     end: io => {
         const config = config_ctrl.get(),
             game = _this.get();
@@ -115,7 +113,14 @@ const _this = (module.exports = {
             .catch(() => {})
             .finally(() => {
                 config.ended = true;
+                config.winners = _this.findWinners();
                 io.emit('getConfig', config);
             });
+    },
+
+    findWinners: () => {
+        const teams = team_ctrl.getAll();
+        const maxScore = _.maxBy(teams, 'score').score;
+        return teams.filter(t => t.score === maxScore);
     }
 });
