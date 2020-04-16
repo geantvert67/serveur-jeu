@@ -13,6 +13,7 @@ class Config {
         this.playerActionRadius = c.playerActionRadius;
         this.flagCaptureDuration = c.flagCaptureDuration;
         this.launched = false;
+        this.launchedAt = null;
         this.ended = false;
         this.willLaunchAt = null;
         this.published = false;

@@ -61,12 +61,16 @@ const _this = (module.exports = {
                         launched: true
                     }
                 )
-                .then(() => (config_ctrl.get().launched = true))
+                .then(() => {
+                    config.launched = true;
+                    config.launchedAt = new Date();
+                })
                 .catch(() => {})
-                .finally(() => io.emit('getConfig', config_ctrl.get()));
+                .finally(() => io.emit('getConfig', config));
         } else {
             const config = config_ctrl.get();
             config.launched = true;
+            config.launchedAt = new Date();
             io.emit('getConfig', config);
         }
 
