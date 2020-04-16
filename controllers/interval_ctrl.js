@@ -20,5 +20,12 @@ const _this = (module.exports = {
             clearInterval(i.interval);
             interval_store.remove(i.id);
         }
+    },
+
+    removeAll: () => {
+        _this.getAll().forEach(i => {
+            clearInterval(i.interval);
+        });
+        interval_store.removeAll();
     }
 });

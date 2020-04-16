@@ -3,7 +3,8 @@ const axios = require('axios'),
     moment = require('moment'),
     { game_store } = require('../stores'),
     team_ctrl = require('./team_ctrl'),
-    config_ctrl = require('./config_ctrl');
+    config_ctrl = require('./config_ctrl'),
+    interval_ctrl = require('./interval_ctrl');
 
 const _this = (module.exports = {
     get: () => {
@@ -112,6 +113,7 @@ const _this = (module.exports = {
             )
             .catch(() => {})
             .finally(() => {
+                interval_ctrl.removeAll();
                 config.ended = true;
                 config.winners = _this.findWinners();
                 io.emit('getConfig', config);
