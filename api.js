@@ -15,6 +15,10 @@ io.on('connection', socket => {
 
     require('./routes')(io, socket, player);
 
+    socket.on('stopServer', () => {
+        process.exit();
+    });
+
     socket.on('disconnect', () => {
         if (player) player.isConnected = false;
     });
