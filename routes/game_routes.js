@@ -56,6 +56,10 @@ module.exports = (io, socket, player) => {
         date ? game_ctrl.launchAt(io, date) : game_ctrl.launch(io);
     });
 
+    socket.on('endGame', () => {
+        game_ctrl.end(io);
+    });
+
     socket.on('routine', coordinates => {
         if (player) {
             player.coordinates = coordinates;
