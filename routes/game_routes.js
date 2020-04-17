@@ -95,11 +95,7 @@ module.exports = (io, socket, player) => {
                     flagVisibilityRadius,
                     flagInActionRadius
                 ),
-                ...item_ctrl.getInRadius(
-                    coordinates,
-                    false,
-                    itemsInActionRadius
-                )
+                ...item_ctrl.getInRadius(coordinates, true, itemsInActionRadius)
             ];
             objects.teams = team_ctrl.getAll();
 
