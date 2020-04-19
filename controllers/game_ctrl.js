@@ -1,7 +1,10 @@
 const axios = require('axios'),
+    _ = require('lodash'),
     moment = require('moment'),
     { game_store } = require('../stores'),
-    config_ctrl = require('./config_ctrl');
+    team_ctrl = require('./team_ctrl'),
+    config_ctrl = require('./config_ctrl'),
+    interval_ctrl = require('./interval_ctrl');
 
 const _this = (module.exports = {
     get: () => {
@@ -47,7 +50,8 @@ const _this = (module.exports = {
     },
 
     launch: io => {
-        const game = _this.get();
+        const game = _this.get(),
+            config = config_ctrl.get();
 
         if (game && game.id) {
             axios
@@ -57,13 +61,23 @@ const _this = (module.exports = {
                         launched: true
                     }
                 )
-                .then(() => (config_ctrl.get().launched = true))
+                .then(() => {
+                    config.launched = true;
+                    config.launchedAt = new Date();
+                })
                 .catch(() => {})
-                .finally(() => io.emit('getConfig', config_ctrl.get()));
+                .finally(() => io.emit('getConfig', config));
         } else {
             const config = config_ctrl.get();
             config.launched = true;
+            config.launchedAt = new Date();
             io.emit('getConfig', config);
+        }
+
+        if (config.duration) {
+            setTimeout(() => {
+                _this.end(io);
+            }, config.duration * 1000);
         }
     },
 
@@ -90,7 +104,29 @@ const _this = (module.exports = {
         }
     },
 
-    isLaunched: () => {
-        return config_ctrl.get().launched;
+    end: io => {
+        const config = config_ctrl.get(),
+            game = _this.get();
+
+        axios
+            .put(
+                `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`,
+                {
+                    ended: true
+                }
+            )
+            .catch(() => {})
+            .finally(() => {
+                interval_ctrl.removeAll();
+                config.ended = true;
+                config.winners = _this.findWinners();
+                io.emit('getConfig', config);
+            });
+    },
+
+    findWinners: () => {
+        const teams = team_ctrl.getAll();
+        const maxScore = _.maxBy(teams, 'score').score;
+        return teams.filter(t => t.score === maxScore);
     }
 });

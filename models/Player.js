@@ -4,7 +4,7 @@ class Player {
         this.coordinates = [];
         this.inventory = [];
         this.isConnected = isConnected;
-        this.nbCapturedFlags = 0;
+        this.score = 0;
     }
 }
 

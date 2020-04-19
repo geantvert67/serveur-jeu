@@ -4,6 +4,7 @@ class Config {
         this.name = c.name;
         this.isPrivate = c.isPrivate;
         this.gameMode = c.gameMode;
+        this.duration = c.duration;
         this.inventorySize = c.inventorySize;
         this.maxPlayers = c.maxPlayers;
         this.flagVisibilityRadius = c.flagVisibilityRadius;
@@ -12,6 +13,8 @@ class Config {
         this.playerActionRadius = c.playerActionRadius;
         this.flagCaptureDuration = c.flagCaptureDuration;
         this.launched = false;
+        this.launchedAt = null;
+        this.ended = false;
         this.willLaunchAt = null;
         this.published = false;
     }

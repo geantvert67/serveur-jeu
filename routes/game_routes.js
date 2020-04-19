@@ -56,6 +56,10 @@ module.exports = (io, socket, player) => {
         date ? game_ctrl.launchAt(io, date) : game_ctrl.launch(io);
     });
 
+    socket.on('endGame', () => {
+        game_ctrl.end(io);
+    });
+
     socket.on('routine', coordinates => {
         if (player) {
             player.coordinates = coordinates;
@@ -91,11 +95,7 @@ module.exports = (io, socket, player) => {
                     flagVisibilityRadius,
                     flagInActionRadius
                 ),
-                ...item_ctrl.getInRadius(
-                    coordinates,
-                    false,
-                    itemsInActionRadius
-                )
+                ...item_ctrl.getInRadius(coordinates, true, itemsInActionRadius)
             ];
             objects.teams = team_ctrl.getAll();
 
