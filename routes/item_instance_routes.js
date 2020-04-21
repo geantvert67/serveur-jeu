@@ -7,4 +7,10 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
         socket.emit('getPlayerItems', player.inventory);
     });
+
+    socket.on('useDisloqueur', id => {
+        flag_ctrl.getAll().forEach(f => flag_ctrl.resetFlag(f.id));
+        item_instance_ctrl.delete(id, player);
+        socket.emit('getPlayerItems', player.inventory);
+    });
 };
