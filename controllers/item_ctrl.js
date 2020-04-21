@@ -90,8 +90,7 @@ const _this = (module.exports = {
         const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
 
         _this.create(newItem, coordinates);
-        _.remove(player.inventory, i => i.id === id);
-        item_instance_ctrl.delete(id);
+        item_instance_ctrl.delete(id, player);
     },
 
     moveItem: (coordinates, itemId) => {
@@ -100,5 +99,17 @@ const _this = (module.exports = {
 
     delete: id => {
         item_store.remove(id);
+    },
+
+    randomize: () => {
+        _this
+            .getAll()
+            .forEach(
+                i =>
+                    (i.coordinates = getRandomPoint(
+                        area_ctrl.getGameArea(),
+                        area_ctrl.getForbiddenAreas()
+                    ))
+            );
     }
 });

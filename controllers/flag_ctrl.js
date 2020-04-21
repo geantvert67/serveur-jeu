@@ -1,11 +1,13 @@
 const _ = require('lodash'),
     geolib = require('geolib'),
     moment = require('moment'),
+    area_ctrl = require('./area_ctrl'),
     team_ctrl = require('./team_ctrl'),
     game_ctrl = require('./game_ctrl'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
-    { flag_store } = require('../stores');
+    { flag_store } = require('../stores'),
+    { getRandomFlagPoint } = require('../utils');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -122,5 +124,19 @@ const _this = (module.exports = {
         }
 
         flag_store.remove(id);
+    },
+
+    randomize: () => {
+        const flags = _this.getAll();
+
+        flags.forEach(
+            f =>
+                (f.coordinates = getRandomFlagPoint(
+                    area_ctrl.getGameArea(),
+                    area_ctrl.getForbiddenAreas(),
+                    flags,
+                    f.id
+                ))
+        );
     }
 });
