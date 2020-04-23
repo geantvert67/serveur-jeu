@@ -9,6 +9,10 @@ const _this = (module.exports = {
         return player_store.getAll();
     },
 
+    getByUsername: username => {
+        return _.find(_this.getAll(), { username });
+    },
+
     getOrCreate: (username, isConnected) => {
         if (!username) return null;
 

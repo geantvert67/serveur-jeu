@@ -53,10 +53,13 @@ const _this = (module.exports = {
 
     takeItem: (player, id) => {
         const { inventorySize } = config_ctrl.get();
+        const maxInventorySize = player.hasTransporteur
+            ? inventorySize * 2
+            : inventorySize;
         const item = _this.getById(id);
 
         if (
-            player.inventory.length < inventorySize &&
+            player.inventory.length < maxInventorySize &&
             (!item.waitingUntil || moment().isSameOrAfter(item.waitingUntil))
         ) {
             const { waitingPeriod } = item;
@@ -86,12 +89,24 @@ const _this = (module.exports = {
         }
     },
 
+    giveItem: (player, itemInstance) => {
+        const { inventorySize } = config_ctrl.get();
+        const maxInventorySize = player.hasTransporteur
+            ? inventorySize * 2
+            : inventorySize;
+
+        if (player.inventory.length < maxInventorySize) {
+            player.inventory.push(itemInstance);
+            return true;
+        }
+        return false;
+    },
+
     dropItem: (player, id, coordinates) => {
         const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
 
         _this.create(newItem, coordinates);
-        _.remove(player.inventory, i => i.id === id);
-        item_instance_ctrl.delete(id);
+        item_instance_ctrl.delete(id, player);
     },
 
     moveItem: (coordinates, itemId) => {
@@ -100,5 +115,17 @@ const _this = (module.exports = {
 
     delete: id => {
         item_store.remove(id);
+    },
+
+    randomize: () => {
+        _this
+            .getAll()
+            .forEach(
+                i =>
+                    (i.coordinates = getRandomPoint(
+                        area_ctrl.getGameArea(),
+                        area_ctrl.getForbiddenAreas()
+                    ))
+            );
     }
 });

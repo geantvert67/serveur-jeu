@@ -4,6 +4,7 @@ class Player {
         this.coordinates = [];
         this.inventory = [];
         this.isConnected = isConnected;
+        this.hasTransporteur = false;
         this.score = 0;
     }
 }

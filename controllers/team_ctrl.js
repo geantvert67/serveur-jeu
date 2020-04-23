@@ -43,5 +43,9 @@ const _this = (module.exports = {
 
     findByMinPlayers: () => {
         return _.minBy(team_store.getAll(), t => t.players.length);
+    },
+
+    delete: id => {
+        team_store.remove(id);
     }
 });

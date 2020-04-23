@@ -21,7 +21,12 @@ const _this = (module.exports = {
         return itemInstance;
     },
 
-    delete: id => {
+    removeFromInventory: (id, player) => {
+        _.remove(player.inventory, i => i.id === id);
+    },
+
+    delete: (id, player = null) => {
+        player && _this.removeFromInventory(id, player);
         item_instance_store.remove(id);
     }
 });
