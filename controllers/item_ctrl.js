@@ -89,6 +89,19 @@ const _this = (module.exports = {
         }
     },
 
+    giveItem: (player, itemInstance) => {
+        const { inventorySize } = config_ctrl.get();
+        const maxInventorySize = player.hasTransporteur
+            ? inventorySize * 2
+            : inventorySize;
+
+        if (player.inventory.length < maxInventorySize) {
+            player.inventory.push(itemInstance);
+            return true;
+        }
+        return false;
+    },
+
     dropItem: (player, id, coordinates) => {
         const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
 
