@@ -53,10 +53,13 @@ const _this = (module.exports = {
 
     takeItem: (player, id) => {
         const { inventorySize } = config_ctrl.get();
+        const maxInventorySize = player.hasTransporteur
+            ? inventorySize * 2
+            : inventorySize;
         const item = _this.getById(id);
 
         if (
-            player.inventory.length < inventorySize &&
+            player.inventory.length < maxInventorySize &&
             (!item.waitingUntil || moment().isSameOrAfter(item.waitingUntil))
         ) {
             const { waitingPeriod } = item;

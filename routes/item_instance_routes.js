@@ -11,4 +11,11 @@ module.exports = (io, socket, player) => {
         flag_ctrl.getAll().forEach(f => flag_ctrl.resetFlag(f.id));
         item_instance_ctrl.delete(id, player);
     });
+
+    socket.on('useTransporteur', id => {
+        if (!player.hasTransporteur) {
+            player.hasTransporteur = true;
+            item_instance_ctrl.delete(id, player);
+        }
+    });
 };
