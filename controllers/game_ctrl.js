@@ -74,6 +74,9 @@ const _this = (module.exports = {
             io.emit('getConfig', config);
         }
 
+        const teams = team_ctrl.getAll();
+        teams.forEach(t => t.players.length === 0 && team_ctrl.delete(t.id));
+
         if (config.duration) {
             setTimeout(() => {
                 _this.end(io);
