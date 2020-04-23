@@ -98,6 +98,7 @@ module.exports = (io, socket, player) => {
                 ...item_ctrl.getInRadius(coordinates, true, itemsInActionRadius)
             ];
             objects.teams = team_ctrl.getAll();
+            objects.player = player;
 
             socket.emit('routine', objects);
         }
