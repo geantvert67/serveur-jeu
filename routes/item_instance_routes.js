@@ -24,7 +24,7 @@ module.exports = (io, socket, player) => {
         }
     });
 
-    socket.on('usePrismeTransfert', ({ id, username, itemId }) => {
+    socket.on('usePortailTransfert', ({ id, username, itemId }) => {
         const item = item_instance_ctrl.getById(itemId);
         const target = player_ctrl.getByUsername(username);
 

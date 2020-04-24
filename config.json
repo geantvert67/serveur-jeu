@@ -254,7 +254,7 @@
         },
         {
             "id": 42,
-            "name": "Prisme de transfert",
+            "name": "Portail de transfert",
             "visibilityRadius": 22.98,
             "actionRadius": 20.1,
             "waitingPeriod": null,
@@ -541,7 +541,7 @@
         },
         {
             "id": 29,
-            "name": "Prisme de transfert",
+            "name": "Portail de transfert",
             "visibilityRadius": 22.98,
             "actionRadius": 20.1,
             "waitingPeriod": null,
@@ -557,7 +557,7 @@
         },
         {
             "id": 30,
-            "name": "Prisme de transfert",
+            "name": "Portail de transfert",
             "visibilityRadius": 22.98,
             "actionRadius": 20.1,
             "waitingPeriod": null,
