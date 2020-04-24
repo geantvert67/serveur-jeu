@@ -6,6 +6,8 @@ class ItemModel {
         this.actionRadius = im.actionRadius;
         this.waitingPeriod = im.waitingPeriod;
         this.autoMove = im.autoMove;
+        this.effectDuration = im.effectDuration;
+        this.effectStrength = im.effectStrength;
     }
 }
 
