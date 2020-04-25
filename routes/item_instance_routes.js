@@ -45,6 +45,7 @@ module.exports = (io, socket, player) => {
 
         if (
             flag &&
+            !flag.hasOracle &&
             flag.team &&
             flag.team.id === team_ctrl.findByPlayer(player.username).id
         ) {
@@ -63,6 +64,20 @@ module.exports = (io, socket, player) => {
             } else {
                 flag_ctrl.setFlagCapturedDuration(flag, item.effectDuration);
             }
+            item_instance_ctrl.delete(id, player);
+        }
+    });
+
+    socket.on('useOracle', ({ id, flagId }) => {
+        const flag = flag_ctrl.getById(flagId);
+
+        if (
+            flag &&
+            flag.team &&
+            flag.team.id === team_ctrl.findByPlayer(player.username).id &&
+            !flag.capturedUntil
+        ) {
+            flag.hasOracle = true;
             item_instance_ctrl.delete(id, player);
         }
     });

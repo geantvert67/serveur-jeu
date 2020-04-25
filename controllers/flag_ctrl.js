@@ -111,6 +111,7 @@ const _this = (module.exports = {
 
         flag.team = null;
         flag.capturedUntil = null;
+        flag.hasOracle = false;
         interval_ctrl.removeCapturedFlagIntervalByObjectId(flagId);
     },
 

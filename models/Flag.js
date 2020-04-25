@@ -4,6 +4,7 @@ class Flag {
         this.coordinates = f.position.coordinates;
         this.team = null;
         this.capturedUntil = null;
+        this.hasOracle = false;
     }
 }
 
