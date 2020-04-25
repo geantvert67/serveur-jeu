@@ -1,6 +1,7 @@
 const moment = require('moment'),
     {
         item_instance_ctrl,
+        interval_ctrl,
         item_ctrl,
         flag_ctrl,
         team_ctrl,
@@ -48,12 +49,19 @@ module.exports = (io, socket, player) => {
             flag.team.id === team_ctrl.findByPlayer(player.username).id
         ) {
             if (flag.capturedUntil) {
-                // TODO : reset timer and create a new one
+                interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
+                const currentDuration = Math.floor(
+                    moment
+                        .duration(moment(flag.capturedUntil).diff(moment()))
+                        .asSeconds()
+                );
+
+                flag_ctrl.setFlagCapturedDuration(
+                    flag,
+                    item.effectDuration + currentDuration
+                );
             } else {
-                flag.capturedUntil = moment().add(item.effectDuration, 's');
-                setTimeout(() => {
-                    flag.capturedUntil = null;
-                }, item.effectDuration * 1000);
+                flag_ctrl.setFlagCapturedDuration(flag, item.effectDuration);
             }
             item_instance_ctrl.delete(id, player);
         }

@@ -82,14 +82,18 @@ const _this = (module.exports = {
                     }
                 }
 
-                flag.capturedUntil = moment().add(flagCaptureDuration, 's');
-                const timer = setTimeout(() => {
-                    flag.capturedUntil = null;
-                    interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
-                }, flagCaptureDuration * 1000);
-                interval_ctrl.createCapturedFlagInterval(timer, flag.id);
+                _this.setFlagCapturedDuration(flag, flagCaptureDuration);
             }
         }
+    },
+
+    setFlagCapturedDuration: (flag, duration) => {
+        flag.capturedUntil = moment().add(duration, 's');
+        const timer = setTimeout(() => {
+            flag.capturedUntil = null;
+            interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
+        }, duration * 1000);
+        interval_ctrl.createCapturedFlagInterval(timer, flag.id);
     },
 
     resetFlag: flagId => {
