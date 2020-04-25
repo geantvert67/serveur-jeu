@@ -58,7 +58,7 @@ const _this = (module.exports = {
                 if (flag.team) {
                     const currentTeam = team_ctrl.getById(flag.team.id);
                     if (gameMode === 'TIME') {
-                        interval_ctrl.removeByObjectId(flag.id);
+                        interval_ctrl.removeFlagIntervalByObjectId(flag.id);
                     } else {
                         currentTeam.score--;
                     }
@@ -69,7 +69,7 @@ const _this = (module.exports = {
                         player && player.score++;
                         newTeam.score++;
                     }, 1000);
-                    interval_ctrl.create(interval, flag.id);
+                    interval_ctrl.createFlagInterval(interval, flag.id);
                 } else {
                     newTeam.score++;
                     player && player.score++;
@@ -97,7 +97,7 @@ const _this = (module.exports = {
         if (flag.team) {
             const currentTeam = team_ctrl.getById(flag.team.id);
             if (gameMode === 'TIME') {
-                interval_ctrl.removeByObjectId(flagId);
+                interval_ctrl.removeFlagIntervalByObjectId(flagId);
             } else {
                 currentTeam.score--;
             }
@@ -117,7 +117,7 @@ const _this = (module.exports = {
 
         if (flag.team) {
             if (gameMode === 'TIME') {
-                interval_ctrl.removeByObjectId(id);
+                interval_ctrl.removeFlagIntervalByObjectId(id);
             } else {
                 flag.team.score--;
             }

@@ -2,23 +2,29 @@ const _ = require('lodash'),
     { Interval } = require('../models'),
     { interval_store } = require('../stores');
 
-let id = 1;
+let idFlagInterval = 1;
 
 const _this = (module.exports = {
     getAll: () => {
         return interval_store.getAll();
     },
 
-    create: (interval, objectId) => {
-        interval_store.add(new Interval(id, interval, objectId));
-        id++;
+    getAllFlagIntervals: () => {
+        return interval_store.getAllFlagIntervals();
     },
 
-    removeByObjectId: objectId => {
+    createFlagInterval: (interval, objectId) => {
+        interval_store.addFlagInterval(
+            new Interval(idFlagInterval, interval, objectId)
+        );
+        idFlagInterval++;
+    },
+
+    removeFlagIntervalByObjectId: objectId => {
         const i = _.find(_this.getAll(), { objectId });
         if (i) {
             clearInterval(i.interval);
-            interval_store.remove(i.id);
+            interval_store.removeFlagInterval(i.id);
         }
     },
 
