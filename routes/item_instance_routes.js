@@ -5,7 +5,8 @@ const moment = require('moment'),
         item_ctrl,
         flag_ctrl,
         team_ctrl,
-        player_ctrl
+        player_ctrl,
+        trap_ctrl
     } = require('../controllers');
 
 module.exports = (io, socket, player) => {
@@ -80,5 +81,16 @@ module.exports = (io, socket, player) => {
             flag.hasOracle = true;
             item_instance_ctrl.delete(id, player);
         }
+    });
+
+    socket.on('useCanon', ({ id, coordinates, delay }) => {
+        const item = item_instance_ctrl.getById(id);
+        const trap = trap_ctrl.create(item, coordinates);
+
+        const timer = setTimeout(() => {
+            trap.active = true;
+        }, delay * 1000);
+        interval_ctrl.createTrapInterval(timer, trap.id);
+        item_instance_ctrl.delete(id, player);
     });
 };

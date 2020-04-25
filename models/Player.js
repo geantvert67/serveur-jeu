@@ -5,6 +5,7 @@ class Player {
         this.inventory = [];
         this.isConnected = isConnected;
         this.hasTransporteur = false;
+        this.immobilized = false;
         this.score = 0;
     }
 }

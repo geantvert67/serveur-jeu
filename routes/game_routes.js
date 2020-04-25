@@ -6,7 +6,8 @@ const _ = require('lodash'),
         player_ctrl,
         config_ctrl,
         game_ctrl,
-        item_ctrl
+        item_ctrl,
+        trap_ctrl
     } = require('../controllers');
 
 const {
@@ -63,6 +64,7 @@ module.exports = (io, socket, player) => {
     socket.on('routine', coordinates => {
         if (player) {
             player.coordinates = coordinates;
+            trap_ctrl.routine(player);
 
             const objects = {},
                 playersInActionRadius = player_ctrl.getInRadius(
@@ -95,7 +97,12 @@ module.exports = (io, socket, player) => {
                     flagVisibilityRadius,
                     flagInActionRadius
                 ),
-                ...item_ctrl.getInRadius(coordinates, true, itemsInActionRadius)
+                ...item_ctrl.getInRadius(
+                    coordinates,
+                    true,
+                    itemsInActionRadius
+                ),
+                ...trap_ctrl.getInRadius(coordinates)
             ];
             objects.teams = team_ctrl.getAll();
             objects.player = player;

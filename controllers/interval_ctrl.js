@@ -4,7 +4,8 @@ const _ = require('lodash'),
 
 let idFlagInterval = 1,
     idItemInterval = 1,
-    idCapturedFlagInterval = 1;
+    idCapturedFlagInterval = 1,
+    idTrapInterval = 1;
 
 const _this = (module.exports = {
     getAllIntervals: () => {
@@ -69,6 +70,25 @@ const _this = (module.exports = {
         if (i) {
             clearTimeout(i.interval);
             interval_store.removeCapturedFlagInterval(i.id);
+        }
+    },
+
+    getAllTrapIntervals: () => {
+        return interval_store.getAllTrapIntervals();
+    },
+
+    createTrapInterval: (interval, objectId) => {
+        interval_store.addTrapInterval(
+            new Interval(idTrapInterval, interval, objectId)
+        );
+        idTrapInterval++;
+    },
+
+    removeTrapIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllTrapIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeTrapInterval(i.id);
         }
     },
 
