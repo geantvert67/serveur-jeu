@@ -3,7 +3,8 @@ const _ = require('lodash'),
     { interval_store } = require('../stores');
 
 let idFlagInterval = 1,
-    idItemInterval = 1;
+    idItemInterval = 1,
+    idCapturedFlagInterval = 1;
 
 const _this = (module.exports = {
     getAllIntervals: () => {
@@ -49,6 +50,25 @@ const _this = (module.exports = {
         if (i) {
             clearInterval(i.interval);
             interval_store.removeItemInterval(i.id);
+        }
+    },
+
+    getAllCapturedFlagIntervals: () => {
+        return interval_store.getAllCapturedFlagIntervals();
+    },
+
+    createCapturedFlagInterval: (interval, objectId) => {
+        interval_store.addCapturedFlagInterval(
+            new Interval(idCapturedFlagInterval, interval, objectId)
+        );
+        idCapturedFlagInterval++;
+    },
+
+    removeCapturedFlagIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllCapturedFlagIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeCapturedFlagInterval(i.id);
         }
     },
 

@@ -83,9 +83,11 @@ const _this = (module.exports = {
                 }
 
                 flag.capturedUntil = moment().add(flagCaptureDuration, 's');
-                setTimeout(() => {
+                const timer = setTimeout(() => {
                     flag.capturedUntil = null;
+                    interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
                 }, flagCaptureDuration * 1000);
+                interval_ctrl.createCapturedFlagInterval(timer, flag.id);
             }
         }
     },
@@ -105,6 +107,7 @@ const _this = (module.exports = {
 
         flag.team = null;
         flag.capturedUntil = null;
+        interval_ctrl.removeCapturedFlagIntervalByObjectId(flagId);
     },
 
     moveFlag: (coordinates, flagId) => {
@@ -124,6 +127,7 @@ const _this = (module.exports = {
         }
 
         flag_store.remove(id);
+        interval_ctrl.removeCapturedFlagIntervalByObjectId(id);
     },
 
     randomize: () => {
