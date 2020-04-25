@@ -3,6 +3,7 @@ const _ = require('lodash'),
     moment = require('moment'),
     config_ctrl = require('./config_ctrl'),
     item_instance_ctrl = require('./item_instance_ctrl'),
+    interval_ctrl = require('./interval_ctrl'),
     area_ctrl = require('./area_ctrl'),
     { Item } = require('../models'),
     { item_store } = require('../stores'),
@@ -72,9 +73,10 @@ const _this = (module.exports = {
 
                     if (waitingPeriod) {
                         item.waitingUntil = moment().add(waitingPeriod, 's');
-                        setTimeout(() => {
+                        const interval = setTimeout(() => {
                             item.waitingUntil = null;
                         }, waitingPeriod * 1000);
+                        interval_ctrl.createItemInterval(interval, item.id);
                     }
                     if (item.autoMove) {
                         item.coordinates = getRandomPoint(
@@ -115,6 +117,7 @@ const _this = (module.exports = {
 
     delete: id => {
         item_store.remove(id);
+        interval_ctrl.removeItemIntervalByObjectId(id);
     },
 
     randomize: () => {
