@@ -78,9 +78,10 @@ const _this = (module.exports = {
         teams.forEach(t => t.players.length === 0 && team_ctrl.delete(t.id));
 
         if (config.duration) {
-            setTimeout(() => {
+            const gameTimeout = setTimeout(() => {
                 _this.end(io);
             }, config.duration * 1000);
+            interval_ctrl.createGameTimeout(gameTimeout, config.id);
         }
     },
 
