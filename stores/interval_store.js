@@ -5,8 +5,12 @@ const _ = require('lodash'),
 let gameTimeout = null;
 
 module.exports = {
-    getAllIntervals: () => [...flagIntervals, ...itemIntervals],
-    getAllTimers: () => [gameTimeout, ...flagCapupturedIntervals],
+    getAllIntervals: () => flagIntervals,
+    getAllTimers: () => [
+        gameTimeout,
+        ...flagCapturedIntervals,
+        ...itemIntervals
+    ],
     getAllFlagIntervals: () => flagIntervals,
     addFlagInterval: i => flagIntervals.push(i),
     removeFlagInterval: id => _.remove(flagIntervals, i => i.id === id),

@@ -48,7 +48,7 @@ const _this = (module.exports = {
     removeItemIntervalByObjectId: objectId => {
         const i = _.find(_this.getAllItemIntervals(), { objectId });
         if (i) {
-            clearInterval(i.interval);
+            clearTimeout(i.interval);
             interval_store.removeItemInterval(i.id);
         }
     },

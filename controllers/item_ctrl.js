@@ -75,6 +75,7 @@ const _this = (module.exports = {
                         item.waitingUntil = moment().add(waitingPeriod, 's');
                         const interval = setTimeout(() => {
                             item.waitingUntil = null;
+                            interval_ctrl.removeItemIntervalByObjectId(id);
                         }, waitingPeriod * 1000);
                         interval_ctrl.createItemInterval(interval, item.id);
                     }
