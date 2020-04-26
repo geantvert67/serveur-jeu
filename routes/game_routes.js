@@ -117,6 +117,7 @@ module.exports = (io, socket, player) => {
         objects.players = player_ctrl.getAll();
         objects.flags = flag_ctrl.getAll();
         objects.items = item_ctrl.getAll();
+        objects.traps = trap_ctrl.getAll();
         objects.markers = marker_ctrl.getAll();
         objects.teams = team_ctrl.getAll();
 

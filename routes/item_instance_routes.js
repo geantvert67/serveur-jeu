@@ -87,8 +87,9 @@ module.exports = (io, socket, player) => {
         const item = item_instance_ctrl.getById(id);
         const trap = trap_ctrl.create(item, player, coordinates);
 
+        trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
-            trap.active = true;
+            trap.inactiveUntil = null;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
         item_instance_ctrl.delete(id, player);
@@ -99,8 +100,9 @@ module.exports = (io, socket, player) => {
         const trap = trap_ctrl.create(item, player, coordinates);
 
         item.equiped = true;
+        trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
-            trap.active = true;
+            trap.inactiveUntil = null;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
     });

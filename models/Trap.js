@@ -8,7 +8,7 @@ class Trap {
         this.itemInstanceId = i.id;
         this.owner = player;
         this.coordinates = coordinates;
-        this.active = false;
+        this.inactiveUntil = null;
     }
 }
 
