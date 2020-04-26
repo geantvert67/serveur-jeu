@@ -6,6 +6,7 @@ class Player {
         this.isConnected = isConnected;
         this.hasTransporteur = false;
         this.immobilized = false;
+        this.antenneFlagsId = [];
         this.score = 0;
     }
 }

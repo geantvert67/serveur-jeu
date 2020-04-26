@@ -1,4 +1,5 @@
 const moment = require('moment'),
+    _ = require('lodash'),
     {
         item_instance_ctrl,
         interval_ctrl,
@@ -105,5 +106,24 @@ module.exports = (io, socket, player) => {
             trap.inactiveUntil = null;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
+    });
+
+    socket.on('useAntenne', ({ id }, onSuccess) => {
+        const freeFlag = _.sample(flag_ctrl.getAll().filter(f => !f.team));
+
+        if (freeFlag) {
+            if (!_.find(player.antenneFlagsId, id => id === freeFlag.id)) {
+                player.antenneFlagsId.push(freeFlag.id);
+                setTimeout(() => {
+                    _.remove(player.antenneFlagsId, id => id === freeFlag.id);
+                }, 10000);
+            }
+
+            onSuccess(freeFlag.coordinates);
+        } else {
+            socket.emit('onError', 'Tous les drapeaux sont déjà capturés');
+        }
+
+        item_instance_ctrl.delete(id, player);
     });
 };

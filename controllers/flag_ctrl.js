@@ -18,6 +18,12 @@ const _this = (module.exports = {
         return _.filter(_this.getAll(), f => f.team !== null);
     },
 
+    getFromPlayer: player => {
+        return player.antenneFlagsId
+            .map(id => _this.getById(id))
+            .filter(f => f !== undefined);
+    },
+
     getById: id => {
         return _.find(_this.getAll(), { id });
     },
