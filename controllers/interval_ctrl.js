@@ -98,10 +98,10 @@ const _this = (module.exports = {
 
     removeAll: () => {
         _this.getAllIntervals().forEach(i => {
-            clearInterval(i.interval);
+            i && clearInterval(i.interval);
         });
         _this.getAllTimers().forEach(i => {
-            clearTimeout(i.interval);
+            i && clearTimeout(i.interval);
         });
 
         interval_store.removeAll();
