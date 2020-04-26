@@ -8,6 +8,7 @@ class ItemInstance {
         this.autoMove = i.autoMove;
         this.effectDuration = i.effectDuration;
         this.effectStrength = i.effectStrength;
+        this.equiped = false;
     }
 }
 

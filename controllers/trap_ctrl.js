@@ -2,6 +2,8 @@ const _ = require('lodash'),
     geolib = require('geolib'),
     { trap_store } = require('../stores'),
     { Trap } = require('../models'),
+    item_instance_ctrl = require('./item_instance_ctrl'),
+    item_ctrl = require('./item_ctrl'),
     interval_ctrl = require('./interval_ctrl');
 
 let id = 1;
@@ -27,8 +29,8 @@ const _this = (module.exports = {
         );
     },
 
-    create: (item, coordinates) => {
-        const trap = new Trap(id, item, coordinates);
+    create: (item, player, coordinates) => {
+        const trap = new Trap(id, item, player, coordinates);
 
         trap_store.add(trap);
         id++;
@@ -60,17 +62,31 @@ const _this = (module.exports = {
                 ) {
                     if (t.name === 'Canon à photons') {
                         _this.canonEffect(player, t);
+                    } else if (t.name === 'Transducteur') {
+                        _this.transducteurEffect(player, t);
                     }
                 }
             });
     },
 
-    canonEffect: (player, trap) => {
-        player.immobilized = true;
+    canonEffect: (target, trap) => {
+        target.immobilized = true;
 
         setTimeout(() => {
-            player.immobilized = false;
+            target.immobilized = false;
         }, trap.effectDuration * 1000);
+        _this.delete(trap.id);
+    },
+
+    transducteurEffect: (target, trap) => {
+        const inventorySize = target.inventory.length;
+        if (inventorySize > 0) {
+            const item = target.inventory.splice(inventorySize - 1)[0];
+            item.equiped = false;
+            item_ctrl.giveItem(trap.owner, item);
+        }
+
+        item_instance_ctrl.delete(trap.itemInstanceId, trap.owner);
         _this.delete(trap.id);
     }
 });

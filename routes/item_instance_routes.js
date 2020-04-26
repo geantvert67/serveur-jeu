@@ -85,12 +85,23 @@ module.exports = (io, socket, player) => {
 
     socket.on('useCanon', ({ id, coordinates, delay }) => {
         const item = item_instance_ctrl.getById(id);
-        const trap = trap_ctrl.create(item, coordinates);
+        const trap = trap_ctrl.create(item, player, coordinates);
 
         const timer = setTimeout(() => {
             trap.active = true;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
         item_instance_ctrl.delete(id, player);
+    });
+
+    socket.on('useTransducteur', ({ id, coordinates, delay }) => {
+        const item = item_instance_ctrl.getById(id);
+        const trap = trap_ctrl.create(item, player, coordinates);
+
+        item.equiped = true;
+        const timer = setTimeout(() => {
+            trap.active = true;
+        }, delay * 1000);
+        interval_ctrl.createTrapInterval(timer, trap.id);
     });
 };
