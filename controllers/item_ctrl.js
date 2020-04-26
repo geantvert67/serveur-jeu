@@ -106,10 +106,11 @@ const _this = (module.exports = {
     },
 
     dropItem: (player, id, coordinates) => {
-        const newItem = _.cloneDeep(item_instance_ctrl.getById(id));
-
-        _this.create(newItem, coordinates);
-        item_instance_ctrl.delete(id, player);
+        const item = item_instance_ctrl.getById(id);
+        if (!item.equiped) {
+            _this.create(_.cloneDeep(item), coordinates);
+            item_instance_ctrl.delete(id, player);
+        }
     },
 
     moveItem: (coordinates, itemId) => {
