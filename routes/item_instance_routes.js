@@ -137,4 +137,17 @@ module.exports = (io, socket, player) => {
             item_instance_ctrl.delete(id, player);
         }, item.effectDuration * 1000);
     });
+
+    socket.on('useIntercepteur', id => {
+        const item = item_instance_ctrl.getById(id);
+        const ennemis = team_ctrl.getEnnemis(
+            team_ctrl.findByPlayer(player.username).id
+        );
+
+        ennemis.forEach(e => (e.visibilityChange -= item.effectStrength));
+        setTimeout(() => {
+            ennemis.forEach(e => (e.visibilityChange += item.effectStrength));
+        }, item.effectDuration * 1000);
+        item_instance_ctrl.delete(id, player);
+    });
 };
