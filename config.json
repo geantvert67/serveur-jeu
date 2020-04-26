@@ -1,36 +1,36 @@
 {
     "id": 4,
-    "name": "config de test",
-    "isPrivate": true,
+    "name": "config items",
+    "isPrivate": false,
     "maxPlayers": null,
     "gameMode": "SUPREMACY",
     "duration": null,
-    "inventorySize": 2,
-    "playerVisibilityRadius": 46.54,
-    "playerActionRadius": 41.89,
-    "flagVisibilityRadius": 46.54,
-    "flagActionRadius": 41.89,
+    "inventorySize": 5,
+    "playerVisibilityRadius": 360.96,
+    "playerActionRadius": 324.87,
+    "flagVisibilityRadius": 360.96,
+    "flagActionRadius": 324.87,
     "flagCaptureDuration": 60,
-    "createdAt": "2020-04-07T13:43:25.000Z",
-    "updatedAt": "2020-04-08T09:04:00.000Z",
+    "createdAt": "2020-04-24T08:28:12.000Z",
+    "updatedAt": "2020-04-24T08:36:24.000Z",
     "OwnerId": 1,
     "Owner": {
         "id": 1,
         "username": "clement",
-        "createdAt": "2020-04-07T11:54:49.000Z",
-        "updatedAt": "2020-04-07T11:54:49.000Z"
+        "createdAt": "2020-04-24T07:06:36.000Z",
+        "updatedAt": "2020-04-24T07:06:36.000Z"
     },
     "Areas": [
         {
-            "id": 71,
+            "id": 13,
             "position": {
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.53140567735863, 7.73389220237732],
-                        [48.53159040016605, 7.736799716949464],
-                        [48.5291818460575, 7.735748291015626],
-                        [48.53140567735863, 7.73389220237732]
+                        [48.4959050826516, 7.683734893798829],
+                        [48.49488127319031, 7.697639465332032],
+                        [48.480773349177895, 7.690773010253907],
+                        [48.4959050826516, 7.683734893798829]
                     ]
                 ]
             },
@@ -38,15 +38,16 @@
             "ConfigId": 4
         },
         {
-            "id": 72,
+            "id": 14,
             "position": {
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.52788871074739, 7.7240967750549325],
-                        [48.52756186912258, 7.726500034332276],
-                        [48.52702186529477, 7.725598812103272],
-                        [48.52788871074739, 7.7240967750549325]
+                        [48.488510438664264, 7.75188446044922],
+                        [48.490558294199, 7.740211486816407],
+                        [48.47701815977784, 7.740898132324219],
+                        [48.477131957480175, 7.7501678466796875],
+                        [48.488510438664264, 7.75188446044922]
                     ]
                 ]
             },
@@ -54,64 +55,16 @@
             "ConfigId": 4
         },
         {
-            "id": 73,
+            "id": 15,
             "position": {
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [48.53320314374364, 7.722616195678712],
-                        [48.533231561672125, 7.724332809448243],
-                        [48.532364807678114, 7.7234745025634775],
-                        [48.53320314374364, 7.722616195678712]
-                    ]
-                ]
-            },
-            "forbidden": true,
-            "ConfigId": 4
-        },
-        {
-            "id": 74,
-            "position": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [48.531142801432296, 7.730319499969483],
-                        [48.53135594417992, 7.731993198394776],
-                        [48.53056020667775, 7.731177806854249],
-                        [48.531142801432296, 7.730319499969483]
-                    ]
-                ]
-            },
-            "forbidden": true,
-            "ConfigId": 4
-        },
-        {
-            "id": 75,
-            "position": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [48.527604500758514, 7.736585140228272],
-                        [48.5275476585693, 7.737851142883302],
-                        [48.52696502245163, 7.7370572090148935],
-                        [48.527604500758514, 7.736585140228272]
-                    ]
-                ]
-            },
-            "forbidden": true,
-            "ConfigId": 4
-        },
-        {
-            "id": 76,
-            "position": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [48.53393734162931, 7.722487449645997],
-                        [48.532555210646876, 7.73988962173462],
-                        [48.52503232782235, 7.738730907440186],
-                        [48.52497548274613, 7.721178531646729],
-                        [48.53393734162931, 7.722487449645997]
+                        [48.49772513731238, 7.6789283752441415],
+                        [48.49453999877554, 7.7585792541503915],
+                        [48.45994561351526, 7.753257751464845],
+                        [48.46939313222762, 7.679271697998048],
+                        [48.49772513731238, 7.6789283752441415]
                     ]
                 ]
             },
@@ -121,459 +74,708 @@
     ],
     "Flags": [
         {
-            "id": 4980,
+            "id": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52881238219555, 7.73390293121338]
+                "coordinates": [48.49067206152607, 7.71343231201172]
             },
             "ConfigId": 4
         },
         {
-            "id": 4981,
+            "id": 2,
             "position": {
                 "type": "Point",
-                "coordinates": [48.532037994943224, 7.72716522216797]
+                "coordinates": [48.493061116432806, 7.753171920776368]
             },
             "ConfigId": 4
         },
         {
-            "id": 4982,
+            "id": 3,
             "position": {
                 "type": "Point",
-                "coordinates": [48.53227955238542, 7.732207775115968]
+                "coordinates": [48.47770094216302, 7.717294692993165]
             },
             "ConfigId": 4
         },
         {
-            "id": 4983,
+            "id": 4,
             "position": {
                 "type": "Point",
-                "coordinates": [48.525700252688765, 7.723560333251954]
+                "coordinates": [48.491695955983666, 7.729997634887696]
             },
             "ConfigId": 4
         },
         {
-            "id": 4984,
+            "id": 5,
             "position": {
                 "type": "Point",
-                "coordinates": [48.5257997301067, 7.736263275146485]
+                "coordinates": [48.48515405214793, 7.724504470825196]
             },
             "ConfigId": 4
         },
         {
-            "id": 4985,
+            "id": 6,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52885501277874, 7.726006507873536]
+                "coordinates": [48.48504027244122, 7.702445983886719]
             },
             "ConfigId": 4
         },
         {
-            "id": 4986,
+            "id": 7,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52962235713913, 7.72364616394043]
+                "coordinates": [48.47696126083093, 7.685365676879884]
             },
             "ConfigId": 4
         },
         {
-            "id": 4987,
+            "id": 8,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52989234590795, 7.738344669342042]
+                "coordinates": [48.46945003966211, 7.7152347564697275]
             },
             "ConfigId": 4
         },
         {
-            "id": 4988,
+            "id": 9,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52578551905898, 7.730062007904054]
+                "coordinates": [48.472238425776105, 7.749738693237306]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 10,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.47542496514236, 7.735061645507813]
             },
             "ConfigId": 4
         }
     ],
     "Teams": [
         {
-            "id": 1,
-            "name": "Les winners",
-            "color": "#6AE93A",
-            "ConfigId": 4,
-            "Users": [
-                {
-                    "id": 1,
-                    "username": "clement",
-                    "createdAt": "2020-04-07T11:54:49.000Z",
-                    "updatedAt": "2020-04-07T11:54:49.000Z",
-                    "TeamPlayers": {
-                        "createdAt": "2020-04-08T08:46:00.000Z",
-                        "updatedAt": "2020-04-08T08:46:00.000Z",
-                        "TeamId": 1,
-                        "UserId": 1
-                    }
-                }
-            ]
-        },
-        {
-            "id": 5,
+            "id": 4,
             "name": "Les loosers",
-            "color": "#EA3B64",
+            "color": "#453BE9",
             "ConfigId": 4,
             "Users": [
                 {
                     "id": 2,
                     "username": "remi",
-                    "createdAt": "2020-04-08T09:02:59.000Z",
-                    "updatedAt": "2020-04-08T09:02:59.000Z",
+                    "createdAt": "2020-04-24T08:34:05.000Z",
+                    "updatedAt": "2020-04-24T08:34:05.000Z",
                     "TeamPlayers": {
-                        "createdAt": "2020-04-08T09:04:17.000Z",
-                        "updatedAt": "2020-04-08T09:04:17.000Z",
-                        "TeamId": 5,
+                        "createdAt": "2020-04-24T08:34:09.000Z",
+                        "updatedAt": "2020-04-24T08:34:09.000Z",
+                        "TeamId": 4,
                         "UserId": 2
                     }
                 }
             ]
         },
         {
-            "id": 6,
-            "name": "Les égaliteurs",
+            "id": 3,
+            "name": "Les winners",
             "color": "#E02828",
             "ConfigId": 4,
-            "Users": []
+            "Users": [
+                {
+                    "id": 1,
+                    "username": "clement",
+                    "createdAt": "2020-04-24T07:06:36.000Z",
+                    "updatedAt": "2020-04-24T07:06:36.000Z",
+                    "TeamPlayers": {
+                        "createdAt": "2020-04-24T08:33:53.000Z",
+                        "updatedAt": "2020-04-24T08:33:53.000Z",
+                        "TeamId": 3,
+                        "UserId": 1
+                    }
+                }
+            ]
         }
     ],
     "ItemModels": [
         {
-            "id": 21,
-            "name": "Antenne",
-            "visibilityRadius": 21,
-            "actionRadius": 1,
-            "waitingPeriod": 1,
-            "autoMove": true,
-            "ConfigId": 4
-        },
-        {
-            "id": 17,
-            "name": "Canon à photons",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 20,
-            "name": "Disloqueur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 14,
-            "name": "Intercepteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 24,
-            "name": "Noyau protecteur",
-            "visibilityRadius": 20,
-            "actionRadius": 1,
-            "waitingPeriod": null,
-            "autoMove": true,
-            "ConfigId": 4
-        },
-        {
-            "id": 19,
-            "name": "Oracle",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 15,
-            "name": "Prisme de transfert",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 13,
-            "name": "Sentinelle",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "ConfigId": 4
-        },
-        {
-            "id": 23,
+            "id": 37,
             "name": "Sonde",
-            "visibilityRadius": 12,
-            "actionRadius": 10,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": 58,
             "ConfigId": 4
         },
         {
-            "id": 16,
+            "id": 38,
+            "name": "Intercepteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 3900,
+            "effectStrength": 50,
+            "ConfigId": 4
+        },
+        {
+            "id": 39,
             "name": "Tempête",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "ConfigId": 4
         },
         {
-            "id": 22,
-            "name": "Transducteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "id": 40,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "ConfigId": 4
         },
         {
-            "id": 18,
+            "id": 41,
+            "name": "Canon à photons",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 42,
+            "name": "Portail de transfert",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 43,
+            "name": "Sentinelle",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 44,
             "name": "Transporteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 45,
+            "name": "Oracle",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 46,
+            "name": "Transducteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 47,
+            "name": "Disloqueur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "ConfigId": 4
+        },
+        {
+            "id": 48,
+            "name": "Antenne",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "ConfigId": 4
         }
     ],
     "Items": [
         {
-            "id": 961,
+            "id": 16,
             "name": "Sonde",
-            "visibilityRadius": 12,
-            "actionRadius": 10,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": 58,
             "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.53006286438868, 7.728849649429322]
+                "coordinates": [48.47056205757515, 7.7355699300325655]
             },
             "ConfigId": 4
         },
         {
-            "id": 962,
-            "name": "Antenne",
-            "visibilityRadius": 10,
-            "actionRadius": 9,
-            "waitingPeriod": 60,
-            "autoMove": false,
-            "quantity": 10,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.52930263173538, 7.73440718650818]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 963,
-            "name": "Tempête",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.52852817739054, 7.731477422633037]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 964,
-            "name": "Antenne",
-            "visibilityRadius": 10,
-            "actionRadius": 1,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.52791713165854, 7.736048698425294]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 965,
-            "name": "Noyau protecteur",
-            "visibilityRadius": 20,
-            "actionRadius": 1,
-            "waitingPeriod": null,
-            "autoMove": true,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.53014101850045, 7.732389290159164]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 966,
-            "name": "Canon à photons",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.52624027060882, 7.727530002593995]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 967,
-            "name": "Disloqueur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.53105754408203, 7.723817825317384]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 968,
+            "id": 17,
             "name": "Intercepteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": 3900,
+            "effectStrength": 50,
             "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.527604500758514, 7.722444534301759]
+                "coordinates": [48.46837362558552, 7.743338359857583]
             },
             "ConfigId": 4
         },
         {
-            "id": 969,
+            "id": 18,
+            "name": "Intercepteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 3900,
+            "effectStrength": 50,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.485537621906275, 7.710141698857273]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 19,
+            "name": "Intercepteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 3900,
+            "effectStrength": 50,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.483447329745744, 7.715663909912109]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 20,
+            "name": "Tempête",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.49192348527764, 7.703132629394532]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 21,
+            "name": "Tempête",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.46364515261708, 7.738237380981445]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 22,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.47565256743914, 7.694463729858398]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 23,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.48418691650475, 7.684164047241212]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 24,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.474534909620395, 7.744509519845505]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 25,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.490046338068474, 7.699098587036134]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 26,
+            "name": "Noyau protecteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.468767146236225, 7.72991180419922]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 27,
+            "name": "Canon à photons",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.47991992145071, 7.731370925903321]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 28,
+            "name": "Canon à photons",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.491354660128344, 7.722530364990235]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 29,
+            "name": "Portail de transfert",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.468767146236225, 7.695236206054688]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 30,
+            "name": "Portail de transfert",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.496610765636326, 7.684833122099548]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 31,
+            "name": "Sentinelle",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.488283469959086, 7.724273550790041]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 32,
+            "name": "Sentinelle",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": 300,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.47585605449335, 7.715730458256677]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 33,
+            "name": "Transporteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.4919803674416, 7.743043899536134]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 34,
+            "name": "Transporteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.480602664781145, 7.73789405822754]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 35,
+            "name": "Transporteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.46661734873732, 7.707198560279384]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 36,
+            "name": "Transducteur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.47296573351282, 7.713816601429279]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 37,
             "name": "Oracle",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52605552828416, 7.732250690460206]
+                "coordinates": [48.475595666960686, 7.726306915283203]
             },
             "ConfigId": 4
         },
         {
-            "id": 970,
-            "name": "Prisme de transfert",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.53146961994516, 7.729139328002931]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 971,
-            "name": "Sentinelle",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.52784607935073, 7.72991180419922]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 972,
-            "name": "Sentinelle",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": null,
-            "autoMove": false,
-            "quantity": 1,
-            "position": {
-                "type": "Point",
-                "coordinates": [48.53235059847265, 7.736563682556153]
-            },
-            "ConfigId": 4
-        },
-        {
-            "id": 973,
+            "id": 38,
             "name": "Transducteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.5278034479182, 7.727315425872804]
+                "coordinates": [48.476437951435834, 7.705249784701625]
             },
             "ConfigId": 4
         },
         {
-            "id": 974,
-            "name": "Transducteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
+            "id": 39,
+            "name": "Oracle",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
             "waitingPeriod": null,
             "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
             "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.53100070576877, 7.739031314849854]
+                "coordinates": [48.470872704783766, 7.700471878051759]
             },
             "ConfigId": 4
         },
         {
-            "id": 975,
-            "name": "Transporteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": 30,
-            "autoMove": true,
-            "quantity": 3,
+            "id": 40,
+            "name": "Disloqueur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.52726344666636, 7.734503746032716]
+                "coordinates": [48.483618004570395, 7.733516693115235]
             },
             "ConfigId": 4
         },
         {
-            "id": 976,
-            "name": "Transporteur",
-            "visibilityRadius": 37.24,
-            "actionRadius": 32.58,
-            "waitingPeriod": 30,
-            "autoMove": true,
-            "quantity": 3,
+            "id": 41,
+            "name": "Disloqueur",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
             "position": {
                 "type": "Point",
-                "coordinates": [48.53064546486541, 7.72589921951294]
+                "coordinates": [48.47591238666185, 7.753305397358735]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 42,
+            "name": "Antenne",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.488414741651965, 7.684125904399682]
+            },
+            "ConfigId": 4
+        },
+        {
+            "id": 43,
+            "name": "Antenne",
+            "visibilityRadius": 22.98,
+            "actionRadius": 20.1,
+            "waitingPeriod": null,
+            "autoMove": false,
+            "effectDuration": null,
+            "effectStrength": null,
+            "quantity": 1,
+            "position": {
+                "type": "Point",
+                "coordinates": [48.46489724323802, 7.725448608398438]
             },
             "ConfigId": 4
         }

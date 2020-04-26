@@ -6,7 +6,9 @@ module.exports = (io, socket, player) => {
     });
 
     socket.on('captureFlag', ({ flagId, teamId }) => {
-        flag_ctrl.captureFlag(io, flagId, teamId, player);
+        if (!player || (player && !player.immobilized)) {
+            flag_ctrl.captureFlag(io, flagId, teamId, player);
+        }
     });
 
     socket.on('resetFlag', flagId => {

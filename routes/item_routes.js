@@ -6,7 +6,9 @@ module.exports = (io, socket, player) => {
     });
 
     socket.on('takeItem', id => {
-        item_ctrl.takeItem(player, id);
+        if (!player || (player && !player.immobilized)) {
+            item_ctrl.takeItem(player, id);
+        }
     });
 
     socket.on('dropItem', ({ id, coordinates }) => {

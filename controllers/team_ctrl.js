@@ -45,6 +45,17 @@ const _this = (module.exports = {
         return _.minBy(team_store.getAll(), t => t.players.length);
     },
 
+    findByPlayer: username => {
+        let team = null;
+
+        _this.getAll().map(t => {
+            if (_.some(t.players, { username })) {
+                team = t;
+            }
+        });
+        return team;
+    },
+
     delete: id => {
         team_store.remove(id);
     }

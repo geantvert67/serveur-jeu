@@ -58,7 +58,7 @@ const _this = (module.exports = {
                 if (flag.team) {
                     const currentTeam = team_ctrl.getById(flag.team.id);
                     if (gameMode === 'TIME') {
-                        interval_ctrl.removeByObjectId(flag.id);
+                        interval_ctrl.removeFlagIntervalByObjectId(flag.id);
                     } else {
                         currentTeam.score--;
                     }
@@ -69,7 +69,7 @@ const _this = (module.exports = {
                         player && player.score++;
                         newTeam.score++;
                     }, 1000);
-                    interval_ctrl.create(interval, flag.id);
+                    interval_ctrl.createFlagInterval(interval, flag.id);
                 } else {
                     newTeam.score++;
                     player && player.score++;
@@ -82,12 +82,18 @@ const _this = (module.exports = {
                     }
                 }
 
-                flag.capturedUntil = moment().add(flagCaptureDuration, 's');
-                setTimeout(() => {
-                    flag.capturedUntil = null;
-                }, flagCaptureDuration * 1000);
+                _this.setFlagCapturedDuration(flag, flagCaptureDuration);
             }
         }
+    },
+
+    setFlagCapturedDuration: (flag, duration) => {
+        flag.capturedUntil = moment().add(duration, 's');
+        const timer = setTimeout(() => {
+            flag.capturedUntil = null;
+            interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
+        }, duration * 1000);
+        interval_ctrl.createCapturedFlagInterval(timer, flag.id);
     },
 
     resetFlag: flagId => {
@@ -97,7 +103,7 @@ const _this = (module.exports = {
         if (flag.team) {
             const currentTeam = team_ctrl.getById(flag.team.id);
             if (gameMode === 'TIME') {
-                interval_ctrl.removeByObjectId(flagId);
+                interval_ctrl.removeFlagIntervalByObjectId(flagId);
             } else {
                 currentTeam.score--;
             }
@@ -105,6 +111,8 @@ const _this = (module.exports = {
 
         flag.team = null;
         flag.capturedUntil = null;
+        flag.hasOracle = false;
+        interval_ctrl.removeCapturedFlagIntervalByObjectId(flagId);
     },
 
     moveFlag: (coordinates, flagId) => {
@@ -117,13 +125,14 @@ const _this = (module.exports = {
 
         if (flag.team) {
             if (gameMode === 'TIME') {
-                interval_ctrl.removeByObjectId(id);
+                interval_ctrl.removeFlagIntervalByObjectId(id);
             } else {
                 flag.team.score--;
             }
         }
 
         flag_store.remove(id);
+        interval_ctrl.removeCapturedFlagIntervalByObjectId(id);
     },
 
     randomize: () => {

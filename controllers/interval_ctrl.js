@@ -2,30 +2,108 @@ const _ = require('lodash'),
     { Interval } = require('../models'),
     { interval_store } = require('../stores');
 
-let id = 1;
+let idFlagInterval = 1,
+    idItemInterval = 1,
+    idCapturedFlagInterval = 1,
+    idTrapInterval = 1;
 
 const _this = (module.exports = {
-    getAll: () => {
-        return interval_store.getAll();
+    getAllIntervals: () => {
+        return interval_store.getAllIntervals();
     },
 
-    create: (interval, objectId) => {
-        interval_store.add(new Interval(id, interval, objectId));
-        id++;
+    getAllTimers: () => {
+        return interval_store.getAllTimers();
     },
 
-    removeByObjectId: objectId => {
-        const i = _.find(_this.getAll(), { objectId });
+    getAllFlagIntervals: () => {
+        return interval_store.getAllFlagIntervals();
+    },
+
+    createFlagInterval: (interval, objectId) => {
+        interval_store.addFlagInterval(
+            new Interval(idFlagInterval, interval, objectId)
+        );
+        idFlagInterval++;
+    },
+
+    removeFlagIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllFlagIntervals(), { objectId });
         if (i) {
             clearInterval(i.interval);
-            interval_store.remove(i.id);
+            interval_store.removeFlagInterval(i.id);
         }
     },
 
+    getAllItemIntervals: () => {
+        return interval_store.getAllItemIntervals();
+    },
+
+    createItemInterval: (interval, objectId) => {
+        interval_store.addItemInterval(
+            new Interval(idItemInterval, interval, objectId)
+        );
+        idItemInterval++;
+    },
+
+    removeItemIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllItemIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeItemInterval(i.id);
+        }
+    },
+
+    getAllCapturedFlagIntervals: () => {
+        return interval_store.getAllCapturedFlagIntervals();
+    },
+
+    createCapturedFlagInterval: (interval, objectId) => {
+        interval_store.addCapturedFlagInterval(
+            new Interval(idCapturedFlagInterval, interval, objectId)
+        );
+        idCapturedFlagInterval++;
+    },
+
+    removeCapturedFlagIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllCapturedFlagIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeCapturedFlagInterval(i.id);
+        }
+    },
+
+    getAllTrapIntervals: () => {
+        return interval_store.getAllTrapIntervals();
+    },
+
+    createTrapInterval: (interval, objectId) => {
+        interval_store.addTrapInterval(
+            new Interval(idTrapInterval, interval, objectId)
+        );
+        idTrapInterval++;
+    },
+
+    removeTrapIntervalByObjectId: objectId => {
+        const i = _.find(_this.getAllTrapIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeTrapInterval(i.id);
+        }
+    },
+
+    createGameTimeout: (timeout, configId) => {
+        interval_store.addGameTimeout(new Interval(1, timeout, configId));
+    },
+
     removeAll: () => {
-        _this.getAll().forEach(i => {
+        _this.getAllIntervals().forEach(i => {
             clearInterval(i.interval);
         });
+        _this.getAllTimers().forEach(i => {
+            clearTimeout(i.interval);
+        });
+
         interval_store.removeAll();
     }
 });
