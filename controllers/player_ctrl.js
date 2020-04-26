@@ -31,7 +31,13 @@ const _this = (module.exports = {
         return p;
     },
 
-    getInRadius: (coordinates, teamId, radius, inActionRadius = []) => {
+    getInRadius: (
+        coordinates,
+        teamId,
+        radius,
+        inActionRadius = [],
+        radiusChange = 0
+    ) => {
         return _this.getAll().filter(
             p =>
                 !_.some(inActionRadius, p) &&
@@ -46,7 +52,7 @@ const _this = (module.exports = {
                         latitude: p.coordinates[0],
                         longitude: p.coordinates[1]
                     },
-                    radius
+                    radius + (radiusChange / 100) * radius
                 )
         );
     }

@@ -20,9 +20,18 @@ const _this = (module.exports = {
         return _.find(_this.getAll(), { id });
     },
 
-    getInRadius: (coordinates, checkVisibility, inActionRadius = []) => {
-        return _this.getAll().filter(
-            i =>
+    getInRadius: (
+        coordinates,
+        checkVisibility,
+        inActionRadius = [],
+        radiusChange = 0
+    ) => {
+        return _this.getAll().filter(i => {
+            const radius = checkVisibility
+                ? i.visibilityRadius
+                : i.actionRadius;
+
+            return (
                 !_.some(inActionRadius, i) &&
                 geolib.isPointWithinRadius(
                     {
@@ -33,9 +42,10 @@ const _this = (module.exports = {
                         latitude: i.coordinates[0],
                         longitude: i.coordinates[1]
                     },
-                    checkVisibility ? i.visibilityRadius : i.actionRadius
+                    radius + (radiusChange / 100) * radius
                 )
-        );
+            );
+        });
     },
 
     create: (item, coordinates) => {

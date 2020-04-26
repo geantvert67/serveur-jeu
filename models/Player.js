@@ -7,6 +7,7 @@ class Player {
         this.hasTransporteur = false;
         this.immobilized = false;
         this.antenneFlagsId = [];
+        this.visibilityChange = 0;
         this.score = 0;
     }
 }

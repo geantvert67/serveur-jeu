@@ -28,7 +28,12 @@ const _this = (module.exports = {
         return _.find(_this.getAll(), { id });
     },
 
-    getInRadius: (coordinates, radius, inActionRadius = []) => {
+    getInRadius: (
+        coordinates,
+        radius,
+        inActionRadius = [],
+        radiusChange = 0
+    ) => {
         return _this.getAll().filter(
             f =>
                 !_.some(_this.getCaptured(), f) &&
@@ -42,7 +47,7 @@ const _this = (module.exports = {
                         latitude: f.coordinates[0],
                         longitude: f.coordinates[1]
                     },
-                    radius
+                    radius + (radiusChange / 100) * radius
                 )
         );
     },

@@ -126,4 +126,15 @@ module.exports = (io, socket, player) => {
 
         item_instance_ctrl.delete(id, player);
     });
+
+    socket.on('useSonde', id => {
+        const item = item_instance_ctrl.getById(id);
+
+        player.visibilityChange += item.effectStrength;
+        item.equiped = true;
+        setTimeout(() => {
+            player.visibilityChange -= item.effectStrength;
+            item_instance_ctrl.delete(id, player);
+        }, item.effectDuration * 1000);
+    });
 };

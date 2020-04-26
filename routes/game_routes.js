@@ -93,17 +93,20 @@ module.exports = (io, socket, player) => {
                     coordinates,
                     player.teamId,
                     playerVisibilityRadius,
-                    playersInActionRadius
+                    playersInActionRadius,
+                    player.visibilityChange
                 ),
                 ...flag_ctrl.getInRadius(
                     coordinates,
                     flagVisibilityRadius,
-                    flagInActionRadius
+                    flagInActionRadius,
+                    player.visibilityChange
                 ),
                 ...item_ctrl.getInRadius(
                     coordinates,
                     true,
-                    itemsInActionRadius
+                    itemsInActionRadius,
+                    player.visibilityChange
                 ),
                 ...trap_ctrl.getInRadius(coordinates)
             ];
