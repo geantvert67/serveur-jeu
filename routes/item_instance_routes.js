@@ -130,10 +130,10 @@ module.exports = (io, socket, player) => {
     socket.on('useSonde', id => {
         const item = item_instance_ctrl.getById(id);
 
-        player.visibilityChange += item.effectStrength;
+        player.visibilityChange.push({ id, percent: item.effectStrength });
         item.equiped = true;
         setTimeout(() => {
-            player.visibilityChange -= item.effectStrength;
+            _.remove(player.visibilityChange, o => o.id === item.id);
             item_instance_ctrl.delete(id, player);
         }, item.effectDuration * 1000);
     });
@@ -144,9 +144,13 @@ module.exports = (io, socket, player) => {
             team_ctrl.findByPlayer(player.username).id
         );
 
-        ennemis.forEach(e => (e.visibilityChange -= item.effectStrength));
+        ennemis.forEach(e =>
+            e.visibilityChange.push({ id, percent: -item.effectStrength })
+        );
         setTimeout(() => {
-            ennemis.forEach(e => (e.visibilityChange += item.effectStrength));
+            ennemis.forEach(e =>
+                _.remove(e.visibilityChange, o => o.id === item.id)
+            );
         }, item.effectDuration * 1000);
         item_instance_ctrl.delete(id, player);
     });

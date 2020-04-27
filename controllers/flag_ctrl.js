@@ -7,7 +7,7 @@ const _ = require('lodash'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
     { flag_store } = require('../stores'),
-    { getRandomFlagPoint } = require('../utils');
+    { getRandomFlagPoint, calculateRadius } = require('../utils');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -32,7 +32,7 @@ const _this = (module.exports = {
         coordinates,
         radius,
         inActionRadius = [],
-        radiusChange = 0
+        radiusChange = []
     ) => {
         return _this.getAll().filter(
             f =>
@@ -47,7 +47,7 @@ const _this = (module.exports = {
                         latitude: f.coordinates[0],
                         longitude: f.coordinates[1]
                     },
-                    radius + (radiusChange / 100) * radius
+                    calculateRadius(radius, radiusChange)
                 )
         );
     },

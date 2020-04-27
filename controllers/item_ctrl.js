@@ -7,7 +7,7 @@ const _ = require('lodash'),
     area_ctrl = require('./area_ctrl'),
     { Item } = require('../models'),
     { item_store } = require('../stores'),
-    { getRandomPoint } = require('../utils');
+    { getRandomPoint, calculateRadius } = require('../utils');
 
 let id = null;
 
@@ -24,7 +24,7 @@ const _this = (module.exports = {
         coordinates,
         checkVisibility,
         inActionRadius = [],
-        radiusChange = 0
+        radiusChange = []
     ) => {
         return _this.getAll().filter(i => {
             const radius = checkVisibility
@@ -42,7 +42,7 @@ const _this = (module.exports = {
                         latitude: i.coordinates[0],
                         longitude: i.coordinates[1]
                     },
-                    radius + (radiusChange / 100) * radius
+                    calculateRadius(radius, radiusChange)
                 )
             );
         });

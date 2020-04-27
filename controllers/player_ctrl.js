@@ -2,7 +2,8 @@ const _ = require('lodash'),
     geolib = require('geolib'),
     { player_store } = require('../stores'),
     { Player } = require('../models'),
-    config_ctrl = require('./config_ctrl');
+    config_ctrl = require('./config_ctrl'),
+    { calculateRadius } = require('../utils');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -36,7 +37,7 @@ const _this = (module.exports = {
         teamId,
         radius,
         inActionRadius = [],
-        radiusChange = 0
+        radiusChange = []
     ) => {
         return _this.getAll().filter(
             p =>
@@ -52,7 +53,7 @@ const _this = (module.exports = {
                         latitude: p.coordinates[0],
                         longitude: p.coordinates[1]
                     },
-                    radius + (radiusChange / 100) * radius
+                    calculateRadius(radius, radiusChange)
                 )
         );
     }
