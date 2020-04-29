@@ -87,9 +87,10 @@ const _this = (module.exports = {
         } else {
             target.immobilized = true;
 
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 target.immobilized = false;
             }, trap.effectDuration * 1000);
+            interval_ctrl.createOtherInterval(timer, trap.id);
         }
 
         _this.delete(trap.id);

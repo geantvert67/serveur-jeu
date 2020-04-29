@@ -5,7 +5,8 @@ const _ = require('lodash'),
 let idFlagInterval = 1,
     idItemInterval = 1,
     idCapturedFlagInterval = 1,
-    idTrapInterval = 1;
+    idTrapInterval = 1,
+    idOtherInterval = 1;
 
 const _this = (module.exports = {
     getAllIntervals: () => {
@@ -90,6 +91,13 @@ const _this = (module.exports = {
             clearTimeout(i.interval);
             interval_store.removeTrapInterval(i.id);
         }
+    },
+
+    createOtherInterval: (timeout, objectId) => {
+        interval_store.addOtherInterval(
+            new Interval(idOtherInterval, timeout, objectId)
+        );
+        idOtherInterval++;
     },
 
     createGameTimeout: (timeout, configId) => {

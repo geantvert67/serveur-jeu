@@ -114,9 +114,10 @@ module.exports = (io, socket, player) => {
         if (freeFlag) {
             if (!_.find(player.antenneFlagsId, id => id === freeFlag.id)) {
                 player.antenneFlagsId.push(freeFlag.id);
-                setTimeout(() => {
+                const timer = setTimeout(() => {
                     _.remove(player.antenneFlagsId, id => id === freeFlag.id);
                 }, 10000);
+                interval_ctrl.createOtherInterval(timer, id);
             }
 
             onSuccess(freeFlag.coordinates);
@@ -132,10 +133,11 @@ module.exports = (io, socket, player) => {
 
         player.visibilityChange.push({ id, percent: item.effectStrength });
         item.equiped = true;
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             _.remove(player.visibilityChange, o => o.id === item.id);
             item_instance_ctrl.delete(id, player);
         }, item.effectDuration * 1000);
+        interval_ctrl.createOtherInterval(timer, id);
     });
 
     socket.on('useIntercepteur', id => {
@@ -152,11 +154,12 @@ module.exports = (io, socket, player) => {
                 e.visibilityChange.push({ id, percent: -item.effectStrength });
             }
         });
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             ennemis.forEach(e =>
                 _.remove(e.visibilityChange, o => o.id === item.id)
             );
         }, item.effectDuration * 1000);
+        interval_ctrl.createOtherInterval(timer, id);
         item_instance_ctrl.delete(id, player);
     });
 
