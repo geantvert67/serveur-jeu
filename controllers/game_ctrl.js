@@ -105,6 +105,16 @@ const _this = (module.exports = {
                     }, 3600000);
                 }
             }, 3600000 - (moment().minutes() * 60 + moment().seconds()) * 1000 + moment().milliseconds());
+
+            const game = _this.get();
+            if (game && game.id) {
+                axios.put(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}`,
+                    {
+                        willLaunchAt: date
+                    }
+                );
+            }
         }
     },
 
