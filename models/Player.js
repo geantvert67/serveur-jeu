@@ -8,6 +8,7 @@ class Player {
         this.immobilized = false;
         this.antenneFlagsId = [];
         this.visibilityChange = [];
+        this.noyaux = [];
         this.score = 0;
     }
 }

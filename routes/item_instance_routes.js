@@ -144,14 +144,25 @@ module.exports = (io, socket, player) => {
             team_ctrl.findByPlayer(player.username).id
         );
 
-        ennemis.forEach(e =>
-            e.visibilityChange.push({ id, percent: -item.effectStrength })
-        );
+        ennemis.forEach(e => {
+            if (e.noyaux.length > 0) {
+                const id = e.noyaux.pop();
+                item_instance_ctrl.delete(id, e);
+            } else {
+                e.visibilityChange.push({ id, percent: -item.effectStrength });
+            }
+        });
         setTimeout(() => {
             ennemis.forEach(e =>
                 _.remove(e.visibilityChange, o => o.id === item.id)
             );
         }, item.effectDuration * 1000);
         item_instance_ctrl.delete(id, player);
+    });
+
+    socket.on('useNoyau', id => {
+        const item = item_instance_ctrl.getById(id);
+        item.equiped = true;
+        player.noyaux.push(id);
     });
 };
