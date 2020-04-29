@@ -15,6 +15,10 @@ io.on('connection', socket => {
 
     require('./routes')(io, socket, player);
 
+    socket.on('restartServer', () => {
+        import_ctrl.importConfig(socket);
+    });
+
     socket.on('stopServer', () => {
         process.exit();
     });

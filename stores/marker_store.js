@@ -4,5 +4,6 @@ const _ = require('lodash'),
 module.exports = {
     getAll: () => markers,
     add: m => markers.push(m),
-    remove: id => _.remove(markers, m => m.id === id)
+    remove: id => _.remove(markers, m => m.id === id),
+    removeAll: () => (markers.length = 0)
 };
