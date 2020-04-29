@@ -81,20 +81,32 @@ const _this = (module.exports = {
     },
 
     canonEffect: (target, trap) => {
-        target.immobilized = true;
+        if (target.noyaux.length > 0) {
+            const id = target.noyaux.pop();
+            item_instance_ctrl.delete(id, target);
+        } else {
+            target.immobilized = true;
 
-        setTimeout(() => {
-            target.immobilized = false;
-        }, trap.effectDuration * 1000);
+            const timer = setTimeout(() => {
+                target.immobilized = false;
+            }, trap.effectDuration * 1000);
+            interval_ctrl.createOtherInterval(timer, trap.id);
+        }
+
         _this.delete(trap.id);
     },
 
     transducteurEffect: (target, trap) => {
-        const inventorySize = target.inventory.length;
-        if (inventorySize > 0) {
-            const item = target.inventory.splice(inventorySize - 1)[0];
-            item.equiped = false;
-            item_ctrl.giveItem(trap.owner, item);
+        if (target.noyaux.length > 0) {
+            const id = target.noyaux.pop();
+            item_instance_ctrl.delete(id, target);
+        } else {
+            const inventory = target.inventory.filter(i => !i.equiped);
+            const inventorySize = inventory.length;
+            if (inventorySize > 0) {
+                const item = inventory.pop();
+                item_ctrl.giveItem(trap.owner, item);
+            }
         }
 
         item_instance_ctrl.delete(trap.itemInstanceId, trap.owner);

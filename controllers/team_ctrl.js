@@ -21,6 +21,15 @@ const _this = (module.exports = {
         return players;
     },
 
+    getEnnemis: teamId => {
+        const ennemis = [];
+        _this
+            .getAll()
+            .filter(t => t.id !== teamId)
+            .forEach(t => t.players.forEach(p => ennemis.push(p)));
+        return ennemis;
+    },
+
     getTeamPlayers: teamId => {
         return _this.getById(teamId).players;
     },

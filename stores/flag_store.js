@@ -4,5 +4,6 @@ const _ = require('lodash'),
 module.exports = {
     getAll: () => flags,
     add: f => flags.push(f),
-    remove: id => _.remove(flags, f => f.id === id)
+    remove: id => _.remove(flags, f => f.id === id),
+    removeAll: () => (flags.length = 0)
 };

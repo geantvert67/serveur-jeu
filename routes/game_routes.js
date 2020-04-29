@@ -72,17 +72,20 @@ module.exports = (io, socket, player) => {
                     player.teamId,
                     playerActionRadius
                 ),
-                flagInActionRadius = flag_ctrl.getInRadius(
-                    coordinates,
-                    flagActionRadius
-                ),
+                flagInActionRadius = [
+                    ...flag_ctrl.getFromPlayer(player),
+                    ...flag_ctrl.getInRadius(coordinates, flagActionRadius)
+                ],
                 itemsInActionRadius = item_ctrl.getInRadius(coordinates, false);
 
             objects.players = [
                 ...team_ctrl.getTeamPlayers(player.teamId),
                 ...playersInActionRadius
             ];
-            objects.flags = [...flag_ctrl.getCaptured(), ...flagInActionRadius];
+            objects.flags = _.uniqBy(
+                [...flag_ctrl.getCaptured(), ...flagInActionRadius],
+                'id'
+            );
             objects.items = itemsInActionRadius;
             objects.markers = marker_ctrl.getTeamMarkers(player.teamId);
             objects.unknowns = [
@@ -90,17 +93,20 @@ module.exports = (io, socket, player) => {
                     coordinates,
                     player.teamId,
                     playerVisibilityRadius,
-                    playersInActionRadius
+                    playersInActionRadius,
+                    player.visibilityChange
                 ),
                 ...flag_ctrl.getInRadius(
                     coordinates,
                     flagVisibilityRadius,
-                    flagInActionRadius
+                    flagInActionRadius,
+                    player.visibilityChange
                 ),
                 ...item_ctrl.getInRadius(
                     coordinates,
                     true,
-                    itemsInActionRadius
+                    itemsInActionRadius,
+                    player.visibilityChange
                 ),
                 ...trap_ctrl.getInRadius(coordinates)
             ];

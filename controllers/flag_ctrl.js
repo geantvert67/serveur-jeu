@@ -7,7 +7,7 @@ const _ = require('lodash'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
     { flag_store } = require('../stores'),
-    { getRandomFlagPoint } = require('../utils');
+    { getRandomFlagPoint, calculateRadius } = require('../utils');
 
 const _this = (module.exports = {
     getAll: () => {
@@ -18,11 +18,22 @@ const _this = (module.exports = {
         return _.filter(_this.getAll(), f => f.team !== null);
     },
 
+    getFromPlayer: player => {
+        return player.antenneFlagsId
+            .map(id => _this.getById(id))
+            .filter(f => f !== undefined);
+    },
+
     getById: id => {
         return _.find(_this.getAll(), { id });
     },
 
-    getInRadius: (coordinates, radius, inActionRadius = []) => {
+    getInRadius: (
+        coordinates,
+        radius,
+        inActionRadius = [],
+        radiusChange = []
+    ) => {
         return _this.getAll().filter(
             f =>
                 !_.some(_this.getCaptured(), f) &&
@@ -36,7 +47,7 @@ const _this = (module.exports = {
                         latitude: f.coordinates[0],
                         longitude: f.coordinates[1]
                     },
-                    radius
+                    calculateRadius(radius, radiusChange)
                 )
         );
     },

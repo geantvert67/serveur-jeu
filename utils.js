@@ -84,5 +84,11 @@ const _this = (module.exports = {
         let c = 2 * Math.asin(Math.sqrt(a));
         let EARTH_RADIUS = 6371;
         return c * EARTH_RADIUS * 1000;
+    },
+
+    calculateRadius: (radius, radiusChange) => {
+        let r = radius;
+        radiusChange.forEach(o => (r += (o.percent / 100) * r));
+        return r;
     }
 });

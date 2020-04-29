@@ -11,8 +11,12 @@ const axios = require('axios'),
         team_store,
         area_store,
         flag_store,
+        item_instance_store,
         item_model_store,
-        item_store
+        item_store,
+        marker_store,
+        player_store,
+        trap_store
     } = require('../stores');
 
 const _this = (module.exports = {
@@ -43,7 +47,22 @@ const _this = (module.exports = {
             .catch(() => {});
     },
 
-    importConfig: () => {
+    reset: () => {
+        area_store.removeAll();
+        config_store.set(null);
+        flag_store.removeAll();
+        game_store.set(null);
+        item_instance_store.removeAll();
+        item_model_store.removeAll();
+        item_store.removeAll();
+        marker_store.removeAll();
+        player_store.removeAll();
+        team_store.removeAll();
+        trap_store.removeAll();
+    },
+
+    importConfig: (socket = null) => {
+        _this.reset();
         config_store.set(new Config(initialValues));
 
         _this.createGame().finally(() => {
@@ -66,6 +85,8 @@ const _this = (module.exports = {
                 item_model_store.add(new ItemModel(im))
             );
             initialValues.Items.map(i => item_store.add(new Item(i)));
+
+            socket && socket.emit('getConfig', config_store.get());
         });
     }
 });

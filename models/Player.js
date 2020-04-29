@@ -6,6 +6,9 @@ class Player {
         this.isConnected = isConnected;
         this.hasTransporteur = false;
         this.immobilized = false;
+        this.antenneFlagsId = [];
+        this.visibilityChange = [];
+        this.noyaux = [];
         this.score = 0;
     }
 }

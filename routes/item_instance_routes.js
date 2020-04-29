@@ -1,4 +1,5 @@
 const moment = require('moment'),
+    _ = require('lodash'),
     {
         item_instance_ctrl,
         interval_ctrl,
@@ -105,5 +106,66 @@ module.exports = (io, socket, player) => {
             trap.inactiveUntil = null;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
+    });
+
+    socket.on('useAntenne', ({ id }, onSuccess) => {
+        const freeFlag = _.sample(flag_ctrl.getAll().filter(f => !f.team));
+
+        if (freeFlag) {
+            if (!_.find(player.antenneFlagsId, id => id === freeFlag.id)) {
+                player.antenneFlagsId.push(freeFlag.id);
+                const timer = setTimeout(() => {
+                    _.remove(player.antenneFlagsId, id => id === freeFlag.id);
+                }, 10000);
+                interval_ctrl.createOtherInterval(timer, id);
+            }
+
+            onSuccess(freeFlag.coordinates);
+        } else {
+            socket.emit('onError', 'Tous les drapeaux sont déjà capturés');
+        }
+
+        item_instance_ctrl.delete(id, player);
+    });
+
+    socket.on('useSonde', id => {
+        const item = item_instance_ctrl.getById(id);
+
+        player.visibilityChange.push({ id, percent: item.effectStrength });
+        item.equiped = true;
+        const timer = setTimeout(() => {
+            _.remove(player.visibilityChange, o => o.id === item.id);
+            item_instance_ctrl.delete(id, player);
+        }, item.effectDuration * 1000);
+        interval_ctrl.createOtherInterval(timer, id);
+    });
+
+    socket.on('useIntercepteur', id => {
+        const item = item_instance_ctrl.getById(id);
+        const ennemis = team_ctrl.getEnnemis(
+            team_ctrl.findByPlayer(player.username).id
+        );
+
+        ennemis.forEach(e => {
+            if (e.noyaux.length > 0) {
+                const id = e.noyaux.pop();
+                item_instance_ctrl.delete(id, e);
+            } else {
+                e.visibilityChange.push({ id, percent: -item.effectStrength });
+            }
+        });
+        const timer = setTimeout(() => {
+            ennemis.forEach(e =>
+                _.remove(e.visibilityChange, o => o.id === item.id)
+            );
+        }, item.effectDuration * 1000);
+        interval_ctrl.createOtherInterval(timer, id);
+        item_instance_ctrl.delete(id, player);
+    });
+
+    socket.on('useNoyau', id => {
+        const item = item_instance_ctrl.getById(id);
+        item.equiped = true;
+        player.noyaux.push(id);
     });
 };

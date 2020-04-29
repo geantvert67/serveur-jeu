@@ -4,5 +4,6 @@ const _ = require('lodash'),
 module.exports = {
     getAll: () => teams,
     add: t => teams.push(t),
-    remove: id => _.remove(teams, t => t.id === id)
+    remove: id => _.remove(teams, t => t.id === id),
+    removeAll: () => (teams.length = 0)
 };
