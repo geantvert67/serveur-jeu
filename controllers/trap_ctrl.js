@@ -100,10 +100,10 @@ const _this = (module.exports = {
             const id = target.noyaux.pop();
             item_instance_ctrl.delete(id, target);
         } else {
-            const inventorySize = target.inventory.length;
+            const inventory = target.inventory.filter(i => !i.equiped);
+            const inventorySize = inventory.length;
             if (inventorySize > 0) {
-                const item = target.inventory.splice(inventorySize - 1)[0];
-                item.equiped = false;
+                const item = inventory.pop();
                 item_ctrl.giveItem(trap.owner, item);
             }
         }
