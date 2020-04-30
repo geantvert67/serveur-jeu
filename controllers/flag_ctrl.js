@@ -88,7 +88,7 @@ const _this = (module.exports = {
                 flag.team = newTeam;
 
                 if (gameMode === 'SUPREMACY') {
-                    if (newTeam.score >= nbFlags / 2) {
+                    if (newTeam.score > nbFlags / 2) {
                         game_ctrl.end(io);
                     }
                 }
