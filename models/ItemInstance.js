@@ -9,6 +9,7 @@ class ItemInstance {
         this.effectDuration = i.effectDuration;
         this.effectStrength = i.effectStrength;
         this.equiped = false;
+        this.nbUpdates = 0;
     }
 }
 

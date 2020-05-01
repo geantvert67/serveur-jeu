@@ -104,6 +104,7 @@ module.exports = (io, socket, player) => {
         const trap = trap_ctrl.create(item, player, coordinates);
 
         item.equiped = true;
+        item.nbUpdates++;
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
@@ -137,6 +138,7 @@ module.exports = (io, socket, player) => {
 
         player.visibilityChange.push({ id, percent: item.effectStrength });
         item.equiped = true;
+        item.nbUpdates++;
         const timer = setTimeout(() => {
             _.remove(player.visibilityChange, o => o.id === item.id);
             item_instance_ctrl.delete(id, player);
@@ -171,6 +173,7 @@ module.exports = (io, socket, player) => {
     socket.on('useNoyau', id => {
         const item = item_instance_ctrl.getById(id);
         item.equiped = true;
+        item.nbUpdates++;
         player.noyaux.push(id);
         player.nbUpdates++;
     });
