@@ -80,6 +80,7 @@ module.exports = (io, socket, player) => {
             !flag.capturedUntil
         ) {
             flag.hasOracle = true;
+            flag.nbUpdates++;
             item_instance_ctrl.delete(id, player);
         }
     });

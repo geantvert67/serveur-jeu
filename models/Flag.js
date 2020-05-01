@@ -5,6 +5,7 @@ class Flag {
         this.team = null;
         this.capturedUntil = null;
         this.hasOracle = false;
+        this.nbUpdates = 0;
     }
 }
 
