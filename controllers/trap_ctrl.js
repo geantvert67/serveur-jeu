@@ -42,7 +42,9 @@ const _this = (module.exports = {
     },
 
     moveTrap: (coordinates, trapId) => {
-        _this.getById(trapId).coordinates = coordinates;
+        const trap = _this.getById(trapId);
+        trap.coordinates = coordinates;
+        trap.nbUpdates++;
     },
 
     delete: id => {

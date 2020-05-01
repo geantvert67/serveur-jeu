@@ -92,6 +92,7 @@ module.exports = (io, socket, player) => {
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
+            trap.nbUpdates++;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
         item_instance_ctrl.delete(id, player);
@@ -105,6 +106,7 @@ module.exports = (io, socket, player) => {
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
+            trap.nbUpdates++;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
     });

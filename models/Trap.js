@@ -9,6 +9,7 @@ class Trap {
         this.owner = player;
         this.coordinates = coordinates;
         this.inactiveUntil = null;
+        this.nbUpdates = 0;
     }
 }
 
