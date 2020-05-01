@@ -2,8 +2,8 @@ require('dotenv').config();
 const server = require('http').createServer(),
     io = require('socket.io')(server),
     { import_ctrl, player_ctrl } = require('./controllers'),
-    ip = process.env.ip || '127.0.0.1',
-    port = process.env.port || 8888;
+    ip = process.env.IP || '127.0.0.1',
+    port = process.env.PORT || 8888;
 
 import_ctrl.importConfig();
 

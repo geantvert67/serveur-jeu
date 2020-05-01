@@ -1,6 +1,6 @@
 const axios = require('axios'),
-    ip = process.env.ip || '127.0.0.1',
-    port = process.env.port || 8888,
+    ip = process.env.IP || '127.0.0.1',
+    port = process.env.PORT || 8888,
     initialValues = require('../config.json'),
     { Config, Game, Team, Area, Flag, ItemModel, Item } = require('../models'),
     team_ctrl = require('./team_ctrl'),
