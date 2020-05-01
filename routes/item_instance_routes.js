@@ -25,6 +25,7 @@ module.exports = (io, socket, player) => {
     socket.on('useTransporteur', id => {
         if (!player.hasTransporteur) {
             player.hasTransporteur = true;
+            player.nbUpdates++;
             item_instance_ctrl.delete(id, player);
         }
     });
@@ -152,6 +153,7 @@ module.exports = (io, socket, player) => {
         ennemis.forEach(e => {
             if (e.noyaux.length > 0) {
                 const id = e.noyaux.pop();
+                e.nbUpdates++;
                 item_instance_ctrl.delete(id, e);
             } else {
                 e.visibilityChange.push({ id, percent: -item.effectStrength });
@@ -170,5 +172,6 @@ module.exports = (io, socket, player) => {
         const item = item_instance_ctrl.getById(id);
         item.equiped = true;
         player.noyaux.push(id);
+        player.nbUpdates++;
     });
 };

@@ -85,12 +85,15 @@ const _this = (module.exports = {
     canonEffect: (target, trap) => {
         if (target.noyaux.length > 0) {
             const id = target.noyaux.pop();
+            target.nbUpdates++;
             item_instance_ctrl.delete(id, target);
         } else {
             target.immobilized = true;
+            target.nbUpdates++;
 
             const timer = setTimeout(() => {
                 target.immobilized = false;
+                target.nbUpdates++;
             }, trap.effectDuration * 1000);
             interval_ctrl.createOtherInterval(timer, trap.id);
         }
@@ -101,6 +104,7 @@ const _this = (module.exports = {
     transducteurEffect: (target, trap) => {
         if (target.noyaux.length > 0) {
             const id = target.noyaux.pop();
+            target.nbUpdates++;
             item_instance_ctrl.delete(id, target);
         } else {
             const inventory = target.inventory.filter(i => !i.equiped);
