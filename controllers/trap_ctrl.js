@@ -108,6 +108,7 @@ const _this = (module.exports = {
             if (inventorySize > 0) {
                 const item = inventory.pop();
                 item_ctrl.giveItem(trap.owner, item);
+                item_instance_ctrl.delete(item.id, target);
             }
         }
 
