@@ -11,6 +11,7 @@ class Item {
         this.effectDuration = i.effectDuration;
         this.effectStrength = i.effectStrength;
         this.waitingUntil = null;
+        this.nbUpdates = 0;
     }
 }
 

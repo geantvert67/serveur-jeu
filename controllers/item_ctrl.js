@@ -80,11 +80,13 @@ const _this = (module.exports = {
                 player.inventory.push(itemInstance);
                 if (item.quantity > 1) {
                     item.quantity--;
+                    item.nbUpdates++;
 
                     if (waitingPeriod) {
                         item.waitingUntil = moment().add(waitingPeriod, 's');
                         const interval = setTimeout(() => {
                             item.waitingUntil = null;
+                            item.nbUpdates++;
                             interval_ctrl.removeItemIntervalByObjectId(id);
                         }, waitingPeriod * 1000);
                         interval_ctrl.createItemInterval(interval, item.id);
@@ -124,7 +126,9 @@ const _this = (module.exports = {
     },
 
     moveItem: (coordinates, itemId) => {
-        _this.getById(itemId).coordinates = coordinates;
+        const item = _this.getById(itemId);
+        item.coordinates = coordinates;
+        item.nbUpdates++;
     },
 
     delete: id => {
@@ -133,14 +137,12 @@ const _this = (module.exports = {
     },
 
     randomize: () => {
-        _this
-            .getAll()
-            .forEach(
-                i =>
-                    (i.coordinates = getRandomPoint(
-                        area_ctrl.getGameArea(),
-                        area_ctrl.getForbiddenAreas()
-                    ))
+        _this.getAll().forEach(i => {
+            i.coordinates = getRandomPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas()
             );
+            i.nbUpdates++;
+        });
     }
 });
