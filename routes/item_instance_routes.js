@@ -177,4 +177,10 @@ module.exports = (io, socket, player) => {
         player.noyaux.push(id);
         player.nbUpdates++;
     });
+
+    socket.on('unequipSonde', id => {
+        _.remove(player.visibilityChange, o => o.id === id);
+        item_instance_ctrl.delete(id, player);
+        interval_ctrl.removeOtherIntervalById(id);
+    });
 };
