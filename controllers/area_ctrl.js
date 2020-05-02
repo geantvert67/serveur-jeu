@@ -20,5 +20,9 @@ const _this = (module.exports = {
 
     moveArea: (coordinates, id) => {
         _this.getById(id).coordinates = coordinates;
+    },
+
+    deleteArea: id => {
+        area_store.remove(id);
     }
 });

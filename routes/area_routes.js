@@ -9,4 +9,9 @@ module.exports = (io, socket, player) => {
         area_ctrl.moveArea(coordinates, areaId);
         io.emit('getAreas', area_ctrl.getAll());
     });
+
+    socket.on('deleteArea', id => {
+        area_ctrl.deleteArea(id);
+        io.emit('getAreas', area_ctrl.getAll());
+    });
 };
