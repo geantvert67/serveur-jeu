@@ -183,4 +183,10 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
         interval_ctrl.removeOtherIntervalById(id);
     });
+
+    socket.on('unequipNoyau', id => {
+        _.remove(player.noyaux, o => o === id);
+        player.nbUpdates++;
+        item_ctrl.dropItem(player, id, player.coordinates);
+    });
 };
