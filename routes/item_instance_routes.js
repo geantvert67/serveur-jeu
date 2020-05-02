@@ -103,14 +103,13 @@ module.exports = (io, socket, player) => {
         const item = item_instance_ctrl.getById(id);
         const trap = trap_ctrl.create(item, player, coordinates);
 
-        item.equiped = true;
-        item.nbUpdates++;
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
             trap.nbUpdates++;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
+        item_instance_ctrl.delete(id, player);
     });
 
     socket.on('useAntenne', ({ id }, onSuccess) => {

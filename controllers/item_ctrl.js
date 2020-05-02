@@ -62,15 +62,20 @@ const _this = (module.exports = {
         item_store.add(new Item(item));
     },
 
-    takeItem: (player, id) => {
+    isInventoryNotFull: player => {
         const { inventorySize } = config_ctrl.get();
         const maxInventorySize = player.hasTransporteur
             ? inventorySize * 2
             : inventorySize;
+
+        return player.inventory.length < maxInventorySize;
+    },
+
+    takeItem: (player, id) => {
         const item = _this.getById(id);
 
         if (
-            player.inventory.length < maxInventorySize &&
+            _this.isInventoryNotFull(player) &&
             (!item.waitingUntil || moment().isSameOrAfter(item.waitingUntil))
         ) {
             const { waitingPeriod } = item;
