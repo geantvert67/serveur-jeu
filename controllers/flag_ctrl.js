@@ -139,7 +139,7 @@ const _this = (module.exports = {
         const flag = _this.getById(id),
             { gameMode } = config_ctrl.get();
 
-        if (flag.team) {
+        if (flag && flag.team) {
             if (gameMode === 'TIME') {
                 interval_ctrl.removeFlagIntervalByObjectId(id);
             } else {
