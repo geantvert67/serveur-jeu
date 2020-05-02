@@ -93,11 +93,23 @@ const _this = (module.exports = {
         }
     },
 
+    getAllOtherIntervals: () => {
+        return interval_store.getAllOtherIntervals();
+    },
+
     createOtherInterval: (timeout, objectId) => {
         interval_store.addOtherInterval(
             new Interval(idOtherInterval, timeout, objectId)
         );
         idOtherInterval++;
+    },
+
+    removeOtherIntervalById: objectId => {
+        const i = _.find(_this.getAllOtherIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removeOtherInterval(i.id);
+        }
     },
 
     createGameTimeout: (timeout, configId) => {

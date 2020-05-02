@@ -5,10 +5,10 @@ class Trap {
         this.visibilityRadius = i.visibilityRadius;
         this.actionRadius = i.actionRadius;
         this.effectDuration = i.effectDuration;
-        this.itemInstanceId = i.id;
         this.owner = player;
         this.coordinates = coordinates;
         this.inactiveUntil = null;
+        this.nbUpdates = 0;
     }
 }
 

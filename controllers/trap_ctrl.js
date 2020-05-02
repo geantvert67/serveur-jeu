@@ -42,14 +42,13 @@ const _this = (module.exports = {
     },
 
     moveTrap: (coordinates, trapId) => {
-        _this.getById(trapId).coordinates = coordinates;
+        const trap = _this.getById(trapId);
+        trap.coordinates = coordinates;
+        trap.nbUpdates++;
     },
 
     delete: id => {
-        const trap = _this.getById(id);
-
         interval_ctrl.removeTrapIntervalByObjectId(id);
-        item_instance_ctrl.delete(trap.itemInstanceId, trap.owner);
         trap_store.remove(id);
     },
 
@@ -83,12 +82,15 @@ const _this = (module.exports = {
     canonEffect: (target, trap) => {
         if (target.noyaux.length > 0) {
             const id = target.noyaux.pop();
+            target.nbUpdates++;
             item_instance_ctrl.delete(id, target);
         } else {
             target.immobilized = true;
+            target.nbUpdates++;
 
             const timer = setTimeout(() => {
                 target.immobilized = false;
+                target.nbUpdates++;
             }, trap.effectDuration * 1000);
             interval_ctrl.createOtherInterval(timer, trap.id);
         }
@@ -97,19 +99,22 @@ const _this = (module.exports = {
     },
 
     transducteurEffect: (target, trap) => {
-        if (target.noyaux.length > 0) {
-            const id = target.noyaux.pop();
-            item_instance_ctrl.delete(id, target);
-        } else {
-            const inventory = target.inventory.filter(i => !i.equiped);
-            const inventorySize = inventory.length;
-            if (inventorySize > 0) {
-                const item = inventory.pop();
-                item_ctrl.giveItem(trap.owner, item);
+        if (item_ctrl.isInventoryNotFull(trap.owner)) {
+            if (target.noyaux.length > 0) {
+                const id = target.noyaux.pop();
+                target.nbUpdates++;
+                item_instance_ctrl.delete(id, target);
+            } else {
+                const inventory = target.inventory.filter(i => !i.equiped);
+                const inventorySize = inventory.length;
+                if (inventorySize > 0) {
+                    const item = inventory.pop();
+                    item_ctrl.giveItem(trap.owner, item);
+                    item_instance_ctrl.delete(item.id, target);
+                }
             }
         }
 
-        item_instance_ctrl.delete(trap.itemInstanceId, trap.owner);
         _this.delete(trap.id);
     }
 });

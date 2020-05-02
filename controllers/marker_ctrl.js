@@ -27,7 +27,9 @@ const _this = (module.exports = {
     },
 
     moveMarker: (coordinates, markerId) => {
-        _this.getById(markerId).coordinates = coordinates;
+        const marker = _this.getById(markerId);
+        marker.coordinates = coordinates;
+        marker.nbUpdates++;
     },
 
     delete: id => {

@@ -62,15 +62,20 @@ const _this = (module.exports = {
         item_store.add(new Item(item));
     },
 
-    takeItem: (player, id) => {
+    isInventoryNotFull: player => {
         const { inventorySize } = config_ctrl.get();
         const maxInventorySize = player.hasTransporteur
             ? inventorySize * 2
             : inventorySize;
+
+        return player.inventory.length < maxInventorySize;
+    },
+
+    takeItem: (player, id) => {
         const item = _this.getById(id);
 
         if (
-            player.inventory.length < maxInventorySize &&
+            _this.isInventoryNotFull(player) &&
             (!item.waitingUntil || moment().isSameOrAfter(item.waitingUntil))
         ) {
             const { waitingPeriod } = item;
@@ -80,11 +85,13 @@ const _this = (module.exports = {
                 player.inventory.push(itemInstance);
                 if (item.quantity > 1) {
                     item.quantity--;
+                    item.nbUpdates++;
 
                     if (waitingPeriod) {
                         item.waitingUntil = moment().add(waitingPeriod, 's');
                         const interval = setTimeout(() => {
                             item.waitingUntil = null;
+                            item.nbUpdates++;
                             interval_ctrl.removeItemIntervalByObjectId(id);
                         }, waitingPeriod * 1000);
                         interval_ctrl.createItemInterval(interval, item.id);
@@ -117,14 +124,14 @@ const _this = (module.exports = {
 
     dropItem: (player, id, coordinates) => {
         const item = item_instance_ctrl.getById(id);
-        if (!item.equiped) {
-            _this.create(_.cloneDeep(item), coordinates);
-            item_instance_ctrl.delete(id, player);
-        }
+        _this.create(_.cloneDeep(item), coordinates);
+        item_instance_ctrl.delete(id, player);
     },
 
     moveItem: (coordinates, itemId) => {
-        _this.getById(itemId).coordinates = coordinates;
+        const item = _this.getById(itemId);
+        item.coordinates = coordinates;
+        item.nbUpdates++;
     },
 
     delete: id => {
@@ -133,14 +140,12 @@ const _this = (module.exports = {
     },
 
     randomize: () => {
-        _this
-            .getAll()
-            .forEach(
-                i =>
-                    (i.coordinates = getRandomPoint(
-                        area_ctrl.getGameArea(),
-                        area_ctrl.getForbiddenAreas()
-                    ))
+        _this.getAll().forEach(i => {
+            i.coordinates = getRandomPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas()
             );
+            i.nbUpdates++;
+        });
     }
 });

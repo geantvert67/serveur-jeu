@@ -88,7 +88,7 @@ const _this = (module.exports = {
                 flag.team = newTeam;
 
                 if (gameMode === 'SUPREMACY') {
-                    if (newTeam.score >= nbFlags / 2) {
+                    if (newTeam.score > nbFlags / 2) {
                         game_ctrl.end(io);
                     }
                 }
@@ -100,8 +100,10 @@ const _this = (module.exports = {
 
     setFlagCapturedDuration: (flag, duration) => {
         flag.capturedUntil = moment().add(duration, 's');
+        flag.nbUpdates++;
         const timer = setTimeout(() => {
             flag.capturedUntil = null;
+            flag.nbUpdates++;
             interval_ctrl.removeCapturedFlagIntervalByObjectId(flag.id);
         }, duration * 1000);
         interval_ctrl.createCapturedFlagInterval(timer, flag.id);
@@ -123,11 +125,14 @@ const _this = (module.exports = {
         flag.team = null;
         flag.capturedUntil = null;
         flag.hasOracle = false;
+        flag.nbUpdates++;
         interval_ctrl.removeCapturedFlagIntervalByObjectId(flagId);
     },
 
     moveFlag: (coordinates, flagId) => {
-        _this.getById(flagId).coordinates = coordinates;
+        const flag = _this.getById(flagId);
+        flag.coordinates = coordinates;
+        flag.nbUpdates++;
     },
 
     delete: id => {
@@ -149,14 +154,14 @@ const _this = (module.exports = {
     randomize: () => {
         const flags = _this.getAll();
 
-        flags.forEach(
-            f =>
-                (f.coordinates = getRandomFlagPoint(
-                    area_ctrl.getGameArea(),
-                    area_ctrl.getForbiddenAreas(),
-                    flags,
-                    f.id
-                ))
-        );
+        flags.forEach(f => {
+            f.coordinates = getRandomFlagPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas(),
+                flags,
+                f.id
+            );
+            f.nbUpdates++;
+        });
     }
 });

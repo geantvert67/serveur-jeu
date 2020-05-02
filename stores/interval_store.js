@@ -28,7 +28,9 @@ module.exports = {
     getAllTrapIntervals: () => trapIntervals,
     addTrapInterval: i => trapIntervals.push(i),
     removeTrapInterval: id => _.remove(trapIntervals, i => i.id === id),
+    getAllOtherIntervals: () => otherIntervals,
     addOtherInterval: i => otherIntervals.push(i),
+    removeOtherInterval: id => _.remove(otherIntervals, i => i.id === id),
     addGameTimeout: i => (gameTimeout = i),
     removeAll: () => {
         flagIntervals.length = 0;

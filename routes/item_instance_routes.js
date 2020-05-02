@@ -25,6 +25,7 @@ module.exports = (io, socket, player) => {
     socket.on('useTransporteur', id => {
         if (!player.hasTransporteur) {
             player.hasTransporteur = true;
+            player.nbUpdates++;
             item_instance_ctrl.delete(id, player);
         }
     });
@@ -80,6 +81,7 @@ module.exports = (io, socket, player) => {
             !flag.capturedUntil
         ) {
             flag.hasOracle = true;
+            flag.nbUpdates++;
             item_instance_ctrl.delete(id, player);
         }
     });
@@ -91,6 +93,7 @@ module.exports = (io, socket, player) => {
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
+            trap.nbUpdates++;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
         item_instance_ctrl.delete(id, player);
@@ -100,12 +103,13 @@ module.exports = (io, socket, player) => {
         const item = item_instance_ctrl.getById(id);
         const trap = trap_ctrl.create(item, player, coordinates);
 
-        item.equiped = true;
         trap.inactiveUntil = moment().add(delay, 's');
         const timer = setTimeout(() => {
             trap.inactiveUntil = null;
+            trap.nbUpdates++;
         }, delay * 1000);
         interval_ctrl.createTrapInterval(timer, trap.id);
+        item_instance_ctrl.delete(id, player);
     });
 
     socket.on('useAntenne', ({ id }, onSuccess) => {
@@ -133,6 +137,7 @@ module.exports = (io, socket, player) => {
 
         player.visibilityChange.push({ id, percent: item.effectStrength });
         item.equiped = true;
+        item.nbUpdates++;
         const timer = setTimeout(() => {
             _.remove(player.visibilityChange, o => o.id === item.id);
             item_instance_ctrl.delete(id, player);
@@ -149,6 +154,7 @@ module.exports = (io, socket, player) => {
         ennemis.forEach(e => {
             if (e.noyaux.length > 0) {
                 const id = e.noyaux.pop();
+                e.nbUpdates++;
                 item_instance_ctrl.delete(id, e);
             } else {
                 e.visibilityChange.push({ id, percent: -item.effectStrength });
@@ -166,6 +172,20 @@ module.exports = (io, socket, player) => {
     socket.on('useNoyau', id => {
         const item = item_instance_ctrl.getById(id);
         item.equiped = true;
+        item.nbUpdates++;
         player.noyaux.push(id);
+        player.nbUpdates++;
+    });
+
+    socket.on('unequipSonde', id => {
+        _.remove(player.visibilityChange, o => o.id === id);
+        item_instance_ctrl.delete(id, player);
+        interval_ctrl.removeOtherIntervalById(id);
+    });
+
+    socket.on('unequipNoyau', id => {
+        _.remove(player.noyaux, o => o === id);
+        player.nbUpdates++;
+        item_ctrl.dropItem(player, id, player.coordinates);
     });
 };

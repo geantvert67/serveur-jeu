@@ -4,6 +4,7 @@ class Marker {
         this.coordinates = coordinates;
         this.isPositive = isPositive;
         this.team = team;
+        this.nbUpdates = 0;
     }
 }
 
