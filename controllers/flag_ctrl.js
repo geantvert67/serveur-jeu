@@ -7,6 +7,7 @@ const _ = require('lodash'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
     { flag_store } = require('../stores'),
+    { Flag } = require('../models'),
     { getRandomFlagPoint, calculateRadius } = require('../utils');
 
 const _this = (module.exports = {
@@ -50,6 +51,14 @@ const _this = (module.exports = {
                     calculateRadius(radius, radiusChange)
                 )
         );
+    },
+
+    getMaxId: () => {
+        return _.maxBy(_this.getAll(), 'id').id + 1 || 1;
+    },
+
+    createFlag: coordinates => {
+        flag_store.add(new Flag(_this.getMaxId(), coordinates));
     },
 
     captureFlag: (io, flagId, teamId, player) => {
