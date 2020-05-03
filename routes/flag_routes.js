@@ -5,8 +5,8 @@ module.exports = (io, socket, player) => {
         socket.emit('getFlags', flag_ctrl.getAll());
     });
 
-    socket.on('createFlag', coordinates => {
-        flag_ctrl.createFlag(coordinates);
+    socket.on('createFlag', (coordinates, onSuccess) => {
+        onSuccess(flag_ctrl.createFlag(coordinates));
     });
 
     socket.on('captureFlag', ({ flagId, teamId }) => {

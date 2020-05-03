@@ -20,7 +20,8 @@ const _this = (module.exports = {
     },
 
     getMaxId: () => {
-        return _.maxBy(_this.getAll(), 'id').id + 1 || 1;
+        const area = _.maxBy(_this.getAll(), 'id');
+        return area ? area.id + 1 : 1;
     },
 
     createArea: forbidden => {

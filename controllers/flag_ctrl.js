@@ -54,11 +54,14 @@ const _this = (module.exports = {
     },
 
     getMaxId: () => {
-        return _.maxBy(_this.getAll(), 'id').id + 1 || 1;
+        const flag = _.maxBy(_this.getAll(), 'id');
+        return flag ? flag.id + 1 : 1;
     },
 
     createFlag: coordinates => {
-        flag_store.add(new Flag(_this.getMaxId(), coordinates));
+        const flag = new Flag(_this.getMaxId(), coordinates);
+        flag_store.add(flag);
+        return flag;
     },
 
     captureFlag: (io, flagId, teamId, player) => {
