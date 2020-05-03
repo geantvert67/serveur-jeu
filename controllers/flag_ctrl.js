@@ -64,6 +64,31 @@ const _this = (module.exports = {
         return flag;
     },
 
+    createRandom: nbFlags => {
+        const flags = _this.getAll();
+        let nbMax = nbFlags;
+        let nbCreated = 0;
+
+        while (nbCreated < nbMax) {
+            const coordinates = getRandomFlagPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas(),
+                flags,
+                0,
+                100
+            );
+
+            if (coordinates) {
+                _this.createFlag(coordinates);
+                nbCreated++;
+            } else {
+                nbMax--;
+            }
+        }
+
+        return nbCreated;
+    },
+
     captureFlag: (io, flagId, teamId, player) => {
         const nbFlags = _this.getAll().length,
             flag = _this.getById(flagId),
@@ -174,8 +199,7 @@ const _this = (module.exports = {
             f.coordinates = getRandomFlagPoint(
                 area_ctrl.getGameArea(),
                 area_ctrl.getForbiddenAreas(),
-                flags,
-                f.id
+                flags.filter(flag => flag.id !== f.id)
             );
             f.nbUpdates++;
         });

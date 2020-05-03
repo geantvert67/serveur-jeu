@@ -22,7 +22,13 @@ const _this = (module.exports = {
         return point;
     },
 
-    getRandomFlagPoint: (gameArea, forbiddenAreas, flags, flagId) => {
+    getRandomFlagPoint: (
+        gameArea,
+        forbiddenAreas,
+        flags,
+        iterations = 0,
+        maxIterations = null
+    ) => {
         const { flagVisibilityRadius } = config_ctrl.get();
         const { maxLat, minLat, maxLng, minLng } = geolib.getBounds(
             gameArea.coordinates[0]
@@ -36,18 +42,17 @@ const _this = (module.exports = {
                 .map(a => geolib.isPointInPolygon(point, a.coordinates[0]))
                 .includes(true) ||
             !geolib.isPointInPolygon(point, gameArea.coordinates[0]) ||
-            _this.isFlagInConflict(
-                point,
-                flags.filter(f => f.id !== flagId),
-                flagVisibilityRadius
-            )
+            _this.isFlagInConflict(point, flags, flagVisibilityRadius)
         ) {
-            return _this.getRandomFlagPoint(
-                gameArea,
-                forbiddenAreas,
-                flags,
-                flagId
-            );
+            return maxIterations && iterations >= maxIterations
+                ? null
+                : _this.getRandomFlagPoint(
+                      gameArea,
+                      forbiddenAreas,
+                      flags,
+                      iterations + 1,
+                      maxIterations
+                  );
         }
 
         return point;

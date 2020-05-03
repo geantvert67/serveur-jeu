@@ -9,6 +9,16 @@ module.exports = (io, socket, player) => {
         onSuccess(flag_ctrl.createFlag(coordinates));
     });
 
+    socket.on('createRandomFlags', nbFlags => {
+        const nbCreated = flag_ctrl.createRandom(nbFlags);
+        if (nbCreated === 0) {
+            socket.emit(
+                'onError',
+                "Il n'y a plus de place pour ajouter des cristaux"
+            );
+        }
+    });
+
     socket.on('captureFlag', ({ flagId, teamId }) => {
         if (!player || (player && !player.immobilized)) {
             flag_ctrl.captureFlag(io, flagId, teamId, player);
