@@ -79,7 +79,11 @@ const _this = (module.exports = {
                     _this.createInvitation(gameId, u.id);
                 });
             });
-            initialValues.Areas.map(a => area_store.add(new Area(a)));
+            initialValues.Areas.map(a =>
+                area_store.add(
+                    new Area(a.id, a.position.coordinates, a.forbidden)
+                )
+            );
             initialValues.Flags.map(f => flag_store.add(new Flag(f)));
             initialValues.ItemModels.map(im =>
                 item_model_store.add(new ItemModel(im))

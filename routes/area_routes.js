@@ -5,6 +5,11 @@ module.exports = (io, socket, player) => {
         socket.emit('getAreas', area_ctrl.getAll());
     });
 
+    socket.on('createArea', forbidden => {
+        area_ctrl.createArea(forbidden);
+        io.emit('getAreas', area_ctrl.getAll());
+    });
+
     socket.on('moveArea', ({ coordinates, areaId }) => {
         area_ctrl.moveArea(coordinates, areaId);
         io.emit('getAreas', area_ctrl.getAll());

@@ -1,4 +1,5 @@
 const _ = require('lodash'),
+    { Area } = require('../models'),
     { area_store } = require('../stores');
 
 const _this = (module.exports = {
@@ -16,6 +17,14 @@ const _this = (module.exports = {
 
     getForbiddenAreas: () => {
         return _this.getAll().filter(a => a.forbidden);
+    },
+
+    getMaxId: () => {
+        return _.maxBy(_this.getAll(), 'id').id + 1 || 1;
+    },
+
+    createArea: forbidden => {
+        area_store.add(new Area(_this.getMaxId(), [[]], forbidden));
     },
 
     moveArea: (coordinates, id) => {
