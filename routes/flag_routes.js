@@ -22,4 +22,8 @@ module.exports = (io, socket, player) => {
     socket.on('deleteFlag', id => {
         flag_ctrl.delete(id);
     });
+
+    socket.on('deleteAllFlags', () => {
+        flag_ctrl.deleteAll();
+    });
 };

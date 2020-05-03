@@ -151,6 +151,10 @@ const _this = (module.exports = {
         interval_ctrl.removeCapturedFlagIntervalByObjectId(id);
     },
 
+    deleteAll: () => {
+        flag_store.removeAll();
+    },
+
     randomize: () => {
         const flags = _this.getAll();
 
