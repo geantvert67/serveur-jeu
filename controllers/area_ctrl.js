@@ -33,5 +33,9 @@ const _this = (module.exports = {
 
     deleteArea: id => {
         area_store.remove(id);
+    },
+
+    deleteForbiddenAreas: () => {
+        _this.getForbiddenAreas().forEach(a => _this.deleteArea(a.id));
     }
 });

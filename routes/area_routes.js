@@ -19,4 +19,9 @@ module.exports = (io, socket, player) => {
         area_ctrl.deleteArea(id);
         io.emit('getAreas', area_ctrl.getAll());
     });
+
+    socket.on('deleteForbiddenAreas', () => {
+        area_ctrl.deleteForbiddenAreas();
+        io.emit('getAreas', area_ctrl.getAll());
+    });
 };
