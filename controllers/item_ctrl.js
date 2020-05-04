@@ -49,6 +49,16 @@ const _this = (module.exports = {
         });
     },
 
+    getMaxId: () => {
+        if (id) {
+            id++;
+            return id;
+        } else {
+            const item = _.maxBy(_this.getAll(), 'id');
+            return item ? item.id + 1 : 1;
+        }
+    },
+
     createItem: (coordinates, name) => {
         const itemModel = item_model_ctrl.getByName(name);
 
@@ -66,7 +76,7 @@ const _this = (module.exports = {
             id = maxId ? maxId.id + 1 : 1;
         }
 
-        item.id = id;
+        item.id = _this.getMaxId();
         item.quantity = 1;
         item.position = { coordinates };
 

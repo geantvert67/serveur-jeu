@@ -2,6 +2,8 @@ const _ = require('lodash'),
     { Area } = require('../models'),
     { area_store } = require('../stores');
 
+let id = null;
+
 const _this = (module.exports = {
     getAll: () => {
         return area_store.getAll();
@@ -20,8 +22,13 @@ const _this = (module.exports = {
     },
 
     getMaxId: () => {
-        const area = _.maxBy(_this.getAll(), 'id');
-        return area ? area.id + 1 : 1;
+        if (id) {
+            id++;
+            return id;
+        } else {
+            const area = _.maxBy(_this.getAll(), 'id');
+            return area ? area.id + 1 : 1;
+        }
     },
 
     createArea: forbidden => {

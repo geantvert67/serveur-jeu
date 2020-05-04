@@ -10,6 +10,8 @@ const _ = require('lodash'),
     { Flag } = require('../models'),
     { getRandomFlagPoint, calculateRadius } = require('../utils');
 
+let id = null;
+
 const _this = (module.exports = {
     getAll: () => {
         return flag_store.getAll();
@@ -54,8 +56,13 @@ const _this = (module.exports = {
     },
 
     getMaxId: () => {
-        const flag = _.maxBy(_this.getAll(), 'id');
-        return flag ? flag.id + 1 : 1;
+        if (id) {
+            id++;
+            return id;
+        } else {
+            const flag = _.maxBy(_this.getAll(), 'id');
+            return flag ? flag.id + 1 : 1;
+        }
     },
 
     createFlag: coordinates => {
