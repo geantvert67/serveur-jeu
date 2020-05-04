@@ -139,6 +139,16 @@ const _this = (module.exports = {
         interval_ctrl.removeItemIntervalByObjectId(id);
     },
 
+    deleteByName: name => {
+        _this
+            .getAll()
+            .filter(i => i.name === name)
+            .forEach(i => {
+                item_store.remove(i.id);
+                interval_ctrl.removeItemIntervalByObjectId(i.id);
+            });
+    },
+
     randomize: () => {
         _this.getAll().forEach(i => {
             i.coordinates = getRandomPoint(

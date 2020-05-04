@@ -22,4 +22,8 @@ module.exports = (io, socket, player) => {
     socket.on('deleteItem', id => {
         item_ctrl.delete(id);
     });
+
+    socket.on('deleteItemsByName', name => {
+        item_ctrl.deleteByName(name);
+    });
 };
