@@ -15,6 +15,11 @@ module.exports = (io, socket, player) => {
         item_ctrl.dropItem(player, id, coordinates);
     });
 
+    socket.on('createItem', ({ coordinates, name }, onSuccess) => {
+        const item = item_ctrl.createItem(coordinates, name);
+        if (item) onSuccess(item);
+    });
+
     socket.on('moveItem', ({ coordinates, itemId }) => {
         item_ctrl.moveItem(coordinates, itemId);
     });

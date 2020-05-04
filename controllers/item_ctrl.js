@@ -3,11 +3,12 @@ const _ = require('lodash'),
     moment = require('moment'),
     config_ctrl = require('./config_ctrl'),
     item_instance_ctrl = require('./item_instance_ctrl'),
-    interval_ctrl = require('./interval_ctrl'),
-    area_ctrl = require('./area_ctrl'),
-    { Item } = require('../models'),
-    { item_store } = require('../stores'),
-    { getRandomPoint, calculateRadius } = require('../utils');
+    item_model_ctrl = require('./item_model_ctrl');
+(interval_ctrl = require('./interval_ctrl')),
+    (area_ctrl = require('./area_ctrl')),
+    ({ Item } = require('../models')),
+    ({ item_store } = require('../stores')),
+    ({ getRandomPoint, calculateRadius } = require('../utils'));
 
 let id = null;
 
@@ -48,6 +49,15 @@ const _this = (module.exports = {
         });
     },
 
+    createItem: (coordinates, name) => {
+        const itemModel = item_model_ctrl.getByName(name);
+
+        if (itemModel) {
+            return _this.create(itemModel, coordinates);
+        }
+        return null;
+    },
+
     create: (item, coordinates) => {
         if (id) {
             id++;
@@ -59,7 +69,10 @@ const _this = (module.exports = {
         item.id = id;
         item.quantity = 1;
         item.position = { coordinates };
-        item_store.add(new Item(item));
+
+        const newItem = new Item(item);
+        item_store.add(newItem);
+        return newItem;
     },
 
     isInventoryNotFull: player => {
