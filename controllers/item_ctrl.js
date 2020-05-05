@@ -85,6 +85,16 @@ const _this = (module.exports = {
         return newItem;
     },
 
+    createRandom: (nbItems, name) => {
+        for (let i = 0; i < nbItems; i++) {
+            const coordinates = getRandomPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas()
+            );
+            _this.createItem(coordinates, name);
+        }
+    },
+
     isInventoryNotFull: player => {
         const { inventorySize } = config_ctrl.get();
         const maxInventorySize = player.hasTransporteur

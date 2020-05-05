@@ -20,6 +20,10 @@ module.exports = (io, socket, player) => {
         if (item) onSuccess(item);
     });
 
+    socket.on('createRandomItems', ({ nbItems, name }) => {
+        item_ctrl.createRandom(nbItems, name);
+    });
+
     socket.on('moveItem', ({ coordinates, itemId }) => {
         item_ctrl.moveItem(coordinates, itemId);
     });
