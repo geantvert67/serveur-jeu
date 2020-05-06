@@ -109,8 +109,8 @@ const _this = (module.exports = {
                 const inventorySize = inventory.length;
                 if (inventorySize > 0) {
                     const item = inventory.pop();
+                    item_instance_ctrl.removeFromInventory(item.id, target);
                     item_ctrl.giveItem(trap.owner, item);
-                    item_instance_ctrl.delete(item.id, target);
                 }
             }
         }
