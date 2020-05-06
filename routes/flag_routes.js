@@ -20,7 +20,7 @@ module.exports = (io, socket, player) => {
     });
 
     socket.on('captureFlag', ({ flagId, teamId }) => {
-        if (!player || (player && !player.immobilized)) {
+        if (!player || (player && !player.immobilizedUntil)) {
             flag_ctrl.captureFlag(io, flagId, teamId, player);
         }
     });
