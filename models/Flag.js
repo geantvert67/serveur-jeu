@@ -1,7 +1,7 @@
 class Flag {
-    constructor(f) {
-        this.id = f.id;
-        this.coordinates = f.position.coordinates;
+    constructor(id, coordinates) {
+        this.id = id;
+        this.coordinates = coordinates;
         this.team = null;
         this.capturedUntil = null;
         this.hasOracle = false;

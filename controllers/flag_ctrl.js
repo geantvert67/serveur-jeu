@@ -7,7 +7,10 @@ const _ = require('lodash'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
     { flag_store } = require('../stores'),
+    { Flag } = require('../models'),
     { getRandomFlagPoint, calculateRadius } = require('../utils');
+
+let id = null;
 
 const _this = (module.exports = {
     getAll: () => {
@@ -50,6 +53,47 @@ const _this = (module.exports = {
                     calculateRadius(radius, radiusChange)
                 )
         );
+    },
+
+    getMaxId: () => {
+        if (id) {
+            id++;
+            return id;
+        } else {
+            const flag = _.maxBy(_this.getAll(), 'id');
+            return flag ? flag.id + 1 : 1;
+        }
+    },
+
+    createFlag: coordinates => {
+        const flag = new Flag(_this.getMaxId(), coordinates);
+        flag_store.add(flag);
+        return flag;
+    },
+
+    createRandom: nbFlags => {
+        const flags = _this.getAll();
+        let nbMax = nbFlags;
+        let nbCreated = 0;
+
+        while (nbCreated < nbMax) {
+            const coordinates = getRandomFlagPoint(
+                area_ctrl.getGameArea(),
+                area_ctrl.getForbiddenAreas(),
+                flags,
+                0,
+                100
+            );
+
+            if (coordinates) {
+                _this.createFlag(coordinates);
+                nbCreated++;
+            } else {
+                nbMax--;
+            }
+        }
+
+        return nbCreated;
     },
 
     captureFlag: (io, flagId, teamId, player) => {
@@ -139,7 +183,7 @@ const _this = (module.exports = {
         const flag = _this.getById(id),
             { gameMode } = config_ctrl.get();
 
-        if (flag.team) {
+        if (flag && flag.team) {
             if (gameMode === 'TIME') {
                 interval_ctrl.removeFlagIntervalByObjectId(id);
             } else {
@@ -151,6 +195,10 @@ const _this = (module.exports = {
         interval_ctrl.removeCapturedFlagIntervalByObjectId(id);
     },
 
+    deleteAll: () => {
+        flag_store.removeAll();
+    },
+
     randomize: () => {
         const flags = _this.getAll();
 
@@ -158,8 +206,7 @@ const _this = (module.exports = {
             f.coordinates = getRandomFlagPoint(
                 area_ctrl.getGameArea(),
                 area_ctrl.getForbiddenAreas(),
-                flags,
-                f.id
+                flags.filter(flag => flag.id !== f.id)
             );
             f.nbUpdates++;
         });

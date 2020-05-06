@@ -1,4 +1,5 @@
 const _ = require('lodash'),
+    moment = require('moment'),
     geolib = require('geolib'),
     { trap_store } = require('../stores'),
     { Trap } = require('../models'),
@@ -85,11 +86,11 @@ const _this = (module.exports = {
             target.nbUpdates++;
             item_instance_ctrl.delete(id, target);
         } else {
-            target.immobilized = true;
+            target.immobilizedUntil = moment().add(trap.effectDuration, 's');
             target.nbUpdates++;
 
             const timer = setTimeout(() => {
-                target.immobilized = false;
+                target.immobilizedUntil = null;
                 target.nbUpdates++;
             }, trap.effectDuration * 1000);
             interval_ctrl.createOtherInterval(timer, trap.id);
@@ -109,8 +110,8 @@ const _this = (module.exports = {
                 const inventorySize = inventory.length;
                 if (inventorySize > 0) {
                     const item = inventory.pop();
+                    item_instance_ctrl.removeFromInventory(item.id, target);
                     item_ctrl.giveItem(trap.owner, item);
-                    item_instance_ctrl.delete(item.id, target);
                 }
             }
         }

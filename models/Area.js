@@ -1,8 +1,8 @@
 class Area {
-    constructor(a) {
-        this.id = a.id;
-        this.coordinates = a.position.coordinates;
-        this.forbidden = a.forbidden;
+    constructor(id, coordinates, forbidden) {
+        this.id = id;
+        this.coordinates = coordinates;
+        this.forbidden = forbidden;
     }
 }
 

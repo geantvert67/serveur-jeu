@@ -5,7 +5,7 @@ class Player {
         this.inventory = [];
         this.isConnected = isConnected;
         this.hasTransporteur = false;
-        this.immobilized = false;
+        this.immobilizedUntil = null;
         this.antenneFlagsId = [];
         this.visibilityChange = [];
         this.noyaux = [];

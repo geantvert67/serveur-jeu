@@ -5,8 +5,22 @@ module.exports = (io, socket, player) => {
         socket.emit('getFlags', flag_ctrl.getAll());
     });
 
+    socket.on('createFlag', (coordinates, onSuccess) => {
+        onSuccess(flag_ctrl.createFlag(coordinates));
+    });
+
+    socket.on('createRandomFlags', nbFlags => {
+        const nbCreated = flag_ctrl.createRandom(nbFlags);
+        if (nbCreated === 0) {
+            socket.emit(
+                'onError',
+                "Il n'y a plus de place pour ajouter des cristaux"
+            );
+        }
+    });
+
     socket.on('captureFlag', ({ flagId, teamId }) => {
-        if (!player || (player && !player.immobilized)) {
+        if (!player || (player && !player.immobilizedUntil)) {
             flag_ctrl.captureFlag(io, flagId, teamId, player);
         }
     });
@@ -21,5 +35,9 @@ module.exports = (io, socket, player) => {
 
     socket.on('deleteFlag', id => {
         flag_ctrl.delete(id);
+    });
+
+    socket.on('deleteAllFlags', () => {
+        flag_ctrl.deleteAll();
     });
 };
