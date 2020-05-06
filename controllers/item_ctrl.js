@@ -69,18 +69,12 @@ const _this = (module.exports = {
     },
 
     create: (item, coordinates) => {
-        if (id) {
-            id++;
-        } else {
-            const maxId = _.maxBy(_this.getAll(), 'id');
-            id = maxId ? maxId.id + 1 : 1;
-        }
+        const i = _.cloneDeep(item);
+        i.id = _this.getMaxId();
+        i.quantity = 1;
+        i.position = { coordinates };
 
-        item.id = _this.getMaxId();
-        item.quantity = 1;
-        item.position = { coordinates };
-
-        const newItem = new Item(item);
+        const newItem = new Item(i);
         item_store.add(newItem);
         return newItem;
     },
