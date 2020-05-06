@@ -89,6 +89,14 @@ const _this = (module.exports = {
         }
     },
 
+    update: (id, newItem) => {
+        let item = _this.getById(id);
+        Object.keys(newItem)
+            .filter(e => newItem[e])
+            .forEach(e => (item[e] = newItem[e]));
+        item.nbUpdates++;
+    },
+
     isInventoryNotFull: player => {
         const { inventorySize } = config_ctrl.get();
         const maxInventorySize = player.hasTransporteur

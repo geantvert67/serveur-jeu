@@ -24,6 +24,10 @@ module.exports = (io, socket, player) => {
         item_ctrl.createRandom(nbItems, name);
     });
 
+    socket.on('updateItem', ({ id, newItem }) => {
+        item_ctrl.update(id, newItem);
+    });
+
     socket.on('moveItem', ({ coordinates, itemId }) => {
         item_ctrl.moveItem(coordinates, itemId);
     });
