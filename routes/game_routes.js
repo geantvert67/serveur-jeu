@@ -10,13 +10,6 @@ const _ = require('lodash'),
         trap_ctrl
     } = require('../controllers');
 
-const {
-    playerVisibilityRadius,
-    playerActionRadius,
-    flagVisibilityRadius,
-    flagActionRadius
-} = config_ctrl.get();
-
 module.exports = (io, socket, player) => {
     socket.on('getGame', () => {
         socket.emit('getGame', game_ctrl.get());
@@ -62,6 +55,13 @@ module.exports = (io, socket, player) => {
     });
 
     socket.on('routine', coordinates => {
+        const {
+            playerVisibilityRadius,
+            playerActionRadius,
+            flagVisibilityRadius,
+            flagActionRadius
+        } = config_ctrl.get();
+
         if (player) {
             player.coordinates = coordinates;
             trap_ctrl.routine(player);
