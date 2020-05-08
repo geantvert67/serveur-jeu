@@ -11,7 +11,7 @@ const _this = (module.exports = {
         return game_store.get();
     },
 
-    getInvitations: io => {
+    getInvitations: socket => {
         const game = _this.get();
 
         if (game && game.id) {
@@ -19,16 +19,21 @@ const _this = (module.exports = {
                 .get(
                     `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}/invitations`
                 )
-                .then(res => io.emit('getInvitations', res.data))
+                .then(res => socket.emit('getInvitations', res.data))
                 .catch(() => {});
         }
     },
 
-    acceptInvitation: (gameId, invitationId, accepted) => {
-        return axios.put(
-            `${process.env.API_URL}:${process.env.API_PORT}/games/${gameId}/invitations/${invitationId}`,
-            { accepted }
-        );
+    acceptInvitation: (gameId, invitationId, accepted, socket) => {
+        axios
+            .put(
+                `${process.env.API_URL}:${process.env.API_PORT}/games/${gameId}/invitations/${invitationId}`,
+                { accepted }
+            )
+            .then(() => {
+                _this.getInvitations(socket);
+            })
+            .catch(() => {});
     },
 
     publish: socket => {
