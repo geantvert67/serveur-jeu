@@ -86,17 +86,41 @@ const _this = (module.exports = {
             target.nbUpdates++;
             item_instance_ctrl.delete(id, target);
         } else {
-            target.immobilizedUntil = moment().add(trap.effectDuration, 's');
-            target.nbUpdates++;
+            if (target.immobilizedUntil) {
+                interval_ctrl.removePlayerIntervalById(target.id);
+                const currentDuration = Math.floor(
+                    moment
+                        .duration(
+                            moment(target.immobilizedUntil).diff(moment())
+                        )
+                        .asSeconds()
+                );
 
-            const timer = setTimeout(() => {
-                target.immobilizedUntil = null;
-                target.nbUpdates++;
-            }, trap.effectDuration * 1000);
-            interval_ctrl.createOtherInterval(timer, trap.id);
+                _this.setPlayerImmobilizationDuration(
+                    target,
+                    trap.effectDuration + currentDuration
+                );
+            } else {
+                _this.setPlayerImmobilizationDuration(
+                    target,
+                    trap.effectDuration
+                );
+            }
         }
 
         _this.delete(trap.id);
+    },
+
+    setPlayerImmobilizationDuration: (target, duration) => {
+        target.immobilizedUntil = moment().add(duration, 's');
+        target.nbUpdates++;
+
+        const timer = setTimeout(() => {
+            target.immobilizedUntil = null;
+            target.nbUpdates++;
+            interval_ctrl.removePlayerIntervalById(target.id);
+        }, duration * 1000);
+        interval_ctrl.createPlayerInterval(timer, target.id);
     },
 
     transducteurEffect: (target, trap) => {

@@ -6,7 +6,8 @@ let idFlagInterval = 1,
     idItemInterval = 1,
     idCapturedFlagInterval = 1,
     idTrapInterval = 1,
-    idOtherInterval = 1;
+    idOtherInterval = 1,
+    idPlayerInterval = 1;
 
 const _this = (module.exports = {
     getAllIntervals: () => {
@@ -109,6 +110,25 @@ const _this = (module.exports = {
         if (i) {
             clearTimeout(i.interval);
             interval_store.removeOtherInterval(i.id);
+        }
+    },
+
+    getAllPlayerIntervals: () => {
+        return interval_store.getAllPlayerIntervals();
+    },
+
+    createPlayerInterval: (timeout, objectId) => {
+        interval_store.addPlayerInterval(
+            new Interval(idPlayerInterval, timeout, objectId)
+        );
+        idPlayerInterval++;
+    },
+
+    removePlayerIntervalById: objectId => {
+        const i = _.find(_this.getAllPlayerIntervals(), { objectId });
+        if (i) {
+            clearTimeout(i.interval);
+            interval_store.removePlayerInterval(i.id);
         }
     },
 
