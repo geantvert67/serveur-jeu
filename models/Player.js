@@ -1,5 +1,6 @@
 class Player {
-    constructor(username, isConnected) {
+    constructor(id, username, isConnected) {
+        this.id = id;
         this.username = username;
         this.coordinates = [];
         this.inventory = [];

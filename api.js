@@ -9,6 +9,7 @@ import_ctrl.importConfig();
 
 io.on('connection', socket => {
     const player = player_ctrl.getOrCreate(
+        socket.handshake.query.id,
         socket.handshake.query.username,
         true
     );

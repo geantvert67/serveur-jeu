@@ -21,12 +21,12 @@ module.exports = (io, socket, player) => {
 
     socket.on(
         'acceptInvitation',
-        ({ gameId, invitationId, accepted, username }) => {
+        ({ gameId, invitationId, accepted, playerId, username }) => {
             if (accepted) {
                 const teamId = team_ctrl.findByMinPlayers().id;
                 const added = team_ctrl.addPlayer(
                     teamId,
-                    player_ctrl.getOrCreate(username, false)
+                    player_ctrl.getOrCreate(playerId, username, false)
                 );
 
                 if (added) {

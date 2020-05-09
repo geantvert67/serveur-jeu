@@ -37,10 +37,11 @@ const _this = (module.exports = {
     addPlayer: (teamId, player) => {
         const players = _this.getPlayers();
         const team = _this.getById(teamId);
+        const { maxPlayers } = config_ctrl.get();
 
         if (
             !config_ctrl.isLaunched() &&
-            team.players.length < config_ctrl.get().maxPlayers &&
+            (team.players.length < maxPlayers || !maxPlayers) &&
             !_.find(players, { username: player.username })
         ) {
             player.teamId = teamId;
