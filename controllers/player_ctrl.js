@@ -1,7 +1,7 @@
 const _ = require('lodash'),
     geolib = require('geolib'),
     { player_store } = require('../stores'),
-    { Player } = require('../models'),
+    { Player, Statistics } = require('../models'),
     config_ctrl = require('./config_ctrl'),
     { calculateRadius } = require('../utils');
 
@@ -22,6 +22,7 @@ const _this = (module.exports = {
 
         if (!p) {
             if (!config_ctrl.isLaunched()) {
+                player.statistics = new Statistics();
                 player_store.add(player);
                 return player;
             }

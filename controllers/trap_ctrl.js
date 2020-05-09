@@ -106,6 +106,8 @@ const _this = (module.exports = {
                     trap.effectDuration
                 );
             }
+
+            trap.owner.statistics.nbTraps++;
         }
 
         _this.delete(trap.id);
@@ -136,6 +138,8 @@ const _this = (module.exports = {
                     const item = inventory.pop();
                     item_instance_ctrl.removeFromInventory(item.id, target);
                     item_ctrl.giveItem(trap.owner, item);
+
+                    trap.owner.statistics.nbTraps++;
                 }
             }
         }

@@ -2,6 +2,7 @@ const axios = require('axios'),
     _ = require('lodash'),
     moment = require('moment'),
     { game_store } = require('../stores'),
+    player_ctrl = require('./player_ctrl'),
     team_ctrl = require('./team_ctrl'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl');
@@ -139,6 +140,7 @@ const _this = (module.exports = {
                 interval_ctrl.removeAll();
                 config.ended = true;
                 config.winners = _this.findWinners();
+                _this.sendStats();
                 io.emit('getConfig', config);
             });
     },
@@ -146,6 +148,38 @@ const _this = (module.exports = {
     findWinners: () => {
         const teams = team_ctrl.getAll();
         const maxScore = _.maxBy(teams, 'score').score;
-        return teams.filter(t => t.score === maxScore);
+        const winners = teams.filter(t => t.score === maxScore);
+
+        player_ctrl.getAll().forEach(player => {
+            if (_.find(winners, { id: player.teamId })) {
+                player.statistics.hasWon = winners.length === 1;
+                player.statistics.hasLost = false;
+            } else {
+                player.statistics.hasLost = true;
+            }
+        });
+
+        return winners;
+    },
+
+    sendStats: () => {
+        const game = _this.get();
+
+        player_ctrl.getAll().forEach(player => {
+            const team = team_ctrl.getById(player.teamId);
+            player.statistics.teamName = team.name;
+            player.statistics.teamColor = team.color;
+            player.statistics.teamScore = team.score;
+
+            axios
+                .post(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}/history`,
+                    {
+                        UserId: player.id,
+                        ...player.statistics
+                    }
+                )
+                .catch(() => {});
+        });
     }
 });

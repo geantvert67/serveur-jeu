@@ -11,7 +11,7 @@ class Player {
         this.visibilityChange = [];
         this.noyaux = [];
         this.nbUpdates = 0;
-        this.score = 0;
+        this.statistics = null;
     }
 }
 
