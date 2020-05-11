@@ -155,6 +155,7 @@ const _this = (module.exports = {
                 player.statistics.hasWon = winners.length === 1;
                 player.statistics.hasLost = false;
             } else {
+                player.statistics.hasWon = false;
                 player.statistics.hasLost = true;
             }
         });
