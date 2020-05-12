@@ -74,7 +74,7 @@ const _this = (module.exports = {
                 t.Users.map(u => {
                     team_ctrl.addPlayer(
                         team.id,
-                        player_ctrl.getOrCreate(u.username, false)
+                        player_ctrl.getOrCreate(u.id, u.username, false)
                     );
                     _this.createInvitation(gameId, u.id);
                 });

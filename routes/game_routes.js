@@ -10,13 +10,6 @@ const _ = require('lodash'),
         trap_ctrl
     } = require('../controllers');
 
-const {
-    playerVisibilityRadius,
-    playerActionRadius,
-    flagVisibilityRadius,
-    flagActionRadius
-} = config_ctrl.get();
-
 module.exports = (io, socket, player) => {
     socket.on('getGame', () => {
         socket.emit('getGame', game_ctrl.get());
@@ -28,24 +21,33 @@ module.exports = (io, socket, player) => {
 
     socket.on(
         'acceptInvitation',
-        ({ gameId, invitationId, accepted, username }) => {
-            game_ctrl
-                .acceptInvitation(gameId, invitationId, accepted)
-                .then(() => {
-                    game_ctrl.getInvitations(io);
-                    if (accepted) {
-                        teamId = team_ctrl.findByMinPlayers().id;
-                        if (
-                            team_ctrl.addPlayer(
-                                teamId,
-                                player_ctrl.getOrCreate(username, false)
-                            )
-                        ) {
-                            io.emit('getTeams', team_ctrl.getAll());
-                        }
-                    }
-                })
-                .catch(() => {});
+        ({ gameId, invitationId, accepted, playerId, username }) => {
+            if (accepted) {
+                const teamId = team_ctrl.findByMinPlayers().id;
+                const added = team_ctrl.addPlayer(
+                    teamId,
+                    player_ctrl.getOrCreate(playerId, username, false)
+                );
+
+                if (added) {
+                    io.emit('getTeams', team_ctrl.getAll());
+                    game_ctrl.acceptInvitation(
+                        gameId,
+                        invitationId,
+                        accepted,
+                        socket
+                    );
+                } else {
+                    socket.emit('onError', 'Toutes les équipes sont pleines');
+                }
+            } else {
+                game_ctrl.acceptInvitation(
+                    gameId,
+                    invitationId,
+                    accepted,
+                    socket
+                );
+            }
         }
     );
 
@@ -62,6 +64,13 @@ module.exports = (io, socket, player) => {
     });
 
     socket.on('routine', coordinates => {
+        const {
+            playerVisibilityRadius,
+            playerActionRadius,
+            flagVisibilityRadius,
+            flagActionRadius
+        } = config_ctrl.get();
+
         if (player) {
             player.coordinates = coordinates;
             trap_ctrl.routine(player);

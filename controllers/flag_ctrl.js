@@ -117,19 +117,22 @@ const _this = (module.exports = {
                     } else {
                         currentTeam.score--;
                     }
+                } else {
+                    player && player.statistics.nbDiscoveredFlags++;
                 }
 
                 if (gameMode === 'TIME') {
                     const interval = setInterval(() => {
-                        player && player.score++;
+                        player && player.statistics.score++;
                         newTeam.score++;
                     }, 1000);
                     interval_ctrl.createFlagInterval(interval, flag.id);
                 } else {
                     newTeam.score++;
-                    player && player.score++;
+                    player && player.statistics.score++;
                 }
                 flag.team = newTeam;
+                player && player.statistics.nbFlags++;
 
                 if (gameMode === 'SUPREMACY') {
                     if (newTeam.score > nbFlags / 2) {

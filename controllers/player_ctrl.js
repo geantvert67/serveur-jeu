@@ -1,7 +1,7 @@
 const _ = require('lodash'),
     geolib = require('geolib'),
     { player_store } = require('../stores'),
-    { Player } = require('../models'),
+    { Player, Statistics } = require('../models'),
     config_ctrl = require('./config_ctrl'),
     { calculateRadius } = require('../utils');
 
@@ -14,14 +14,15 @@ const _this = (module.exports = {
         return _.find(_this.getAll(), { username });
     },
 
-    getOrCreate: (username, isConnected) => {
-        if (!username) return null;
+    getOrCreate: (id, username, isConnected) => {
+        if (!username || !id) return null;
 
-        const player = new Player(username, isConnected),
+        const player = new Player(id, username, isConnected),
             p = _.find(_this.getAll(), { username });
 
         if (!p) {
             if (!config_ctrl.isLaunched()) {
+                player.statistics = new Statistics();
                 player_store.add(player);
                 return player;
             }

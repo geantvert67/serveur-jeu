@@ -3,7 +3,8 @@ const _ = require('lodash'),
     flagCapturedIntervals = [],
     itemIntervals = [],
     trapIntervals = [],
-    otherIntervals = [];
+    otherIntervals = [],
+    playerIntervals = [];
 let gameTimeout = null;
 
 module.exports = {
@@ -13,7 +14,8 @@ module.exports = {
         ...flagCapturedIntervals,
         ...itemIntervals,
         ...trapIntervals,
-        ...otherIntervals
+        ...otherIntervals,
+        ...playerIntervals
     ],
     getAllFlagIntervals: () => flagIntervals,
     addFlagInterval: i => flagIntervals.push(i),
@@ -31,6 +33,9 @@ module.exports = {
     getAllOtherIntervals: () => otherIntervals,
     addOtherInterval: i => otherIntervals.push(i),
     removeOtherInterval: id => _.remove(otherIntervals, i => i.id === id),
+    getAllPlayerIntervals: () => playerIntervals,
+    addPlayerInterval: i => playerIntervals.push(i),
+    removePlayerInterval: id => _.remove(playerIntervals, i => i.id === id),
     addGameTimeout: i => (gameTimeout = i),
     removeAll: () => {
         flagIntervals.length = 0;
@@ -38,6 +43,7 @@ module.exports = {
         itemIntervals.length = 0;
         trapIntervals.length = 0;
         otherIntervals.length = 0;
+        playerIntervals.length = 0;
         gameTimeout = null;
     }
 };

@@ -2,6 +2,7 @@ const axios = require('axios'),
     _ = require('lodash'),
     moment = require('moment'),
     { game_store } = require('../stores'),
+    player_ctrl = require('./player_ctrl'),
     team_ctrl = require('./team_ctrl'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl');
@@ -11,7 +12,7 @@ const _this = (module.exports = {
         return game_store.get();
     },
 
-    getInvitations: io => {
+    getInvitations: socket => {
         const game = _this.get();
 
         if (game && game.id) {
@@ -19,16 +20,21 @@ const _this = (module.exports = {
                 .get(
                     `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}/invitations`
                 )
-                .then(res => io.emit('getInvitations', res.data))
+                .then(res => socket.emit('getInvitations', res.data))
                 .catch(() => {});
         }
     },
 
-    acceptInvitation: (gameId, invitationId, accepted) => {
-        return axios.put(
-            `${process.env.API_URL}:${process.env.API_PORT}/games/${gameId}/invitations/${invitationId}`,
-            { accepted }
-        );
+    acceptInvitation: (gameId, invitationId, accepted, socket) => {
+        axios
+            .put(
+                `${process.env.API_URL}:${process.env.API_PORT}/games/${gameId}/invitations/${invitationId}`,
+                { accepted }
+            )
+            .then(() => {
+                _this.getInvitations(socket);
+            })
+            .catch(() => {});
     },
 
     publish: socket => {
@@ -134,6 +140,7 @@ const _this = (module.exports = {
                 interval_ctrl.removeAll();
                 config.ended = true;
                 config.winners = _this.findWinners();
+                _this.sendStats();
                 io.emit('getConfig', config);
             });
     },
@@ -141,6 +148,39 @@ const _this = (module.exports = {
     findWinners: () => {
         const teams = team_ctrl.getAll();
         const maxScore = _.maxBy(teams, 'score').score;
-        return teams.filter(t => t.score === maxScore);
+        const winners = teams.filter(t => t.score === maxScore);
+
+        player_ctrl.getAll().forEach(player => {
+            if (_.find(winners, { id: player.teamId })) {
+                player.statistics.hasWon = winners.length === 1;
+                player.statistics.hasLost = false;
+            } else {
+                player.statistics.hasWon = false;
+                player.statistics.hasLost = true;
+            }
+        });
+
+        return winners;
+    },
+
+    sendStats: () => {
+        const game = _this.get();
+
+        player_ctrl.getAll().forEach(player => {
+            const team = team_ctrl.getById(player.teamId);
+            player.statistics.teamName = team.name;
+            player.statistics.teamColor = team.color;
+            player.statistics.teamScore = team.score;
+
+            axios
+                .post(
+                    `${process.env.API_URL}:${process.env.API_PORT}/games/${game.id}/history`,
+                    {
+                        UserId: player.id,
+                        ...player.statistics
+                    }
+                )
+                .catch(() => {});
+        });
     }
 });
