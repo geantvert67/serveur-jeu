@@ -2,6 +2,13 @@ const geolib = require('geolib'),
     config_ctrl = require('./controllers/config_ctrl');
 
 const _this = (module.exports = {
+    /**
+     * Renvoie un point situé aléatoirement dans la zone de jeu et qui n'est pas
+     * dans une zone interdite
+     *
+     * @param object gameArea Zone de jeu
+     * @param array forbiddenAreas Liste des zones interdites
+     */
     getRandomPoint: (gameArea, forbiddenAreas) => {
         const { maxLat, minLat, maxLng, minLng } = geolib.getBounds(
             gameArea.coordinates[0]
@@ -22,6 +29,17 @@ const _this = (module.exports = {
         return point;
     },
 
+    /**
+     * Renvoie un point situé aléatoirement dans la zone de jeu, qui n'est pas
+     * dans une zone interdite et qui ne rentre pas en conflit avec le rayon d'un
+     * cristal
+     *
+     * @param object gameArea Zone de jeu
+     * @param array forbiddenAreas Liste des zones interdites
+     * @param array flags Liste des cristaux
+     * @param int iterations Nombre de fois où cette fonction a été appelée récusivement
+     * @param int maxIterations Niveau de récursivité maximum
+     */
     getRandomFlagPoint: (
         gameArea,
         forbiddenAreas,
@@ -58,6 +76,13 @@ const _this = (module.exports = {
         return point;
     },
 
+    /**
+     * Renvoie vrai si le point en conflit avec le rayon d'un cristal, faux sinon
+     *
+     * @param array coordinates Point
+     * @param array flags Liste des cristaux
+     * @param float radius Rayon des cristaux
+     */
     isFlagInConflict: (coordinates, flags, radius) => {
         let conflict = false;
         flags.forEach(f => {
@@ -68,10 +93,21 @@ const _this = (module.exports = {
         return conflict;
     },
 
+    /**
+     * Convertit un angle en Celsius en radians
+     *
+     * @param int degree L'angle à convertir
+     */
     toRadian: degree => {
         return (degree * Math.PI) / 180;
     },
 
+    /**
+     * Renvoie la distance entre 2 points
+     *
+     * @param array origin Point de départ
+     * @param array destination Point d'arrivée
+     */
     getDistance: (origin, destination) => {
         let lon1 = _this.toRadian(origin[1]),
             lat1 = _this.toRadian(origin[0]),
@@ -91,6 +127,12 @@ const _this = (module.exports = {
         return c * EARTH_RADIUS * 1000;
     },
 
+    /**
+     * Renvoie un rayon après avoir appliqué un impact en pourcentage dessus
+     *
+     * @param float radius Rayon de départ
+     * @param int radiusChange Impact sur le rayon
+     */
     calculateRadius: (radius, radiusChange) => {
         let r = radius;
         radiusChange.forEach(o => (r += (o.percent / 100) * r));
