@@ -8,10 +8,18 @@ const axios = require('axios'),
     interval_ctrl = require('./interval_ctrl');
 
 const _this = (module.exports = {
+    /**
+     * Renvoie la partie
+     */
     get: () => {
         return game_store.get();
     },
 
+    /**
+     * Renvoie les invitations
+     *
+     * @param object socket Objet Socket.io
+     */
     getInvitations: socket => {
         const game = _this.get();
 
@@ -25,6 +33,14 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Accepte ou refuse une invitation
+     *
+     * @param string gameId Identifiant de la partie
+     * @param int invitationId Identifiant de l'invitation
+     * @param boolean accepted Si l'invitation a été acceptée ou refusée
+     * @param object socket Objet Socket.io
+     */
     acceptInvitation: (gameId, invitationId, accepted, socket) => {
         axios
             .put(
@@ -37,6 +53,11 @@ const _this = (module.exports = {
             .catch(() => {});
     },
 
+    /**
+     * Rend la partie publique
+     *
+     * @param object socket Objet Socket.io
+     */
     publish: socket => {
         const config = config_ctrl.get(),
             game = _this.get();
@@ -55,6 +76,11 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Lance la partie
+     *
+     * @param object io Objet Socket.io
+     */
     launch: io => {
         const game = _this.get(),
             config = config_ctrl.get();
@@ -91,6 +117,12 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Lance la partie à une certaine date
+     *
+     * @param object Objet Socket.io
+     * @param date date Date de lancement
+     */
     launchAt: (io, date) => {
         if (moment().isSameOrAfter(date)) {
             _this.launch(io);
@@ -124,6 +156,11 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Termine la partie
+     *
+     * @param object io Objet Socket.io
+     */
     end: io => {
         const config = config_ctrl.get(),
             game = _this.get();
@@ -145,6 +182,10 @@ const _this = (module.exports = {
             });
     },
 
+    /**
+     * Renvoie l'équipe qui a gagné la partie, en cas d'égalité renvoie celles qui
+     * ont le plus haut score
+     */
     findWinners: () => {
         const teams = team_ctrl.getAll();
         const maxScore = _.maxBy(teams, 'score').score;
@@ -163,6 +204,9 @@ const _this = (module.exports = {
         return winners;
     },
 
+    /**
+     * Stocke les statistiques de chzque joueur dans le serveur central
+     */
     sendStats: () => {
         const game = _this.get();
 

@@ -13,14 +13,31 @@ const _ = require('lodash'),
 let id = null;
 
 const _this = (module.exports = {
+    /**
+     * Renvoie tous les items
+     */
     getAll: () => {
         return item_store.getAll();
     },
 
+    /**
+     * Renvoie un item à partir d'un identifiant
+     *
+     * @param int id Identifiant
+     */
     getById: id => {
         return _.find(_this.getAll(), { id });
     },
 
+    /**
+     * Renvoie les items dans un rayon à partir d'une position
+     *
+     * @param array coordinates Position
+     * @param boolean checkVisibility S'il faut utiliser le rayon de visibilité
+     * ou d'action
+     * @param array inActionRadius Items à ne pas renvoyer
+     * @param array radiusChange Liste des impacts sur le rayon
+     */
     getInRadius: (
         coordinates,
         checkVisibility,
@@ -49,6 +66,9 @@ const _this = (module.exports = {
         });
     },
 
+    /**
+     * Renvoie un identifiant pour créer un item
+     */
     getMaxId: () => {
         if (id) {
             id++;
@@ -59,6 +79,12 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Récupère un modèle d'item à partir d'un nom puis crée un item
+     *
+     * @param array coordinates Position
+     * @param string name Nom du modèle d'item
+     */
     createItem: (coordinates, name) => {
         const itemModel = item_model_ctrl.getByName(name);
 
@@ -68,6 +94,12 @@ const _this = (module.exports = {
         return null;
     },
 
+    /**
+     * Créer un item
+     *
+     * @param object item Modèle d'item
+     * @param array coordinates Position
+     */
     create: (item, coordinates) => {
         const i = _.cloneDeep(item);
         i.id = _this.getMaxId();
@@ -79,6 +111,12 @@ const _this = (module.exports = {
         return newItem;
     },
 
+    /**
+     * Crée des items aléatoirement
+     *
+     * @param int nbItems Le nombre d'items à créer
+     * @param string name Nom du modèle d'item
+     */
     createRandom: (nbItems, name) => {
         for (let i = 0; i < nbItems; i++) {
             const coordinates = getRandomPoint(
@@ -89,6 +127,12 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Modifie les paramètres d'un item
+     *
+     * @param int id Identifiant de l'item
+     * @param object newItem Les nouveaux paramètres de l'item
+     */
     update: (id, newItem) => {
         let item = _this.getById(id);
         Object.keys(newItem)
@@ -97,6 +141,11 @@ const _this = (module.exports = {
         item.nbUpdates++;
     },
 
+    /**
+     * Renvoie vrai si l'inventaire du joueur n'est pas plein, faux sinon
+     *
+     * @param object player Joueur
+     */
     isInventoryNotFull: player => {
         const { inventorySize } = config_ctrl.get();
         const maxInventorySize = player.hasTransporteur
@@ -106,6 +155,12 @@ const _this = (module.exports = {
         return player.inventory.length < maxInventorySize;
     },
 
+    /**
+     * Ramasse un item
+     *
+     * @param object player Joueur
+     * @param int id Identifiant de l'item
+     */
     takeItem: (player, id) => {
         const item = _this.getById(id);
 
@@ -144,36 +199,60 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Donne un item à un joueur
+     *
+     * @param object player Joueur recevant l'item
+     * @param object itemInstance Item à donner
+     */
     giveItem: (player, itemInstance) => {
-        const { inventorySize } = config_ctrl.get();
-        const maxInventorySize = player.hasTransporteur
-            ? inventorySize * 2
-            : inventorySize;
-
-        if (player.inventory.length < maxInventorySize) {
+        if (_this.isInventoryNotFull(player)) {
             player.inventory.push(itemInstance);
             return true;
         }
         return false;
     },
 
+    /**
+     * Dépose un item
+     *
+     * @param object player Joueur déposant l'item
+     * @param int id Identifiant de l'item
+     * @param array coordinates Position où déposer l'item
+     */
     dropItem: (player, id, coordinates) => {
         const item = item_instance_ctrl.getById(id);
         _this.create(_.cloneDeep(item), coordinates);
         item_instance_ctrl.delete(id, player);
     },
 
+    /**
+     * Déplace un item
+     *
+     * @param array coordinates Nouvelle position
+     * @param int flagId Identifiant de l'item
+     */
     moveItem: (coordinates, itemId) => {
         const item = _this.getById(itemId);
         item.coordinates = coordinates;
         item.nbUpdates++;
     },
 
+    /**
+     * Supprime un item
+     *
+     * @param int id Identifiant de l'item
+     */
     delete: id => {
         item_store.remove(id);
         interval_ctrl.removeItemIntervalByObjectId(id);
     },
 
+    /**
+     * Supprime tous les items d'un certain nom
+     *
+     * @param string name Nom du modèle d'item
+     */
     deleteByName: name => {
         _this
             .getAll()
@@ -184,6 +263,9 @@ const _this = (module.exports = {
             });
     },
 
+    /**
+     * Modifie aléatoirement la position de tous les items
+     */
     randomize: () => {
         _this.getAll().forEach(i => {
             i.coordinates = getRandomPoint(

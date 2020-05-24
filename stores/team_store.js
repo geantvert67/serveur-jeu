@@ -1,6 +1,9 @@
 const _ = require('lodash'),
     teams = [];
 
+/**
+ * Gestion des équipes
+ */
 module.exports = {
     getAll: () => teams,
     add: t => teams.push(t),

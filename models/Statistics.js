@@ -1,3 +1,6 @@
+/**
+ * Représente les statistiques d'un joueur
+ */
 class Statistics {
     constructor() {
         this.score = 0;

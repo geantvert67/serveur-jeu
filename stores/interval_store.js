@@ -7,6 +7,9 @@ const _ = require('lodash'),
     playerIntervals = [];
 let gameTimeout = null;
 
+/**
+ * Gestion des intervalles/timers
+ */
 module.exports = {
     getAllIntervals: () => flagIntervals,
     getAllTimers: () => [

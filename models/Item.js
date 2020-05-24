@@ -1,4 +1,10 @@
+/**
+ * Représente un item
+ */
 class Item {
+    /**
+     * @param object i Item
+     */
     constructor(i) {
         this.id = i.id;
         this.quantity = i.quantity;

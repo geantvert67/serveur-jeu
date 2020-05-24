@@ -6,14 +6,30 @@ const _ = require('lodash'),
     { calculateRadius } = require('../utils');
 
 const _this = (module.exports = {
+    /**
+     * Renvoie tous les joueurs
+     */
     getAll: () => {
         return player_store.getAll();
     },
 
+    /**
+     * Renvoie un joueur à partir d'un nom d'utilisateur
+     *
+     * @param string username Nom d'utilisateur du joueur
+     */
     getByUsername: username => {
         return _.find(_this.getAll(), { username });
     },
 
+    /**
+     * Renvoie un joueur à partir d'un nom d'utilisateur, en le crée s'il n'existe
+     * pas encore
+     *
+     * @param int id Identifiant du joueur
+     * @param string username Nom d'utilisateur du joueur
+     * @param boolean isConnected Si le joueur est connecté à la partie
+     */
     getOrCreate: (id, username, isConnected) => {
         if (!username || !id) return null;
 
@@ -33,6 +49,15 @@ const _this = (module.exports = {
         return p;
     },
 
+    /**
+     * Renvoie les joueurs ennemis dans un rayon donné à partir d'une position
+     *
+     * @param array coordinates Position
+     * @param int teamId Identifiant de l'équipe du joueur
+     * @param float radius Rayon
+     * @param array inActionRadius Joueurs à ne pas renvoyer
+     * @param array radiusChange Liste des impacts sur le rayon
+     */
     getInRadius: (
         coordinates,
         teamId,

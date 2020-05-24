@@ -1,4 +1,11 @@
+/**
+ * Représente un item dans l'inventaire
+ */
 class ItemInstance {
+    /**
+     * @param int id Idetifiant
+     * @param object i Item
+     */
     constructor(id, i) {
         this.id = id;
         this.name = i.name;

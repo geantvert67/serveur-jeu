@@ -1,4 +1,10 @@
+/**
+ * Représente un modèle d'item
+ */
 class ItemModel {
+    /**
+     * @param object im Modèle d'item
+     */
     constructor(im) {
         this.id = im.id;
         this.name = im.name;
