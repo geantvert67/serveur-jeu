@@ -1,4 +1,11 @@
+/**
+ * Représente la configuration
+ */
 class Config {
+    /**
+     *
+     * @param object c Configuration
+     */
     constructor(c) {
         this.id = c.id;
         this.name = c.name;

@@ -1,4 +1,11 @@
+/**
+ * Représente une équipe
+ */
 class Team {
+    /**
+     *
+     * @param object t Équipe
+     */
     constructor(t) {
         this.id = t.id;
         this.name = t.name;
