@@ -11,17 +11,32 @@ const moment = require('moment'),
     } = require('../controllers');
 
 module.exports = (io, socket, player) => {
+    /**
+     * Utilise une tempête
+     *
+     * @param int id Identifiant de l'item à utiliser
+     */
     socket.on('useTempete', id => {
         item_ctrl.randomize();
         flag_ctrl.randomize();
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Utilise un disloqueur
+     *
+     * @param int id Identifiant de l'item à utiliser
+     */
     socket.on('useDisloqueur', id => {
         flag_ctrl.getAll().forEach(f => flag_ctrl.resetFlag(f.id));
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Utilise un transporteur
+     *
+     * @param int id Identifiant de l'item à utiliser
+     */
     socket.on('useTransporteur', id => {
         if (!player.hasTransporteur) {
             player.hasTransporteur = true;
@@ -30,6 +45,13 @@ module.exports = (io, socket, player) => {
         }
     });
 
+    /**
+     * Utilise un portail de transfert
+     *
+     * @param int id Identifiant de l'item à utiliser
+     * @param string username Nom d'utilisateur du joueur à qui l'item sera donné
+     * @param int itemId Identifiant de l'item à donner
+     */
     socket.on('usePortailTransfert', ({ id, username, itemId }) => {
         const item = item_instance_ctrl.getById(itemId);
         const target = player_ctrl.getByUsername(username);
@@ -42,6 +64,12 @@ module.exports = (io, socket, player) => {
         }
     });
 
+    /**
+     * Utilise une sentinelle
+     *
+     * @param int id Identifiant de l'item à utiliser
+     * @param int flagId Identifiant du cristal
+     */
     socket.on('useSentinelle', ({ id, flagId }) => {
         const flag = flag_ctrl.getById(flagId);
         const item = item_instance_ctrl.getById(id);
@@ -71,6 +99,12 @@ module.exports = (io, socket, player) => {
         }
     });
 
+    /**
+     * Utilise un oracle
+     *
+     * @param int id Identifiant de l'item à utiliser
+     * @param int flagId Identifiant du cristal
+     */
     socket.on('useOracle', ({ id, flagId }) => {
         const flag = flag_ctrl.getById(flagId);
 
@@ -86,6 +120,13 @@ module.exports = (io, socket, player) => {
         }
     });
 
+    /**
+     * Installe un canon
+     *
+     * @param int id Identifiant de l'item à installer
+     * @param array coordinates Position où le piège sera installé
+     * @param int delay Nombre de secondes avant que le piège soit actif
+     */
     socket.on('useCanon', ({ id, coordinates, delay }) => {
         const item = item_instance_ctrl.getById(id);
         const trap = trap_ctrl.create(item, player, coordinates);
@@ -99,6 +140,13 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Installe un transducteur
+     *
+     * @param int id Identifiant de l'item à installer
+     * @param array coordinates Position où le piège sera installé
+     * @param int delay Nombre de secondes avant que le piège soit actif
+     */
     socket.on('useTransducteur', ({ id, coordinates, delay }) => {
         const item = item_instance_ctrl.getById(id);
         const trap = trap_ctrl.create(item, player, coordinates);
@@ -112,6 +160,12 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Utilise une antenne
+     *
+     * @param int id Identifiant de l'item à utiliser
+     * @param function onSuccess Fonction de callback
+     */
     socket.on('useAntenne', ({ id }, onSuccess) => {
         const freeFlag = _.sample(flag_ctrl.getAll().filter(f => !f.team));
 
@@ -132,6 +186,11 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Équipe une sonde
+     *
+     * @param int id Identifiant de l'item à équiper
+     */
     socket.on('useSonde', id => {
         const item = item_instance_ctrl.getById(id);
 
@@ -145,6 +204,11 @@ module.exports = (io, socket, player) => {
         interval_ctrl.createOtherInterval(timer, id);
     });
 
+    /**
+     * Utilise un intercepteur
+     *
+     * @param int id Identifiant de l'item à utiliser
+     */
     socket.on('useIntercepteur', id => {
         const item = item_instance_ctrl.getById(id);
         const ennemis = team_ctrl.getEnnemis(
@@ -169,6 +233,11 @@ module.exports = (io, socket, player) => {
         item_instance_ctrl.delete(id, player);
     });
 
+    /**
+     * Équipe un noyau
+     *
+     * @param int id Identifiant de l'item à équiper
+     */
     socket.on('useNoyau', id => {
         const item = item_instance_ctrl.getById(id);
         item.equiped = true;
@@ -177,12 +246,22 @@ module.exports = (io, socket, player) => {
         player.nbUpdates++;
     });
 
+    /**
+     * Déséquipe une sonde
+     *
+     * @param int id Identifiant de l'item à déséquiper
+     */
     socket.on('unequipSonde', id => {
         _.remove(player.visibilityChange, o => o.id === id);
         item_instance_ctrl.delete(id, player);
         interval_ctrl.removeOtherIntervalById(id);
     });
 
+    /**
+     * Déséquipe un noyau
+     *
+     * @param int id Identifiant de l'item à déséquiper
+     */
     socket.on('unequipNoyau', id => {
         _.remove(player.noyaux, o => o === id);
         player.nbUpdates++;

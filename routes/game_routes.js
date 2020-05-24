@@ -11,14 +11,29 @@ const _ = require('lodash'),
     } = require('../controllers');
 
 module.exports = (io, socket, player) => {
+    /**
+     * Récupère la partie
+     */
     socket.on('getGame', () => {
         socket.emit('getGame', game_ctrl.get());
     });
 
+    /**
+     * Récupère les invitations
+     */
     socket.on('getInvitations', () => {
         game_ctrl.getInvitations(io);
     });
 
+    /**
+     * Accepte ou refuse une invitation
+     *
+     * @param int gameId Identifiant de la partie
+     * @param int invitationId Identifiant de l'invitation
+     * @param boolean accepted Si l'invitation a été acceptée ou refusée
+     * @param int playerId Identifiant du joueur
+     * @param string username Nom d'utilisateur du joueur
+     */
     socket.on(
         'acceptInvitation',
         ({ gameId, invitationId, accepted, playerId, username }) => {
@@ -51,18 +66,33 @@ module.exports = (io, socket, player) => {
         }
     );
 
+    /**
+     * Rend la partie publique
+     */
     socket.on('publish', () => {
         game_ctrl.publish(socket);
     });
 
+    /**
+     * Lance la partie à une certaine date
+     *
+     * @param date date Date de lancement
+     */
     socket.on('launchGame', date => {
         date ? game_ctrl.launchAt(io, date) : game_ctrl.launch(io);
     });
 
+    /**
+     * Termine une partie
+     */
     socket.on('endGame', () => {
         game_ctrl.end(io);
     });
 
+    /**
+     * Routine des joueurs : ils envoient leur position et récupèrent tous les
+     * objets nécessaires
+     */
     socket.on('routine', coordinates => {
         const {
             playerVisibilityRadius,
@@ -126,6 +156,9 @@ module.exports = (io, socket, player) => {
         }
     });
 
+    /**
+     * Routine du maitre de jeu : il récupère tous les objets existants
+     */
     socket.on('adminRoutine', () => {
         const objects = {};
 
