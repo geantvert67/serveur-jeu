@@ -13,24 +13,46 @@ const _ = require('lodash'),
 let id = null;
 
 const _this = (module.exports = {
+    /**
+     * Renvoie tous les cristaux
+     */
     getAll: () => {
         return flag_store.getAll();
     },
 
+    /**
+     * Renvoie tous les cristaux capturés
+     */
     getCaptured: () => {
         return _.filter(_this.getAll(), f => f.team !== null);
     },
 
+    /**
+     * Renvoie les cristaux d'un joueur ayant utilisé des antennes
+     */
     getFromPlayer: player => {
         return player.antenneFlagsId
             .map(id => _this.getById(id))
             .filter(f => f !== undefined);
     },
 
+    /**
+     * Renvoie un cristal à partir d'un identifiant
+     *
+     * @param int id Identifiant
+     */
     getById: id => {
         return _.find(_this.getAll(), { id });
     },
 
+    /**
+     * Renvoie les cristaux dans un rayon donné à partir d'une position
+     *
+     * @param array coordinates Position
+     * @param float radius Rayon
+     * @param array inActionRadius Cristaux à ne pas renvoyer
+     * @param array radiusChange Liste des impacts sur le rayon
+     */
     getInRadius: (
         coordinates,
         radius,
@@ -55,6 +77,9 @@ const _this = (module.exports = {
         );
     },
 
+    /**
+     * Renvoie un identifiant pour créer un cristal
+     */
     getMaxId: () => {
         if (id) {
             id++;
@@ -65,12 +90,22 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Crée un cristal
+     *
+     * @param array coordinates Position
+     */
     createFlag: coordinates => {
         const flag = new Flag(_this.getMaxId(), coordinates);
         flag_store.add(flag);
         return flag;
     },
 
+    /**
+     * Crée des cristaux aléatoirement
+     *
+     * @param int nbFlags Le nombre de cristaux à créer
+     */
     createRandom: nbFlags => {
         const flags = _this.getAll();
         let nbMax = nbFlags;
@@ -96,6 +131,14 @@ const _this = (module.exports = {
         return nbCreated;
     },
 
+    /**
+     * Capture un cristal
+     *
+     * @param object io Objet Socket.io
+     * @param int flagId Identifiant du cristal
+     * @param int teamId Identifiant de l'équipe qui va le posséder
+     * @param object player Joueur capturant le cristal
+     */
     captureFlag: (io, flagId, teamId, player) => {
         const nbFlags = _this.getAll().length,
             flag = _this.getById(flagId),
@@ -145,6 +188,12 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Modifie le temps d'incapturabilité d'un cristal
+     *
+     * @param object flag Cristal
+     * @param int duration Durée d'incapturabilité
+     */
     setFlagCapturedDuration: (flag, duration) => {
         flag.capturedUntil = moment().add(duration, 's');
         flag.nbUpdates++;
@@ -156,6 +205,11 @@ const _this = (module.exports = {
         interval_ctrl.createCapturedFlagInterval(timer, flag.id);
     },
 
+    /**
+     * Décapture un cristal
+     *
+     * @param int flagId Identifiant du cristal
+     */
     resetFlag: flagId => {
         const flag = _this.getById(flagId),
             { gameMode } = config_ctrl.get();
@@ -176,12 +230,23 @@ const _this = (module.exports = {
         interval_ctrl.removeCapturedFlagIntervalByObjectId(flagId);
     },
 
+    /**
+     * Déplace un cristal
+     *
+     * @param array coordinates Les nouvelles coordonnées du cristal
+     * @param int flagId Identifiant du cristal
+     */
     moveFlag: (coordinates, flagId) => {
         const flag = _this.getById(flagId);
         flag.coordinates = coordinates;
         flag.nbUpdates++;
     },
 
+    /**
+     * Supprime un cristal
+     *
+     * @param int id Identifiant du cristal
+     */
     delete: id => {
         const flag = _this.getById(id),
             { gameMode } = config_ctrl.get();
@@ -198,10 +263,16 @@ const _this = (module.exports = {
         interval_ctrl.removeCapturedFlagIntervalByObjectId(id);
     },
 
+    /**
+     * Supprime tous les cristaux
+     */
     deleteAll: () => {
         flag_store.removeAll();
     },
 
+    /**
+     * Modifie aléatoirement la position de tous les cristaux
+     */
     randomize: () => {
         const flags = _this.getAll();
 

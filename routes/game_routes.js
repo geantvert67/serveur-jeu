@@ -28,7 +28,7 @@ module.exports = (io, socket, player) => {
     /**
      * Accepte ou refuse une invitation
      *
-     * @param int gameId Identifiant de la partie
+     * @param string gameId Identifiant de la partie
      * @param int invitationId Identifiant de l'invitation
      * @param boolean accepted Si l'invitation a été acceptée ou refusée
      * @param int playerId Identifiant du joueur
@@ -83,7 +83,7 @@ module.exports = (io, socket, player) => {
     });
 
     /**
-     * Termine une partie
+     * Termine la partie
      */
     socket.on('endGame', () => {
         game_ctrl.end(io);

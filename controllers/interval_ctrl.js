@@ -10,18 +10,33 @@ let idFlagInterval = 1,
     idPlayerInterval = 1;
 
 const _this = (module.exports = {
+    /**
+     * Renvoie toutes les intervalles
+     */
     getAllIntervals: () => {
         return interval_store.getAllIntervals();
     },
 
+    /**
+     * Renvoie tous les timers
+     */
     getAllTimers: () => {
         return interval_store.getAllTimers();
     },
 
+    /**
+     * Renvoie toutes les intervalles liées au temps de possession d'un cristal
+     */
     getAllFlagIntervals: () => {
         return interval_store.getAllFlagIntervals();
     },
 
+    /**
+     * Crée une intervalle liée au temps de possession d'un cristal
+     *
+     * @param object interval Intervalle
+     * @param object objectId Identifiant du cristal
+     */
     createFlagInterval: (interval, objectId) => {
         interval_store.addFlagInterval(
             new Interval(idFlagInterval, interval, objectId)
@@ -29,6 +44,11 @@ const _this = (module.exports = {
         idFlagInterval++;
     },
 
+    /**
+     * Supprime une intervalle liée au temps de possession d'un cristal
+     *
+     * @param object objectId Identifiant du cristal
+     */
     removeFlagIntervalByObjectId: objectId => {
         const i = _.find(_this.getAllFlagIntervals(), { objectId });
         if (i) {
@@ -37,17 +57,31 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Renvoie les timers liés aux items
+     */
     getAllItemIntervals: () => {
         return interval_store.getAllItemIntervals();
     },
 
-    createItemInterval: (interval, objectId) => {
+    /**
+     * Crée un timer lié à un item
+     *
+     * @param object timeout Timer
+     * @param object objectId Identifiant de l'item
+     */
+    createItemInterval: (timeout, objectId) => {
         interval_store.addItemInterval(
-            new Interval(idItemInterval, interval, objectId)
+            new Interval(idItemInterval, timeout, objectId)
         );
         idItemInterval++;
     },
 
+    /**
+     * Supprime un timer lié à un item
+     *
+     * @param object objectId Identifiant de l'item
+     */
     removeItemIntervalByObjectId: objectId => {
         const i = _.find(_this.getAllItemIntervals(), { objectId });
         if (i) {
@@ -56,17 +90,31 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Renvoie tous les timers liés au temps de d'incapturabilité d'un cristal
+     */
     getAllCapturedFlagIntervals: () => {
         return interval_store.getAllCapturedFlagIntervals();
     },
 
-    createCapturedFlagInterval: (interval, objectId) => {
+    /**
+     * Crée un timer lié au temps de d'incapturabilité d'un cristal
+     *
+     * @param object timeout Timer
+     * @param object objectId Identifiant du cristal
+     */
+    createCapturedFlagInterval: (timeout, objectId) => {
         interval_store.addCapturedFlagInterval(
-            new Interval(idCapturedFlagInterval, interval, objectId)
+            new Interval(idCapturedFlagInterval, timeout, objectId)
         );
         idCapturedFlagInterval++;
     },
 
+    /**
+     * Supprime un timer lié au temps de d'incapturabilité d'un cristal
+     *
+     * @param object objectId Identifiant du cristal
+     */
     removeCapturedFlagIntervalByObjectId: objectId => {
         const i = _.find(_this.getAllCapturedFlagIntervals(), { objectId });
         if (i) {
@@ -75,17 +123,31 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Renvoie tous les timers liés aux pièges
+     */
     getAllTrapIntervals: () => {
         return interval_store.getAllTrapIntervals();
     },
 
-    createTrapInterval: (interval, objectId) => {
+    /**
+     * Crée un timer lié à un piège
+     *
+     * @param object timeout Timer
+     * @param object objectId Identifiant du piège
+     */
+    createTrapInterval: (timeout, objectId) => {
         interval_store.addTrapInterval(
-            new Interval(idTrapInterval, interval, objectId)
+            new Interval(idTrapInterval, timeout, objectId)
         );
         idTrapInterval++;
     },
 
+    /**
+     * Supprime un timer lié à un piège
+     *
+     * @param object objectId Identifiant du piège
+     */
     removeTrapIntervalByObjectId: objectId => {
         const i = _.find(_this.getAllTrapIntervals(), { objectId });
         if (i) {
@@ -94,10 +156,19 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Renvoie tous les timers divers
+     */
     getAllOtherIntervals: () => {
         return interval_store.getAllOtherIntervals();
     },
 
+    /**
+     * Crée un timer divers
+     *
+     * @param object timeout Timer
+     * @param object objectId Identifiant de l'objet lié au timer
+     */
     createOtherInterval: (timeout, objectId) => {
         interval_store.addOtherInterval(
             new Interval(idOtherInterval, timeout, objectId)
@@ -105,6 +176,11 @@ const _this = (module.exports = {
         idOtherInterval++;
     },
 
+    /**
+     * Supprime un timer divers
+     *
+     * @param object objectId Identifiant de l'objet lié au timer
+     */
     removeOtherIntervalById: objectId => {
         const i = _.find(_this.getAllOtherIntervals(), { objectId });
         if (i) {
@@ -113,10 +189,19 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Renvoie tous les timers liés aux joueurs
+     */
     getAllPlayerIntervals: () => {
         return interval_store.getAllPlayerIntervals();
     },
 
+    /**
+     * Crée un timer lié à un joueur
+     *
+     * @param object timeout Timer
+     * @param object objectId Identifiant du joueur
+     */
     createPlayerInterval: (timeout, objectId) => {
         interval_store.addPlayerInterval(
             new Interval(idPlayerInterval, timeout, objectId)
@@ -124,6 +209,11 @@ const _this = (module.exports = {
         idPlayerInterval++;
     },
 
+    /**
+     * Supprime un timer lié à un joueur
+     *
+     * @param object objectId Identifiant du joueur
+     */
     removePlayerIntervalById: objectId => {
         const i = _.find(_this.getAllPlayerIntervals(), { objectId });
         if (i) {
@@ -132,10 +222,16 @@ const _this = (module.exports = {
         }
     },
 
+    /**
+     * Crée un timer lié à la partie
+     */
     createGameTimeout: (timeout, configId) => {
         interval_store.addGameTimeout(new Interval(1, timeout, configId));
     },
 
+    /**
+     * Supprime toutes les intervalles et les timers
+     */
     removeAll: () => {
         _this.getAllIntervals().forEach(i => {
             i && clearInterval(i.interval);

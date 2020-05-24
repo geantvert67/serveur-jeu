@@ -20,6 +20,9 @@ const axios = require('axios'),
     } = require('../stores');
 
 const _this = (module.exports = {
+    /**
+     * Stocke la partie dans le serveur central
+     */
     createGame: () => {
         return axios
             .post(`${process.env.API_URL}:${process.env.API_PORT}/games`, {
@@ -35,6 +38,12 @@ const _this = (module.exports = {
             .catch(() => {});
     },
 
+    /**
+     * Crée une invitation dans le serveur de jeu
+     *
+     * @param string gameId Identifiant de la partie
+     * @param int userId Identifiant du joueur ayant envoyé l'invitation
+     */
     createInvitation: (gameId, userId) => {
         return axios
             .post(
@@ -47,6 +56,9 @@ const _this = (module.exports = {
             .catch(() => {});
     },
 
+    /**
+     * Remet la partie à 0
+     */
     reset: () => {
         area_store.removeAll();
         config_store.set(null);
@@ -61,6 +73,11 @@ const _this = (module.exports = {
         trap_store.removeAll();
     },
 
+    /**
+     * Importe une configuration
+     *
+     * @param object socket Objet Socket.io
+     */
     importConfig: (socket = null) => {
         _this.reset();
         config_store.set(new Config(initialValues));
