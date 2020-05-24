@@ -1,6 +1,9 @@
 const _ = require('lodash'),
     flags = [];
 
+/**
+ * Gestion des cristaux
+ */
 module.exports = {
     getAll: () => flags,
     add: f => flags.push(f),

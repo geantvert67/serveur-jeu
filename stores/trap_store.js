@@ -1,6 +1,9 @@
 const _ = require('lodash'),
     traps = [];
 
+/**
+ * Gestion des pièges
+ */
 module.exports = {
     getAll: () => traps,
     add: t => traps.push(t),

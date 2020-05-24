@@ -1,6 +1,9 @@
 const _ = require('lodash'),
     markers = [];
 
+/**
+ * Gestion des points d'intérêts
+ */
 module.exports = {
     getAll: () => markers,
     add: m => markers.push(m),

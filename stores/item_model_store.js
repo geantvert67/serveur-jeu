@@ -1,5 +1,8 @@
 const itemModels = [];
 
+/**
+ * Gestion des modèles d'items
+ */
 module.exports = {
     getAll: () => itemModels,
     add: im => itemModels.push(im),

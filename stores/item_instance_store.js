@@ -1,6 +1,9 @@
 const _ = require('lodash'),
     itemInstances = [];
 
+/**
+ * Gestion des items dans l'inventaire
+ */
 module.exports = {
     getAll: () => itemInstances,
     add: i => itemInstances.push(i),
