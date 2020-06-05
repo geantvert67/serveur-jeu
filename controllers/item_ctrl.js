@@ -3,14 +3,14 @@ const _ = require('lodash'),
     moment = require('moment'),
     config_ctrl = require('./config_ctrl'),
     item_instance_ctrl = require('./item_instance_ctrl'),
-    item_model_ctrl = require('./item_model_ctrl');
-(interval_ctrl = require('./interval_ctrl')),
-    (area_ctrl = require('./area_ctrl')),
-    ({ Item } = require('../models')),
-    ({ item_store } = require('../stores')),
-    ({ getRandomPoint, calculateRadius } = require('../utils'));
+    item_model_ctrl = require('./item_model_ctrl'),
+    interval_ctrl = require('./interval_ctrl'),
+    area_ctrl = require('./area_ctrl'),
+    { Item } = require('../models'),
+    { item_store } = require('../stores'),
+    { getRandomPoint, calculateRadius } = require('../utils');
 
-let id = null;
+let maxId = null;
 
 const _this = (module.exports = {
     /**
@@ -70,9 +70,9 @@ const _this = (module.exports = {
      * Renvoie un identifiant pour créer un item
      */
     getMaxId: () => {
-        if (id) {
-            id++;
-            return id;
+        if (maxId) {
+            maxId++;
+            return maxId;
         } else {
             const item = _.maxBy(_this.getAll(), 'id');
             return item ? item.id + 1 : 1;

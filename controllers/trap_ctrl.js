@@ -7,7 +7,7 @@ const _ = require('lodash'),
     item_ctrl = require('./item_ctrl'),
     interval_ctrl = require('./interval_ctrl');
 
-let id = 1;
+let maxId = 1;
 
 const _this = (module.exports = {
     /**
@@ -55,10 +55,10 @@ const _this = (module.exports = {
      * @param array coordinates Position
      */
     create: (item, player, coordinates) => {
-        const trap = new Trap(id, item, player, coordinates);
+        const trap = new Trap(maxId, item, player, coordinates);
 
         trap_store.add(trap);
-        id++;
+        maxId++;
         return trap;
     },
 

@@ -10,7 +10,7 @@ const _ = require('lodash'),
     { Flag } = require('../models'),
     { getRandomFlagPoint, calculateRadius } = require('../utils');
 
-let id = null;
+let maxId = null;
 
 const _this = (module.exports = {
     /**
@@ -81,9 +81,9 @@ const _this = (module.exports = {
      * Renvoie un identifiant pour créer un cristal
      */
     getMaxId: () => {
-        if (id) {
-            id++;
-            return id;
+        if (maxId) {
+            maxId++;
+            return maxId;
         } else {
             const flag = _.maxBy(_this.getAll(), 'id');
             return flag ? flag.id + 1 : 1;
