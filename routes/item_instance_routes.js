@@ -170,10 +170,10 @@ module.exports = (io, socket, player) => {
         const freeFlag = _.sample(flag_ctrl.getAll().filter(f => !f.team));
 
         if (freeFlag) {
-            if (!_.find(player.antenneFlagsId, id => id === freeFlag.id)) {
+            if (!_.find(player.antenneFlagsId, i => i === freeFlag.id)) {
                 player.antenneFlagsId.push(freeFlag.id);
                 const timer = setTimeout(() => {
-                    _.remove(player.antenneFlagsId, id => id === freeFlag.id);
+                    _.remove(player.antenneFlagsId, i => i === freeFlag.id);
                 }, 10000);
                 interval_ctrl.createOtherInterval(timer, id);
             }
@@ -217,9 +217,9 @@ module.exports = (io, socket, player) => {
 
         ennemis.forEach(e => {
             if (e.noyaux.length > 0) {
-                const id = e.noyaux.pop();
+                const noyauId = e.noyaux.pop();
                 e.nbUpdates++;
-                item_instance_ctrl.delete(id, e);
+                item_instance_ctrl.delete(noyauId, e);
             } else {
                 e.visibilityChange.push({ id, percent: -item.effectStrength });
             }

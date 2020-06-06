@@ -86,7 +86,7 @@ const _this = (module.exports = {
             const gameId = game_store.get().id;
 
             initialValues.Teams.map(t => {
-                team = new Team(t);
+                const team = new Team(t);
                 team_store.add(team);
                 t.Users.map(u => {
                     team_ctrl.addPlayer(

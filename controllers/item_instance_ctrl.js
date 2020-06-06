@@ -2,7 +2,7 @@ const _ = require('lodash'),
     { item_instance_store } = require('../stores'),
     { ItemInstance } = require('../models');
 
-let id = 1;
+let maxId = 1;
 
 const _this = (module.exports = {
     /**
@@ -27,9 +27,9 @@ const _this = (module.exports = {
      * @param object item L'item à créer
      */
     create: item => {
-        const itemInstance = new ItemInstance(id, item);
+        const itemInstance = new ItemInstance(maxId, item);
         item_instance_store.add(itemInstance);
-        id++;
+        maxId++;
 
         return itemInstance;
     },

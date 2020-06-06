@@ -2,7 +2,7 @@ const _ = require('lodash'),
     { Area } = require('../models'),
     { area_store } = require('../stores');
 
-let id = null;
+let maxId = null;
 
 const _this = (module.exports = {
     /**
@@ -39,9 +39,9 @@ const _this = (module.exports = {
      * Renvoie un identifiant pour créer une zone
      */
     getMaxId: () => {
-        if (id) {
-            id++;
-            return id;
+        if (maxId) {
+            maxId++;
+            return maxId;
         } else {
             const area = _.maxBy(_this.getAll(), 'id');
             return area ? area.id + 1 : 1;

@@ -3,7 +3,7 @@ const _ = require('lodash'),
     { Marker } = require('../models'),
     team_ctrl = require('./team_ctrl');
 
-let id = 1;
+let maxId = 1;
 
 const _this = (module.exports = {
     /**
@@ -40,10 +40,14 @@ const _this = (module.exports = {
      */
     create: (coordinates, isPositive, teamId) => {
         marker_store.add(
-            new Marker(id, coordinates, isPositive, team_ctrl.getById(teamId))
+            new Marker(
+                maxId,
+                coordinates,
+                isPositive,
+                team_ctrl.getById(teamId)
+            )
         );
-
-        id++;
+        maxId++;
     },
 
     /**

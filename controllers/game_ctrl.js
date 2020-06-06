@@ -100,7 +100,6 @@ const _this = (module.exports = {
                 .catch(() => {})
                 .finally(() => io.emit('getConfig', config));
         } else {
-            const config = config_ctrl.get();
             config.launched = true;
             config.launchedAt = new Date();
             io.emit('getConfig', config);

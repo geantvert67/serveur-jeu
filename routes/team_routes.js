@@ -12,7 +12,7 @@ module.exports = (io, socket, player) => {
      * Ajoute le joueur dans l'équipe ayant le moins de joueur
      */
     socket.on('addTeamPlayer', () => {
-        teamId = team_ctrl.findByMinPlayers().id;
+        const teamId = team_ctrl.findByMinPlayers().id;
         if (team_ctrl.addPlayer(teamId, player)) {
             io.emit('getTeams', team_ctrl.getAll());
         }
