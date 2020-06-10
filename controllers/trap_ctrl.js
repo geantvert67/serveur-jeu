@@ -5,6 +5,7 @@ const _ = require('lodash'),
     { Trap } = require('../models'),
     item_instance_ctrl = require('./item_instance_ctrl'),
     item_ctrl = require('./item_ctrl'),
+    notification_ctrl = require('./notification_ctrl'),
     interval_ctrl = require('./interval_ctrl');
 
 let maxId = 1;
@@ -88,9 +89,10 @@ const _this = (module.exports = {
      * Routine des joueurs : vérifie s'ils ne sont pas dans le champ d'action d'un
      * piège
      *
+     * @param object io Object Socket.io
      * @param object player Joueur
      */
-    routine: player => {
+    routine: (io, player) => {
         _this
             .getAll()
             .filter(t => !t.inactiveUntil)
@@ -109,9 +111,9 @@ const _this = (module.exports = {
                     )
                 ) {
                     if (t.name === 'Canon à photons') {
-                        _this.canonEffect(player, t);
+                        _this.canonEffect(io, player, t);
                     } else if (t.name === 'Transducteur') {
-                        _this.transducteurEffect(player, t);
+                        _this.transducteurEffect(io, player, t);
                     }
                 }
             });
@@ -120,10 +122,11 @@ const _this = (module.exports = {
     /**
      * Active l'effet d'un canon
      *
+     * @param object io Object Socket.io
      * @param object target Joueur se prenant le canon
      * @param object trap Piège ayant été activé
      */
-    canonEffect: (target, trap) => {
+    canonEffect: (io, target, trap) => {
         if (target.noyaux.length > 0) {
             const id = target.noyaux.pop();
             target.nbUpdates++;
@@ -151,6 +154,12 @@ const _this = (module.exports = {
             }
 
             trap.owner.statistics.nbTraps++;
+            notification_ctrl.canonEffect(
+                io,
+                target,
+                trap.owner,
+                target.teamId
+            );
         }
 
         _this.delete(trap.id);
@@ -177,10 +186,11 @@ const _this = (module.exports = {
     /**
      * Active l'effet d'un transducteur
      *
+     * @param object io Object Socket.io
      * @param object target Joueur se prenant le canon
      * @param object trap Piège ayant été activé
      */
-    transducteurEffect: (target, trap) => {
+    transducteurEffect: (io, target, trap) => {
         if (item_ctrl.isInventoryNotFull(trap.owner)) {
             if (target.noyaux.length > 0) {
                 const id = target.noyaux.pop();
@@ -195,6 +205,13 @@ const _this = (module.exports = {
                     item_ctrl.giveItem(trap.owner, item);
 
                     trap.owner.statistics.nbTraps++;
+                    notification_ctrl.transducteurEffect(
+                        io,
+                        item.name.toLowerCase(),
+                        target,
+                        trap.owner,
+                        target.teamId
+                    );
                 }
             }
         }

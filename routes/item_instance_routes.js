@@ -7,7 +7,8 @@ const moment = require('moment'),
         flag_ctrl,
         team_ctrl,
         player_ctrl,
-        trap_ctrl
+        trap_ctrl,
+        notification_ctrl
     } = require('../controllers');
 
 module.exports = (io, socket, player) => {
@@ -20,6 +21,7 @@ module.exports = (io, socket, player) => {
         item_ctrl.randomize();
         flag_ctrl.randomize();
         item_instance_ctrl.delete(id, player);
+        notification_ctrl.useItem(io, 'une tempête', player.username);
     });
 
     /**
@@ -30,6 +32,7 @@ module.exports = (io, socket, player) => {
     socket.on('useDisloqueur', id => {
         flag_ctrl.getAll().forEach(f => flag_ctrl.resetFlag(f.id));
         item_instance_ctrl.delete(id, player);
+        notification_ctrl.useItem(io, 'un disloqueur', player.username);
     });
 
     /**
@@ -60,6 +63,12 @@ module.exports = (io, socket, player) => {
             if (item_ctrl.giveItem(target, item)) {
                 item_instance_ctrl.removeFromInventory(itemId, player);
                 item_instance_ctrl.delete(id, player);
+                notification_ctrl.usePortail(
+                    io,
+                    player.username,
+                    item.name.toLowerCase(),
+                    target.id
+                );
             }
         }
     });
@@ -96,6 +105,7 @@ module.exports = (io, socket, player) => {
                 flag_ctrl.setFlagCapturedDuration(flag, item.effectDuration);
             }
             item_instance_ctrl.delete(id, player);
+            notification_ctrl.useFlagItem(io, 'une sentinelle', player.teamId);
         }
     });
 
@@ -117,6 +127,7 @@ module.exports = (io, socket, player) => {
             flag.hasOracle = true;
             flag.nbUpdates++;
             item_instance_ctrl.delete(id, player);
+            notification_ctrl.useFlagItem(io, 'un oracle', player.teamId);
         }
     });
 
@@ -180,7 +191,7 @@ module.exports = (io, socket, player) => {
 
             onSuccess(freeFlag.coordinates);
         } else {
-            socket.emit('onError', 'Tous les drapeaux sont déjà capturés');
+            socket.emit('onError', 'Tous les cristaux sont déjà capturés');
         }
 
         item_instance_ctrl.delete(id, player);
@@ -231,6 +242,7 @@ module.exports = (io, socket, player) => {
         }, item.effectDuration * 1000);
         interval_ctrl.createOtherInterval(timer, id);
         item_instance_ctrl.delete(id, player);
+        notification_ctrl.useIntercepteur(io, player.username, player.teamId);
     });
 
     /**

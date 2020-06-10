@@ -1,4 +1,4 @@
-const { marker_ctrl } = require('../controllers');
+const { marker_ctrl, notification_ctrl } = require('../controllers');
 
 module.exports = (io, socket, player) => {
     /**
@@ -16,6 +16,12 @@ module.exports = (io, socket, player) => {
      */
     socket.on('createMarker', ({ coordinates, isPositive }) => {
         marker_ctrl.create(coordinates, isPositive, player.teamId);
+        notification_ctrl.createMarker(
+            io,
+            isPositive,
+            player.username,
+            player.teamId
+        );
     });
 
     /**
