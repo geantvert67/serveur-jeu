@@ -6,6 +6,7 @@ const _ = require('lodash'),
     game_ctrl = require('./game_ctrl'),
     config_ctrl = require('./config_ctrl'),
     interval_ctrl = require('./interval_ctrl'),
+    notification_ctrl = require('./notification_ctrl'),
     { flag_store } = require('../stores'),
     { Flag } = require('../models'),
     { getRandomFlagPoint, calculateRadius } = require('../utils');
@@ -187,6 +188,7 @@ const _this = (module.exports = {
                     }
 
                     _this.setFlagCapturedDuration(flag, flagCaptureDuration);
+                    notification_ctrl.captureFlag(io, teamId);
                 }
             }
         }

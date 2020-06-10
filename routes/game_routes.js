@@ -103,7 +103,7 @@ module.exports = (io, socket, player) => {
 
         if (player) {
             player.coordinates = coordinates;
-            trap_ctrl.routine(player);
+            trap_ctrl.routine(io, player);
 
             const objects = {},
                 playersInActionRadius = player_ctrl.getInRadius(

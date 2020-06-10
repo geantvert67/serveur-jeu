@@ -11,6 +11,13 @@ const _this = (module.exports = {
     },
 
     /**
+     * Renvoie les identifiants de toutes les équipes
+     */
+    getAllIds: () => {
+        return _this.getAll().map(t => t.id);
+    },
+
+    /**
      * Renvoie une équipe à partir d'un identifiant
      *
      * @param int id Identifiant de l'équipe
