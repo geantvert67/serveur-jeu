@@ -34,7 +34,7 @@ const _this = (module.exports = {
         const notifications = [];
 
         notifications.push(
-            _this.notifyTeam('Vous avez capturé un cristal', [teamId])
+            _this.notifyTeam('Votre équipe a capturé un cristal', [teamId])
         );
         notifications.push(
             _this.notifyTeam(`${team.name} a capturé un cristal`, teamIds)
@@ -128,7 +128,7 @@ const _this = (module.exports = {
      */
     useFlagItem: (io, name, teamId) => {
         const notification = _this.notifyTeam(
-            `Un de vos cristaux est protégé par ${name}`,
+            `Un de vos cristaux est désormais protégé par ${name}`,
             [teamId]
         );
         io.emit('getNotification', [notification]);
@@ -147,19 +147,19 @@ const _this = (module.exports = {
 
         notifications.push(
             _this.notifyUser(
-                `Vous êtes immobilisé par un canon à photons de ${owner.username}`,
+                `Vous êtes paralysé par un canon à photons de ${owner.username}`,
                 [target.id]
             )
         );
         notifications.push(
             _this.notifyTeam(
-                `${target.username} est immobilisé par un canon à photons de ${owner.username}`,
+                `${target.username} est paralysé par un canon à photons de ${owner.username}`,
                 [teamId]
             )
         );
         notifications.push(
             _this.notifyUser(
-                `${target.username} est immobilisé par votre canon à photons`,
+                `${target.username} est paralysé par votre canon à photons`,
                 [owner.id]
             )
         );
